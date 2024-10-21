@@ -2,10 +2,10 @@
   "name": "fife-cup-matches-calculator",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "dist/app.js",
   "scripts": {
-    "start": "node src/",
-    "lint": "eslint src/**",
+    "start": "tsc && node dist/index.js",
+    "lint": "eslint . --ext .ts",
     "pretest": "npm run lint",
     "test": "jest --runInBand src",
     "coverage": "jest --collectCoverageFrom=src/**.js --coverage src"
@@ -20,6 +20,8 @@
     "eslint": "^9.13.0",
     "eslint-plugin-jest": "^28.8.3",
     "globals": "^15.11.0",
-    "jest": "^29.7.0"
+    "jest": "^29.7.0",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.10.0"
   }
 }
