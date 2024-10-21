@@ -1,3 +1,3 @@
-const elaborate = require('./elaborate')
+import { processRound } from "./process-round";
 
-console.log(elaborate())
+processRound();
