@@ -39,6 +39,8 @@ function getRiserveUfficio(aVoto: PlayerInfo[], targetNumber: number, currentRol
   while ((aVoto.length + riserveUfficio.length) < targetNumber) {
     riserveUfficio.push({
       role: currentRole,
+      name: 'Riserva d \'ufficio',
+      vote: currentRole === 'P' ? FANTASY_VOTE_GOALKEEPER_RISERVA_UFFICIO : FANTASY_VOTE_MOVEMENT_PLAYER_RISERVA_UFFICIO,
       fantasyVote: currentRole === 'P' ? FANTASY_VOTE_GOALKEEPER_RISERVA_UFFICIO : FANTASY_VOTE_MOVEMENT_PLAYER_RISERVA_UFFICIO,
       isRiservaUfficio: true
     });
