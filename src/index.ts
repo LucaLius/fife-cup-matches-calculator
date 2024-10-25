@@ -8,3 +8,4 @@ const calendarMatches: CalendarMatch[] = new CalendarImporter().getCalendarMatch
 const teamsInfo: TeamInfo[] = new TeamsInfoImporter().getTeamsInfo();
 
 processRound(calendarMatches, teamsInfo);
+console.log("DID it!")
