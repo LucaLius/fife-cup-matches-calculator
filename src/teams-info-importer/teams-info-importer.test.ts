@@ -7,13 +7,15 @@ import { INPUT_FILES_TEAMS_DIR_PATH } from '../input-files/input-files.utils';
 /* eslint-env jest */
 
 describe('TeamsInfoImporter.getTeamsInfo()', () => {
-  test('Should load and parse the target test files from real working directory ', () => {
+  test('Should load and parse the target test files from real working directory (currently two files inside)', () => {
     // const given = undefined;
-    const expected: string[][] = [];
+    const filesInDirectory = 2;
+    const teamsForFile = 8;
+    const expected = filesInDirectory * teamsForFile;
 
     const actual = new TeamsInfoImporter().getTeamsInfo();
 
-    expect(actual).toEqual(expected);
+    expect(actual.length).toEqual(expected);
   })
 
   test('Should load and find 4 matches from one real working directory file ', () => {

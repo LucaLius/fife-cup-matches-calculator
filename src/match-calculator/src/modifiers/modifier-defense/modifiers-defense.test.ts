@@ -1,8 +1,8 @@
-import { FormationAnalyzer } from './formation-analyzer';
+import { FormationAnalyzer } from '../../formation-analyzer';
 import { ModifierDefense } from './modifier-defense';
 import { describe, expect, test } from '@jest/globals';
-import { TeamInfo } from '../../models/team-info.model';
-import { PlayerInfoAVoto } from '../../models/player-info.model';
+import { TeamInfo } from '../../../../models/team-info.model';
+import { PlayerInfoAVoto } from '../../../../models/player-info.model';
 
 /* eslint-env jest */
 

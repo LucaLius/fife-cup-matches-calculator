@@ -1,7 +1,7 @@
 import { PlayerInfo, PlayerInfoAVoto } from "../../models/player-info.model";
 import { TeamInfo } from "../../models/team-info.model";
 import { FormationAnalyzer } from "./formation-analyzer";
-import { ModifiersManager } from "./modifiers-manager";
+import { ModifiersManager } from "./modifiers/modifiers-manager";
 
 const FANTASY_VOTE_GOALKEEPER_RISERVA_UFFICIO = 1;
 const FANTASY_VOTE_MOVEMENT_PLAYER_RISERVA_UFFICIO = 3;

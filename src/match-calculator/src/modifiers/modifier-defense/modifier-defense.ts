@@ -1,6 +1,6 @@
-import { ModifierI } from "../../models/modifier.model";
-import { PlayerInfoAVoto } from "../../models/player-info.model";
-import { FormationAnalyzer } from "./formation-analyzer";
+import { ModifierI } from "../../../../models/modifier.model";
+import { PlayerInfoAVoto } from "../../../../models/player-info.model";
+import { FormationAnalyzer } from "../../formation-analyzer";
 
 export class ModifierDefense implements ModifierI {
 
