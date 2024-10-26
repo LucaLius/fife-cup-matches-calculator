@@ -16,7 +16,14 @@ export class MatchCalculator implements MatchCalculatorI {
     const esit = getMatchEsit(homeTeamGoalsScored, awayTeamGoalsScored);
     return {
       id,
-      esit
+      esit,
+      homeId: homeTeamInfo.teamId,
+      awayId: awayTeamInfo.teamId,
+      score: `${homeTeamGoalsScored} - ${awayTeamGoalsScored}`,
+      homeScore: homeTeamGoalsScored,
+      homePoints: homeTeamPointsScored,
+      awayScore: awayTeamGoalsScored,
+      awayPoints: awayTeamPointsScored,
     } as CalendarMatchEsit
   }
 

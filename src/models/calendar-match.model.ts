@@ -1,5 +1,5 @@
-export interface CalendarMatch {
-  id: 1,
-  homeId: string,
-  awayId: string,
+export class CalendarMatch {
+  id!: number;
+  homeId!: string;
+  awayId!: string;
 }

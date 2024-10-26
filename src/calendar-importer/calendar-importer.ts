@@ -4,7 +4,12 @@ import { CalendarImporterI } from "./calendar-importer.interface";
 export class CalendarImporter implements CalendarImporterI {
 
   getCalendarMatches(): CalendarMatch[] {
-    return [];
+
+    return [{
+      id: 1,
+      homeId: 'BAYERN LEVERDUREN.',
+      awayId: 'NAPOLETHANOS'
+    }];
   }
 
 }

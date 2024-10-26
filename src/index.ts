@@ -7,5 +7,5 @@ import { TeamsInfoImporter } from "./teams-info-importer/teams-info-importer";
 const calendarMatches: CalendarMatch[] = new CalendarImporter().getCalendarMatches();
 const teamsInfo: TeamInfo[] = new TeamsInfoImporter().getTeamsInfo();
 
-processRound(calendarMatches, teamsInfo);
-console.log("DID it!")
+const result = processRound(calendarMatches, teamsInfo);
+console.log(result);

@@ -67,7 +67,7 @@ export class TeamsInfoImporter implements TeamsInfoImporterI {
       }
     });
 
-    return [];
+    return allTeamsInfo;
   };
 
   getMatchesInfoIndexes(fileContent: string[][]): number[] {
@@ -110,7 +110,7 @@ function getTeamInfo(fileContent: string[][], startingRowIndex: number, isHomeTe
 
   const columnIndexes = isHomeTeam ? COLUMNS_INDEXES_SETTINGS.teamOne : COLUMNS_INDEXES_SETTINGS.teamTwo;
   return {
-    teamId: fileContent[rowIndexes.generalInfoIndex][columnIndexes.nameIndex],
+    teamId: fileContent[rowIndexes.generalInfoIndex][columnIndexes.nameIndex].trim(),
     formation: (fileContent[rowIndexes.formationsIndex][columnIndexes.formationIndex] || '').split('').join('-') as '4-4-2' | '3-4-3',
     allPlayersByRole: {
       P: allPlayersInfo.filter(player => player.role === 'P'),
