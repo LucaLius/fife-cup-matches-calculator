@@ -4,7 +4,7 @@ import { FormationAnalyzer } from "../../formation-analyzer";
 
 export class ModifierMidfield implements ModifierI {
 
-  id = 'defense';
+  id = 'midfield';
   interestedPlayersA: PlayerInfoAVoto[];
   interestedPlayersB: PlayerInfoAVoto[];
   interestedRoles = ['C'] as ('P' | 'D' | 'C' | 'A')[];

@@ -23,17 +23,21 @@ const COLUMNS_INDEXES_SETTINGS = {
     nameIndex: 0,
     formationIndex: 0,
     rolePlayerIndex: 0,
+    modifierIdIndex: 0,
     namePlayerIndex: 1,
     votePlayerIndex: 3,
     fantasyVotePlayerIndex: 4,
+    modifierValueIndex: 4
   },
   teamTwo: {
     nameIndex: 6,
     formationIndex: 6,
     rolePlayerIndex: 6,
+    modifierIdIndex: 7,
     namePlayerIndex: 7,
     votePlayerIndex: 9,
     fantasyVotePlayerIndex: 10,
+    modifierValueIndex: 11
   }
 }
 
@@ -53,14 +57,15 @@ export class TeamsInfoImporter implements TeamsInfoImporterI {
 
         const matchesInfoIndexes = this.getMatchesInfoIndexes(fileContent);
         const startingRowIndex = matchesInfoIndexes[matchIndex];
+        const maximumRowIndex = matchesInfoIndexes[matchIndex + 1] || 999;
 
         const allPlayers = this.getAllPlayers(fileContent, startingRowIndex);
 
         const allPlayersInfoHome = allPlayers.map(player => getPlayerInfo(player, true));
-        const teamOneInfo = getTeamInfo(fileContent, startingRowIndex, true, allPlayersInfoHome);
+        const teamOneInfo = getTeamInfo(fileContent, startingRowIndex, maximumRowIndex, true, allPlayersInfoHome);
 
         const allPlayersInfoAway = allPlayers.map(player => getPlayerInfo(player, false))
-        const teamTwoInfo = getTeamInfo(fileContent, startingRowIndex, false, allPlayersInfoAway);
+        const teamTwoInfo = getTeamInfo(fileContent, startingRowIndex, maximumRowIndex, false, allPlayersInfoAway);
 
         allTeamsInfo.push(teamOneInfo);
         allTeamsInfo.push(teamTwoInfo);
@@ -105,13 +110,17 @@ function getPlayerInfo(player: string[], isHomeTeam: boolean): PlayerInfo {
   } as PlayerInfo;
 }
 
-function getTeamInfo(fileContent: string[][], startingRowIndex: number, isHomeTeam: boolean, allPlayersInfo: PlayerInfo[]): TeamInfo {
+function getTeamInfo(fileContent: string[][], startingRowIndex: number, maximumRowIndex: number, isHomeTeam: boolean, allPlayersInfo: PlayerInfo[]): TeamInfo {
   const rowIndexes = matchInfoIndexesCalculator(startingRowIndex);
 
   const columnIndexes = isHomeTeam ? COLUMNS_INDEXES_SETTINGS.teamOne : COLUMNS_INDEXES_SETTINGS.teamTwo;
+
+  const captainPoints = getCaptainPoints(fileContent, startingRowIndex, maximumRowIndex, isHomeTeam);
+
   return {
     teamId: fileContent[rowIndexes.generalInfoIndex][columnIndexes.nameIndex].trim(),
     formation: (fileContent[rowIndexes.formationsIndex][columnIndexes.formationIndex] || '').split('').join('-') as '4-4-2' | '3-4-3',
+    captainPoints,
     allPlayersByRole: {
       P: allPlayersInfo.filter(player => player.role === 'P'),
       D: allPlayersInfo.filter(player => player.role === 'D'),
@@ -119,6 +128,23 @@ function getTeamInfo(fileContent: string[][], startingRowIndex: number, isHomeTe
       A: allPlayersInfo.filter(player => player.role === 'A')
     }
   }
+}
+
+function getCaptainPoints(fileContent: string[][], startingRowIndex: number, maximumRowIndex: number, isHomeTeam: boolean) {
+  const columnIndexes = isHomeTeam ? COLUMNS_INDEXES_SETTINGS.teamOne : COLUMNS_INDEXES_SETTINGS.teamTwo;
+
+  let captainPoints = 0;
+  const modifierCaptainRow = fileContent
+    .slice(startingRowIndex, maximumRowIndex)
+    .find(row => {
+      return row[columnIndexes.modifierIdIndex] === 'Modificatore Capitano';
+    });
+
+  if (modifierCaptainRow) {
+    captainPoints = Number.parseInt(modifierCaptainRow[columnIndexes.modifierValueIndex]);
+  }
+
+  return captainPoints;
 }
 
 function getVote(player: string[], index: number) {

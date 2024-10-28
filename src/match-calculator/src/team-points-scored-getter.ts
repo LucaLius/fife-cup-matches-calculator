@@ -23,7 +23,7 @@ export function getTeamsPointsScored(teamInfo: TeamInfo): number {
 
   const playersAVoto = getPlayersAVoto(teamInfo, formationAnalyzer);
 
-  const modifiers = new ModifiersManager(teamInfo.teamId, playersAVoto).applyModifiers(formationAnalyzer);
+  const modifiers = new ModifiersManager(teamInfo, playersAVoto).applyModifiers(formationAnalyzer);
   return modifiers + playersAVoto
     .map(el => el.fantasyVote)
     .reduce(getSum);
