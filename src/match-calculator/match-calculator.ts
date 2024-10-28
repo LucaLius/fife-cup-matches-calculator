@@ -3,14 +3,25 @@ import { TeamInfo } from '../models/team-info.model';
 import { MatchCalculatorI } from './match-calculator.interface';
 import { getGoalsScored } from './src/goals-scored-getter';
 import { getMatchEsit } from './src/match-esit-getter';
-import { getTeamsPointsScored } from './src/team-points-scored-getter';
+import { getCrossTeamsPointsScored, getTeamsPointsScored } from './src/team-points-scored-getter';
 
 export class MatchCalculator implements MatchCalculatorI {
 
   calcuate(id: number, homeTeamInfo: TeamInfo, awayTeamInfo: TeamInfo): CalendarMatchEsit {
 
-    const homeTeamPointsScored = getTeamsPointsScored(homeTeamInfo);
-    const awayTeamPointsScored = getTeamsPointsScored(awayTeamInfo);
+    let homeTeamPointsScored = getTeamsPointsScored(homeTeamInfo);
+    let awayTeamPointsScored = getTeamsPointsScored(awayTeamInfo);
+
+    const crossTeamsPointsScored = getCrossTeamsPointsScored(homeTeamInfo, awayTeamInfo);
+    crossTeamsPointsScored.forEach(el => {
+      if (el.teamId === homeTeamInfo.teamId) {
+        homeTeamPointsScored += el.points;
+      }
+      if (el.teamId === awayTeamInfo.teamId) {
+        awayTeamPointsScored += el.points;
+      }
+    });
+
     const homeTeamGoalsScored = getGoalsScored(homeTeamPointsScored);
     const awayTeamGoalsScored = getGoalsScored(awayTeamPointsScored);
     const esit = getMatchEsit(homeTeamGoalsScored, awayTeamGoalsScored);

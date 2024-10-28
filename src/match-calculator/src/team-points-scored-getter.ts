@@ -1,25 +1,27 @@
 import { PlayerInfo, PlayerInfoAVoto } from "../../models/player-info.model";
 import { TeamInfo } from "../../models/team-info.model";
 import { FormationAnalyzer } from "./formation-analyzer";
+import { ModifiersCrossTeamsManager } from "./modifiers/modifiers-cross-team-manager";
 import { ModifiersManager } from "./modifiers/modifiers-manager";
 
 const FANTASY_VOTE_GOALKEEPER_RISERVA_UFFICIO = 1;
 const FANTASY_VOTE_MOVEMENT_PLAYER_RISERVA_UFFICIO = 3;
 
-export function getTeamsPointsScored(teamInfo: TeamInfo): number {
+export function getCrossTeamsPointsScored(homeTeamInfo: TeamInfo, awayTeamInfo: TeamInfo): { teamId: string, points: number }[] {
+  const homeFormationAnalyzer = new FormationAnalyzer(homeTeamInfo);
+  const awayFormationAnalyzer = new FormationAnalyzer(awayTeamInfo);
 
+  const homePlayersAVoto = getPlayersAVoto(homeTeamInfo, homeFormationAnalyzer);
+  const awayPlayersAVoto = getPlayersAVoto(awayTeamInfo, awayFormationAnalyzer);
+
+  return new ModifiersCrossTeamsManager(homeTeamInfo.teamId, awayTeamInfo.teamId, homePlayersAVoto, awayPlayersAVoto)
+    .applyModifiers(homeTeamInfo.teamId, awayTeamInfo.teamId, homeFormationAnalyzer, awayFormationAnalyzer);
+}
+
+export function getTeamsPointsScored(teamInfo: TeamInfo): number {
   const formationAnalyzer = new FormationAnalyzer(teamInfo);
 
-  const goalkeepers = getRepartoPlayersInfoAVoto(teamInfo.allPlayersByRole.P, formationAnalyzer.numberOfP);
-  const defenders = getRepartoPlayersInfoAVoto(teamInfo.allPlayersByRole.D, formationAnalyzer.numberOfD);
-  const midfielders = getRepartoPlayersInfoAVoto(teamInfo.allPlayersByRole.C, formationAnalyzer.numberOfC);
-  const strikers = getRepartoPlayersInfoAVoto(teamInfo.allPlayersByRole.A, formationAnalyzer.numberOfA);
-  const playersAVoto: PlayerInfoAVoto[] = [
-    ...goalkeepers.slice(0, formationAnalyzer.numberOfP),
-    ...defenders.slice(0, formationAnalyzer.numberOfD),
-    ...midfielders.slice(0, formationAnalyzer.numberOfC),
-    ...strikers.slice(0, formationAnalyzer.numberOfA),
-  ];
+  const playersAVoto = getPlayersAVoto(teamInfo, formationAnalyzer);
 
   const modifiers = new ModifiersManager(teamInfo.teamId, playersAVoto).applyModifiers(formationAnalyzer);
   return modifiers + playersAVoto
@@ -27,7 +29,24 @@ export function getTeamsPointsScored(teamInfo: TeamInfo): number {
     .reduce(getSum);
 }
 
-function getRepartoPlayersInfoAVoto(players: PlayerInfo[], numeroTitolari: number,): PlayerInfoAVoto[] {
+function getPlayersAVoto(teamInfo: TeamInfo, formationAnalyzer: FormationAnalyzer): PlayerInfoAVoto[] {
+
+  const goalkeepers = getRepartoPlayersInfoAVoto(teamInfo.allPlayersByRole.P, formationAnalyzer.numberOfP);
+  const defenders = getRepartoPlayersInfoAVoto(teamInfo.allPlayersByRole.D, formationAnalyzer.numberOfD);
+  const midfielders = getRepartoPlayersInfoAVoto(teamInfo.allPlayersByRole.C, formationAnalyzer.numberOfC);
+  const strikers = getRepartoPlayersInfoAVoto(teamInfo.allPlayersByRole.A, formationAnalyzer.numberOfA);
+
+  const playersAVoto: PlayerInfoAVoto[] = [
+    ...goalkeepers.slice(0, formationAnalyzer.numberOfP),
+    ...defenders.slice(0, formationAnalyzer.numberOfD),
+    ...midfielders.slice(0, formationAnalyzer.numberOfC),
+    ...strikers.slice(0, formationAnalyzer.numberOfA),
+  ];
+
+  return playersAVoto;
+}
+
+function getRepartoPlayersInfoAVoto(players: PlayerInfo[], numeroTitolari: number): PlayerInfoAVoto[] {
   const aVoto = players.filter(isAVoto) as PlayerInfoAVoto[];
   const currentRole = players[0].role;
   const riserveUfficio = getRiserveUfficio(aVoto, numeroTitolari, currentRole);

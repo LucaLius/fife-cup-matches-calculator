@@ -24,7 +24,7 @@ export class ModifierMidfield implements ModifierI {
   public calculate(formationAnalyzers: FormationAnalyzer[]): { teamId: string, points: number } | null {
 
     const targetPlayersA = [...this.interestedPlayersA];
-    const targetPlayersB = [...this.interestedPlayersB];
+    const targetPlayersB = [...this.interestedPlayersB]
 
     const formationAnalyzerA = formationAnalyzers[0];
     const formationAnalyzerB = formationAnalyzers[1];
