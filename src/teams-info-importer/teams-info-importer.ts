@@ -24,16 +24,16 @@ const COLUMNS_INDEXES_SETTINGS = {
     formationIndex: 0,
     rolePlayerIndex: 0,
     namePlayerIndex: 1,
-    votePlayerIndex: 2,
-    fantasyVotePlayerIndex: 3,
+    votePlayerIndex: 3,
+    fantasyVotePlayerIndex: 4,
   },
   teamTwo: {
     nameIndex: 6,
     formationIndex: 6,
     rolePlayerIndex: 6,
     namePlayerIndex: 7,
-    votePlayerIndex: 8,
-    fantasyVotePlayerIndex: 9,
+    votePlayerIndex: 9,
+    fantasyVotePlayerIndex: 10,
   }
 }
 
