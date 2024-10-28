@@ -3,8 +3,9 @@ import { PlayerInfo } from "./player-info.model";
 
 export interface ModifierI {
   id: string;
-  interestedPlayers: PlayerInfo[];
+  interestedPlayersA: PlayerInfo[];
+  interestedPlayersB: PlayerInfo[];
   interestedRoles: ('P' | 'D' | 'C' | 'A')[];
 
-  calculate(formationAnalyzer: FormationAnalyzer): number | null;
+  calculate(formationAnalyzers: FormationAnalyzer[]): { teamId: string, points: number } | null;
 }

@@ -7,18 +7,18 @@ export class ModifiersManager {
 
   public activeModifiers: ModifierI[] = [];
 
-  constructor(allPlayers: PlayerInfoAVoto[]) {
+  constructor(public teamId: string, allPlayers: PlayerInfoAVoto[]) {
     this.activeModifiers = [
-      new ModifierDefense(allPlayers)
+      new ModifierDefense(this.teamId, allPlayers)
     ];
   }
 
   public applyModifiers(formationAnalyzer: FormationAnalyzer): number {
     let totalModifiers = 0;
     this.activeModifiers.forEach(modifier => {
-      const value = modifier.calculate(formationAnalyzer);
-      if (value !== null) {
-        totalModifiers += value;
+      const result = modifier.calculate([formationAnalyzer]);
+      if (result?.points) {
+        totalModifiers += result.points;
       }
     });
 
