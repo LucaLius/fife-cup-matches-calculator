@@ -33,11 +33,11 @@ const COLUMNS_INDEXES_SETTINGS = {
     nameIndex: 6,
     formationIndex: 6,
     rolePlayerIndex: 6,
-    modifierIdIndex: 7,
+    modifierIdIndex: 6,
     namePlayerIndex: 7,
     votePlayerIndex: 9,
     fantasyVotePlayerIndex: 10,
-    modifierValueIndex: 11
+    modifierValueIndex: 10
   }
 }
 
@@ -61,11 +61,13 @@ export class TeamsInfoImporter implements TeamsInfoImporterI {
 
         const allPlayers = this.getAllPlayers(fileContent, startingRowIndex);
 
-        const allPlayersInfoHome = allPlayers.map(player => getPlayerInfo(player, true));
-        const teamOneInfo = getTeamInfo(fileContent, startingRowIndex, maximumRowIndex, true, allPlayersInfoHome);
+        const isHomeTeamHome = true; // is home team referred to match played in normal championship, not in cup calendar!!
+        const allPlayersInfoHome = allPlayers.map(player => getPlayerInfo(player, isHomeTeamHome));
+        const teamOneInfo = getTeamInfo(fileContent, startingRowIndex, maximumRowIndex, isHomeTeamHome, allPlayersInfoHome);
 
-        const allPlayersInfoAway = allPlayers.map(player => getPlayerInfo(player, false))
-        const teamTwoInfo = getTeamInfo(fileContent, startingRowIndex, maximumRowIndex, false, allPlayersInfoAway);
+        const isHomeTeamAway = false; // is home team referred to match played in normal championship, not in cup calendar!!
+        const allPlayersInfoAway = allPlayers.map(player => getPlayerInfo(player, isHomeTeamAway))
+        const teamTwoInfo = getTeamInfo(fileContent, startingRowIndex, maximumRowIndex, isHomeTeamAway, allPlayersInfoAway);
 
         allTeamsInfo.push(teamOneInfo);
         allTeamsInfo.push(teamTwoInfo);
