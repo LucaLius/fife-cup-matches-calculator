@@ -15,10 +15,10 @@ export class ModifierDefense implements ModifierI {
     { low: 0, high: 6, points: 0 },
     { low: 6, high: 6.25, points: 1 },
     { low: 6.25, high: 6.5, points: 2 },
-    { low: 6.5, high: 7, points: 3 },
-    { low: 7, high: 7.25, points: 4 },
-    { low: 7.25, high: 7.5, points: 5 },
-    { low: 7.5, high: 7.75, points: 6 }
+    { low: 6.5, high: 6.75, points: 3 },
+    { low: 6.75, high: 7, points: 4 },
+    { low: 7, high: 7.25, points: 5 },
+    { low: 7.25, high: 999, points: 6 }
   ];
 
   constructor(public teamId: string, allElevenPlayers: PlayerInfoAVoto[]) {
@@ -42,7 +42,7 @@ export class ModifierDefense implements ModifierI {
 
     targetDefenders.sort((a, b) => b.vote - a.vote);
     const topThreeDefenders = targetDefenders.slice(0, 3);
-    const targetPlayers = [goalKeeper, ...topThreeDefenders]
+    const targetPlayers = [goalKeeper, ...topThreeDefenders];
     const mediumValue = targetPlayers
       .map(player => player.vote)
       .reduce(getSum) / targetPlayers.length;
