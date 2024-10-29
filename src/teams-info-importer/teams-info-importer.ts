@@ -1,6 +1,5 @@
 import * as fs from 'fs';
 import { parseXlsx } from "../excel-utils/excel-parser";
-import { INPUT_FILES_TEAMS_DIR_PATH } from "../input-files/input-files.utils";
 import { TeamInfo } from "../models/team-info.model";
 import { TeamsInfoImporterI } from "./teams-info-importer.interface";
 import { PlayerInfo } from '../models/player-info.model';
@@ -43,12 +42,14 @@ const COLUMNS_INDEXES_SETTINGS = {
 
 export class TeamsInfoImporter implements TeamsInfoImporterI {
 
+  constructor(public inputFilesDirPath: string) { }
+
   getTeamsInfo(): TeamInfo[] {
-    const fileNames = fs.readdirSync(INPUT_FILES_TEAMS_DIR_PATH);
+    const fileNames = fs.readdirSync(this.inputFilesDirPath);
 
     const filesContent: string[][][] = [];
     fileNames.forEach(fileName => {
-      filesContent.push(parseXlsx(`${INPUT_FILES_TEAMS_DIR_PATH}/${fileName}`));
+      filesContent.push(parseXlsx(`${this.inputFilesDirPath}/${fileName}`));
     });
 
     const allTeamsInfo: TeamInfo[] = [];

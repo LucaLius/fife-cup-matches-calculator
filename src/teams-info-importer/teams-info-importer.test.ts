@@ -13,7 +13,7 @@ describe('TeamsInfoImporter.getTeamsInfo()', () => {
     const teamsForFile = 8;
     const expected = filesInDirectory * teamsForFile;
 
-    const actual = new TeamsInfoImporter().getTeamsInfo();
+    const actual = new TeamsInfoImporter(INPUT_TEST_FILES_TEAMS_DIR_PATH).getTeamsInfo();
 
     expect(actual.length).toEqual(expected);
   })
@@ -27,7 +27,7 @@ describe('TeamsInfoImporter.getTeamsInfo()', () => {
     const fileName = fileNames[0]
     const fileContent: string[][] = parseXlsx(`${INPUT_TEST_FILES_TEAMS_DIR_PATH}/${fileName}`);
 
-    const actual = new TeamsInfoImporter().getMatchesInfoIndexes(fileContent);
+    const actual = new TeamsInfoImporter(INPUT_TEST_FILES_TEAMS_DIR_PATH).getMatchesInfoIndexes(fileContent);
 
     expect(actual.length).toEqual(expected);
   })
@@ -40,11 +40,11 @@ describe('TeamsInfoImporter.getTeamsInfo()', () => {
     const fileName = fileNames[0];
     const fileContent: string[][] = parseXlsx(`${INPUT_TEST_FILES_TEAMS_DIR_PATH}/${fileName}`);
 
-    const matchesInfoIndexes = new TeamsInfoImporter().getMatchesInfoIndexes(fileContent);
+    const matchesInfoIndexes = new TeamsInfoImporter(INPUT_TEST_FILES_TEAMS_DIR_PATH).getMatchesInfoIndexes(fileContent);
     const matchIndex = 0;
     const startingRowIndex = matchesInfoIndexes[matchIndex];
 
-    const actual = new TeamsInfoImporter().getAllPlayers(fileContent, startingRowIndex);
+    const actual = new TeamsInfoImporter(INPUT_TEST_FILES_TEAMS_DIR_PATH).getAllPlayers(fileContent, startingRowIndex);
 
     expect(actual.length).toEqual(expected);
   })
