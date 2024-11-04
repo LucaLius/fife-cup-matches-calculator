@@ -7,7 +7,7 @@ import { getCrossTeamsPointsScored, getTeamsPointsScored } from './src/team-poin
 
 export class MatchCalculator implements MatchCalculatorI {
 
-  calcuate(id: number, homeTeamInfo: TeamInfo, awayTeamInfo: TeamInfo): CalendarMatchEsit {
+  calcuate(id: number, idGroup: number, homeTeamInfo: TeamInfo, awayTeamInfo: TeamInfo): CalendarMatchEsit {
 
     let homeTeamPointsScored = getTeamsPointsScored(homeTeamInfo);
     let awayTeamPointsScored = getTeamsPointsScored(awayTeamInfo);
@@ -27,6 +27,7 @@ export class MatchCalculator implements MatchCalculatorI {
     const esit = getMatchEsit(homeTeamGoalsScored, awayTeamGoalsScored);
     return {
       id,
+      idGroup,
       esit,
       homeId: homeTeamInfo.teamId,
       awayId: awayTeamInfo.teamId,
