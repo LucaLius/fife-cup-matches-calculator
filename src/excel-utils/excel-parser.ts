@@ -1,4 +1,5 @@
 import xlsx from 'node-xlsx';
+import XLSX, { WorkBook } from 'xlsx';
 
 export function parseXlsx(filePath: string): string[][] {
   // Parse a file
@@ -11,3 +12,7 @@ export function parseXlsx(filePath: string): string[][] {
   return validColumns;
 }
 
+export function openXlsxWorkbook(filePath: string): WorkBook {
+  const workbook = XLSX.readFile(filePath);
+  return workbook;
+}
