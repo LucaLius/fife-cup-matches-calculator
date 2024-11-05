@@ -1,4 +1,5 @@
 import { CalendarMatchEsit } from '../models/calendar-match-esit.model';
+import { CalendarMatch } from '../models/calendar-match.model';
 import { TeamInfo } from '../models/team-info.model';
 import { MatchCalculatorI } from './match-calculator.interface';
 import { getGoalsScored } from './src/goals-scored-getter';
@@ -7,7 +8,7 @@ import { getCrossTeamsPointsScored, getTeamsPointsScored } from './src/team-poin
 
 export class MatchCalculator implements MatchCalculatorI {
 
-  calcuate(id: number, idGroup: number, homeTeamInfo: TeamInfo, awayTeamInfo: TeamInfo): CalendarMatchEsit {
+  calcuate(calendarMatch: CalendarMatch, homeTeamInfo: TeamInfo, awayTeamInfo: TeamInfo): CalendarMatchEsit {
 
     let homeTeamPointsScored = getTeamsPointsScored(homeTeamInfo);
     let awayTeamPointsScored = getTeamsPointsScored(awayTeamInfo);
@@ -26,8 +27,9 @@ export class MatchCalculator implements MatchCalculatorI {
     const awayTeamGoalsScored = getGoalsScored(awayTeamPointsScored);
     const esit = getMatchEsit(homeTeamGoalsScored, awayTeamGoalsScored);
     return {
-      id,
-      idGroup,
+      id: calendarMatch.id,
+      idGroup: calendarMatch.idGroup,
+      matchNumber: calendarMatch.matchNumber,
       esit,
       homeId: homeTeamInfo.teamId,
       awayId: awayTeamInfo.teamId,

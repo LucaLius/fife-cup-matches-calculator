@@ -10,7 +10,7 @@ export function processRound(calendarMatches: CalendarMatch[], teamsInfo: TeamIn
     if (!teamAInfo || !teamBInfo) {
       throw new Error("All teams info must be found!");
     }
-    return new MatchCalculator().calcuate(calendarMatch.id, calendarMatch.idGroup, teamAInfo, teamBInfo);
+    return new MatchCalculator().calcuate(calendarMatch, teamAInfo, teamBInfo);
   });
 }
 
