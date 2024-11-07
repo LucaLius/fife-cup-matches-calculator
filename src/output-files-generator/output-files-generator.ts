@@ -1,3 +1,4 @@
+/* eslint-disable no-sparse-arrays */
 import { CalendarMatchEsit } from './../models/calendar-match-esit.model';
 import * as fs from 'fs';
 import { OUTPUT_FILES_TEAMS_DIR_PATH } from '../output-files/output-files.utils';
