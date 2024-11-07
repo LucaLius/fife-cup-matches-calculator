@@ -103,7 +103,7 @@ export class TeamsInfoImporter implements TeamsInfoImporterI {
 function getPlayerInfo(player: string[], isHomeTeam: boolean): PlayerInfo {
   const columnIndexes = isHomeTeam ? COLUMNS_INDEXES_SETTINGS.teamOne : COLUMNS_INDEXES_SETTINGS.teamTwo;
 
-  const fantasyVote = getParsedCellValue(player, columnIndexes.votePlayerIndex);
+  const fantasyVote = getParsedCellValue(player, columnIndexes.fantasyVotePlayerIndex);
   const vote = getVote(player, columnIndexes.votePlayerIndex, fantasyVote);
   return {
     role: player[columnIndexes.rolePlayerIndex],
