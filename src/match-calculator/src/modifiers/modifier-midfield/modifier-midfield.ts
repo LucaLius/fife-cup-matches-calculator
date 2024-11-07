@@ -61,7 +61,8 @@ export class ModifierMidfield implements ModifierI {
 
     const segment = this.SEGMENTS.find(el => differenceAbs >= el.low && differenceAbs < el.high);
     if (!segment) {
-      throw new Error("Segment not found!!");
+      const errorMsg = `Segment not found!! Difference absolute was ${differenceAbs} (sumVotesA: ${sumVotesA}, sumVotesB: ${sumVotesB})`;
+      throw new Error(errorMsg);
     }
 
     return { teamId, points: segment.points };
