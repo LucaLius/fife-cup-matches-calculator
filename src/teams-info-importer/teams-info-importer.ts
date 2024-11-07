@@ -103,8 +103,8 @@ export class TeamsInfoImporter implements TeamsInfoImporterI {
 function getPlayerInfo(player: string[], isHomeTeam: boolean): PlayerInfo {
   const columnIndexes = isHomeTeam ? COLUMNS_INDEXES_SETTINGS.teamOne : COLUMNS_INDEXES_SETTINGS.teamTwo;
 
-  const vote = getVote(player, columnIndexes.votePlayerIndex);
-  const fantasyVote = getVote(player, columnIndexes.fantasyVotePlayerIndex);
+  const fantasyVote = getParsedCellValue(player, columnIndexes.votePlayerIndex);
+  const vote = getVote(player, columnIndexes.votePlayerIndex, fantasyVote);
   return {
     role: player[columnIndexes.rolePlayerIndex],
     name: player[columnIndexes.namePlayerIndex],
@@ -150,7 +150,26 @@ function getCaptainPoints(fileContent: string[][], startingRowIndex: number, max
   return captainPoints;
 }
 
-function getVote(player: string[], index: number) {
+function getParsedCellValue(player: (string | number)[], index: number): number | undefined {
   const targetValue = player[index];
+  if (targetValue === '-') {
+    return undefined;
+  }
+  if (typeof targetValue === 'string') {
+    throw new Error('Unexpected string value in getParsedCellValue() targetValue. Found value is : ' + targetValue);
+    ;
+  }
+
   return Number.isFinite(targetValue) ? targetValue : undefined;
+}
+
+function getVote(player: (string | number)[], votePlayerIndex: number, fantasyVote?: number): number | undefined {
+  const voteValue = getParsedCellValue(player, votePlayerIndex);
+
+  if (fantasyVote !== undefined && voteValue === undefined) {
+    // esempio: giocatori SV ammoniti (fantavoto 5,5 e voto '-')
+    return 5;
+  }
+
+  return voteValue;
 }
