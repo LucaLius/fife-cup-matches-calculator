@@ -35,8 +35,10 @@ export class MatchCalculator implements MatchCalculatorI {
     result.homeId = homeTeamInfo.teamId;
     result.awayId = awayTeamInfo.teamId;
     result.score = `${homeTeamGoalsScored} - ${awayTeamGoalsScored}`;
-    result.homeScore = homeTeamGoalsScored;
-    result.homePoints = homeTeamPointsScored;
+    result.homeDetails = {
+      homePoints: homeTeamPointsScored,
+      homeScore: homeTeamGoalsScored
+    };
     result.awayScore = awayTeamGoalsScored;
     result.awayPoints = awayTeamPointsScored;
     return result;

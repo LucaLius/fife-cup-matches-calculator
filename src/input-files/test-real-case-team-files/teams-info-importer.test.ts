@@ -19,8 +19,10 @@ describe('Giornata 1 safe-check', () => {
         homeId: 'SMOKING BIANCO.',
         awayId: 'REAL DUREZZA',
         score: '5 - 6',
-        homeScore: 5,
-        homePoints: 85.5,
+        homeDetails: {
+          homeScore: 5,
+          homePoints: 85.5,
+        },
         awayScore: 6,
         awayPoints: 92
       },
@@ -32,8 +34,10 @@ describe('Giornata 1 safe-check', () => {
         homeId: 'BORGO GRAZZANO',
         awayId: 'ASTON BIRRA',
         score: '0 - 2',
-        homeScore: 0,
-        homePoints: 65,
+        homeDetails: {
+          homeScore: 0,
+          homePoints: 65,
+        },
         awayScore: 2,
         awayPoints: 72.5
       },
@@ -45,8 +49,10 @@ describe('Giornata 1 safe-check', () => {
         homeId: 'NEROAZZURRI',
         awayId: 'RIVER BOLUDOS',
         score: '0 - 1',
-        homeScore: 0,
-        homePoints: 60,
+        homeDetails: {
+          homeScore: 0,
+          homePoints: 60,
+        },
         awayScore: 1,
         awayPoints: 69.5
       },
@@ -58,8 +64,10 @@ describe('Giornata 1 safe-check', () => {
         homeId: 'REDBLACK',
         awayId: 'FC PUSSY MIX',
         score: '0 - 1',
-        homeScore: 0,
-        homePoints: 60.5,
+        homeDetails: {
+          homeScore: 0,
+          homePoints: 60.5,
+        },
         awayScore: 1,
         awayPoints: 70.5
       },
@@ -71,8 +79,10 @@ describe('Giornata 1 safe-check', () => {
         homeId: 'IRON GAS',
         awayId: 'AHI 3 CROCIATI',
         score: '2 - 3',
-        homeScore: 2,
-        homePoints: 75.5,
+        homeDetails: {
+          homeScore: 2,
+          homePoints: 75.5,
+        },
         awayScore: 3,
         awayPoints: 77
       },
@@ -84,8 +94,10 @@ describe('Giornata 1 safe-check', () => {
         homeId: 'STARK INDUSTRIES',
         awayId: 'NOT ATHLETIC CRODANZO',
         score: '1 - 6',
-        homeScore: 1,
-        homePoints: 70.5,
+        homeDetails: {
+          homeScore: 1,
+          homePoints: 70.5,
+        },
         awayScore: 6,
         awayPoints: 89.5
       },
@@ -97,8 +109,10 @@ describe('Giornata 1 safe-check', () => {
         homeId: 'MANCHESTER SINTY',
         awayId: 'COCABRODA',
         score: '1 - 2',
-        homeScore: 1,
-        homePoints: 69,
+        homeDetails: {
+          homeScore: 1,
+          homePoints: 69,
+        },
         awayScore: 2,
         awayPoints: 72
       },
@@ -110,8 +124,10 @@ describe('Giornata 1 safe-check', () => {
         homeId: 'TEAM DADA',
         awayId: 'REAL MAKADAM',
         score: '5 - 0',
-        homeScore: 5,
-        homePoints: 85.5,
+        homeDetails: {
+          homeScore: 5,
+          homePoints: 85.5,
+        },
         awayScore: 0,
         awayPoints: 59.5
       },
@@ -123,8 +139,10 @@ describe('Giornata 1 safe-check', () => {
         homeId: 'NAPOLETHANOS',
         awayId: 'BEN FICA',
         score: '1 - 3',
-        homeScore: 1,
-        homePoints: 67,
+        homeDetails: {
+          homeScore: 1,
+          homePoints: 67,
+        },
         awayScore: 3,
         awayPoints: 79.5
       },
@@ -136,8 +154,10 @@ describe('Giornata 1 safe-check', () => {
         homeId: 'LOS ANGELO - UN ESPERTO',
         awayId: 'KANTÉ CABRIOLET',
         score: '6 - 8',
-        homeScore: 6,
-        homePoints: 89,
+        homeDetails: {
+          homeScore: 6,
+          homePoints: 89,
+        },
         awayScore: 8,
         awayPoints: 97
       },
@@ -149,8 +169,10 @@ describe('Giornata 1 safe-check', () => {
         homeId: 'BAYERN LEVERDUREN.',
         awayId: 'CHIAVOVERONICA',
         score: '2 - 1',
-        homeScore: 2,
-        homePoints: 75,
+        homeDetails: {
+          homeScore: 2,
+          homePoints: 75,
+        },
         awayScore: 1,
         awayPoints: 71.5
       },
@@ -162,8 +184,10 @@ describe('Giornata 1 safe-check', () => {
         homeId: 'FC DIREZIONE',
         awayId: 'DALLAS',
         score: '1 - 1',
-        homeScore: 1,
-        homePoints: 67,
+        homeDetails: {
+          homeScore: 1,
+          homePoints: 67,
+        },
         awayScore: 1,
         awayPoints: 70.5
       },
@@ -175,8 +199,10 @@ describe('Giornata 1 safe-check', () => {
         homeId: 'REAL GRIFONE',
         awayId: 'DINAMO KEYV',
         score: '3 - 1',
-        homeScore: 3,
-        homePoints: 77.5,
+        homeDetails: {
+          homeScore: 3,
+          homePoints: 77.5
+        },
         awayScore: 1,
         awayPoints: 66
       },
@@ -188,8 +214,10 @@ describe('Giornata 1 safe-check', () => {
         homeId: 'MICCOLILLE',
         awayId: 'CSKA PIAVON',
         score: '4 - 1',
-        homeScore: 4,
-        homePoints: 82,
+        homeDetails: {
+          homeScore: 4,
+          homePoints: 82,
+        },
         awayScore: 1,
         awayPoints: 70
       },
@@ -201,8 +229,10 @@ describe('Giornata 1 safe-check', () => {
         homeId: 'I RAGAZZI',
         awayId: 'CCORYO JUNIORS',
         score: '4 - 1',
-        homeScore: 4,
-        homePoints: 82,
+        homeDetails: {
+          homeScore: 4,
+          homePoints: 82,
+        },
         awayScore: 1,
         awayPoints: 69.5
       },
@@ -214,8 +244,10 @@ describe('Giornata 1 safe-check', () => {
         homeId: 'VILLA FRIGNAVERA',
         awayId: 'ACK BOMBA',
         score: '0 - 3',
-        homeScore: 0,
-        homePoints: 64.5,
+        homeDetails: {
+          homeScore: 0,
+          homePoints: 64.5,
+        },
         awayScore: 3,
         awayPoints: 77.5
       }

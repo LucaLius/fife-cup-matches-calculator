@@ -129,8 +129,10 @@ describe('processRound()', () => {
         awayScore: 1,
         esit: "X",
         homeId: "team_A",
-        homePoints: 68,
-        homeScore: 1,
+        homeDetails: {
+          homePoints: 68,
+          homeScore: 1,
+        },
         id: 1,
         score: "1 - 1",
       },
@@ -140,8 +142,10 @@ describe('processRound()', () => {
         awayScore: 1,
         esit: "1",
         homeId: "team_C",
-        homePoints: 73,
-        homeScore: 2,
+        homeDetails: {
+          homePoints: 73,
+          homeScore: 2,
+        },
         id: 2,
         score: "2 - 1",
       }, {
@@ -150,8 +154,10 @@ describe('processRound()', () => {
         awayScore: 1,
         esit: "2",
         homeId: "team_E",
-        homePoints: 64.5,
-        homeScore: 0,
+        homeDetails: {
+          homePoints: 64.5,
+          homeScore: 0,
+        },
         id: 3,
         score: "0 - 1",
       }
