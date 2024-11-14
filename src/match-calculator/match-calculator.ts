@@ -26,19 +26,20 @@ export class MatchCalculator implements MatchCalculatorI {
     const homeTeamGoalsScored = getGoalsScored(homeTeamPointsScored);
     const awayTeamGoalsScored = getGoalsScored(awayTeamPointsScored);
     const esit = getMatchEsit(homeTeamGoalsScored, awayTeamGoalsScored);
-    return {
-      id: calendarMatch.id,
-      idGroup: calendarMatch.idGroup,
-      matchNumber: calendarMatch.matchNumber,
-      esit,
-      homeId: homeTeamInfo.teamId,
-      awayId: awayTeamInfo.teamId,
-      score: `${homeTeamGoalsScored} - ${awayTeamGoalsScored}`,
-      homeScore: homeTeamGoalsScored,
-      homePoints: homeTeamPointsScored,
-      awayScore: awayTeamGoalsScored,
-      awayPoints: awayTeamPointsScored,
-    } as CalendarMatchEsit
+
+    const result = new CalendarMatchEsit();
+    result.id = calendarMatch.id;
+    result.idGroup = calendarMatch.idGroup;
+    result.matchNumber = calendarMatch.matchNumber;
+    result.esit = esit;
+    result.homeId = homeTeamInfo.teamId;
+    result.awayId = awayTeamInfo.teamId;
+    result.score = `${homeTeamGoalsScored} - ${awayTeamGoalsScored}`;
+    result.homeScore = homeTeamGoalsScored;
+    result.homePoints = homeTeamPointsScored;
+    result.awayScore = awayTeamGoalsScored;
+    result.awayPoints = awayTeamPointsScored;
+    return result;
   }
 
 }
