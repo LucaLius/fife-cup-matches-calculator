@@ -16,8 +16,9 @@ class TeamMatchResultDetails {
   //   id: string;
   //   value: number;
   // }[];
-  // crossTeamModifiers: {
-  //   id: string;
-  //   value: number;
-  // }[];
+  crossTeamModifiers!: {
+    id: string;
+    teamId: string;
+    points: number;
+  }[];
 }

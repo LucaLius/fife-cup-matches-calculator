@@ -14,7 +14,7 @@ export class MatchCalculator implements MatchCalculatorI {
     let awayTeamPointsScored = getTeamsPointsScored(awayTeamInfo);
 
     const crossTeamsPointsScored = getCrossTeamsPointsScored(homeTeamInfo, awayTeamInfo);
-    crossTeamsPointsScored.forEach(el => {
+    crossTeamsPointsScored.totalModifiers.forEach(el => {
       if (el.teamId === homeTeamInfo.teamId) {
         homeTeamPointsScored += el.points;
       }
@@ -37,8 +37,13 @@ export class MatchCalculator implements MatchCalculatorI {
     result.score = `${homeTeamGoalsScored} - ${awayTeamGoalsScored}`;
     result.homeDetails = {
       homePoints: homeTeamPointsScored,
-      homeScore: homeTeamGoalsScored
+      homeScore: homeTeamGoalsScored,
+      crossTeamModifiers: crossTeamsPointsScored.detailModifiers
+        .filter(el => el.teamId === homeTeamInfo.teamId)
     };
+    console.log("home: " + homeTeamInfo.teamId)
+    console.log("away: " + awayTeamInfo.teamId)
+    console.log(crossTeamsPointsScored.detailModifiers);
     result.awayScore = awayTeamGoalsScored;
     result.awayPoints = awayTeamPointsScored;
     return result;

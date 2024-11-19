@@ -132,6 +132,7 @@ describe('processRound()', () => {
         homeDetails: {
           homePoints: 68,
           homeScore: 1,
+          crossTeamModifiers: [],
         },
         id: 1,
         score: "1 - 1",
@@ -145,6 +146,7 @@ describe('processRound()', () => {
         homeDetails: {
           homePoints: 73,
           homeScore: 2,
+          crossTeamModifiers: [],
         },
         id: 2,
         score: "2 - 1",
@@ -157,6 +159,7 @@ describe('processRound()', () => {
         homeDetails: {
           homePoints: 64.5,
           homeScore: 0,
+          crossTeamModifiers: [],
         },
         id: 3,
         score: "0 - 1",

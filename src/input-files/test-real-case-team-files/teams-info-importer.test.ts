@@ -22,6 +22,7 @@ describe('Giornata 1 safe-check', () => {
         homeDetails: {
           homeScore: 5,
           homePoints: 85.5,
+          crossTeamModifiers: [],
         },
         awayScore: 6,
         awayPoints: 92
@@ -37,6 +38,7 @@ describe('Giornata 1 safe-check', () => {
         homeDetails: {
           homeScore: 0,
           homePoints: 65,
+          crossTeamModifiers: [],
         },
         awayScore: 2,
         awayPoints: 72.5
@@ -52,6 +54,7 @@ describe('Giornata 1 safe-check', () => {
         homeDetails: {
           homeScore: 0,
           homePoints: 60,
+          crossTeamModifiers: [],
         },
         awayScore: 1,
         awayPoints: 69.5
@@ -67,6 +70,7 @@ describe('Giornata 1 safe-check', () => {
         homeDetails: {
           homeScore: 0,
           homePoints: 60.5,
+          crossTeamModifiers: [],
         },
         awayScore: 1,
         awayPoints: 70.5
@@ -82,6 +86,7 @@ describe('Giornata 1 safe-check', () => {
         homeDetails: {
           homeScore: 2,
           homePoints: 75.5,
+          crossTeamModifiers: [],
         },
         awayScore: 3,
         awayPoints: 77
@@ -97,6 +102,7 @@ describe('Giornata 1 safe-check', () => {
         homeDetails: {
           homeScore: 1,
           homePoints: 70.5,
+          crossTeamModifiers: [],
         },
         awayScore: 6,
         awayPoints: 89.5
@@ -112,6 +118,7 @@ describe('Giornata 1 safe-check', () => {
         homeDetails: {
           homeScore: 1,
           homePoints: 69,
+          crossTeamModifiers: [],
         },
         awayScore: 2,
         awayPoints: 72
@@ -127,6 +134,7 @@ describe('Giornata 1 safe-check', () => {
         homeDetails: {
           homeScore: 5,
           homePoints: 85.5,
+          crossTeamModifiers: [],
         },
         awayScore: 0,
         awayPoints: 59.5
@@ -142,6 +150,7 @@ describe('Giornata 1 safe-check', () => {
         homeDetails: {
           homeScore: 1,
           homePoints: 67,
+          crossTeamModifiers: [],
         },
         awayScore: 3,
         awayPoints: 79.5
@@ -157,6 +166,7 @@ describe('Giornata 1 safe-check', () => {
         homeDetails: {
           homeScore: 6,
           homePoints: 89,
+          crossTeamModifiers: [],
         },
         awayScore: 8,
         awayPoints: 97
@@ -172,6 +182,7 @@ describe('Giornata 1 safe-check', () => {
         homeDetails: {
           homeScore: 2,
           homePoints: 75,
+          crossTeamModifiers: [],
         },
         awayScore: 1,
         awayPoints: 71.5
@@ -187,6 +198,7 @@ describe('Giornata 1 safe-check', () => {
         homeDetails: {
           homeScore: 1,
           homePoints: 67,
+          crossTeamModifiers: [],
         },
         awayScore: 1,
         awayPoints: 70.5
@@ -201,7 +213,8 @@ describe('Giornata 1 safe-check', () => {
         score: '3 - 1',
         homeDetails: {
           homeScore: 3,
-          homePoints: 77.5
+          homePoints: 77.5,
+          crossTeamModifiers: [],
         },
         awayScore: 1,
         awayPoints: 66
@@ -217,6 +230,7 @@ describe('Giornata 1 safe-check', () => {
         homeDetails: {
           homeScore: 4,
           homePoints: 82,
+          crossTeamModifiers: [],
         },
         awayScore: 1,
         awayPoints: 70
@@ -232,6 +246,7 @@ describe('Giornata 1 safe-check', () => {
         homeDetails: {
           homeScore: 4,
           homePoints: 82,
+          crossTeamModifiers: [],
         },
         awayScore: 1,
         awayPoints: 69.5
@@ -247,6 +262,7 @@ describe('Giornata 1 safe-check', () => {
         homeDetails: {
           homeScore: 0,
           homePoints: 64.5,
+          crossTeamModifiers: [],
         },
         awayScore: 3,
         awayPoints: 77.5
@@ -258,6 +274,13 @@ describe('Giornata 1 safe-check', () => {
     const actual = processRound(calendarMatches, teamsInfo);
 
     expect(actual).toEqual(expected);
+
+    // modifiers check
+    actual.forEach((el, index) => {
+      console.log(`${index}, actual: ${JSON.stringify(el.homeDetails.crossTeamModifiers)}`)
+      console.log(`${index}, expected: ${JSON.stringify(expected[index].homeDetails.crossTeamModifiers)}`)
+      expect(el.homeDetails.crossTeamModifiers).toEqual(expected[index].homeDetails.crossTeamModifiers);
+    })
   })
 
 })

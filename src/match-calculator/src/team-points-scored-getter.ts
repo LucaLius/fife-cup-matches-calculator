@@ -1,13 +1,13 @@
 import { PlayerInfo, PlayerInfoAVoto } from "../../models/player-info.model";
 import { TeamInfo } from "../../models/team-info.model";
 import { FormationAnalyzer } from "./formation-analyzer";
-import { ModifiersCrossTeamsManager } from "./modifiers/modifiers-cross-team-manager";
+import { CrossTeamCalculationEsit, ModifiersCrossTeamsManager } from "./modifiers/modifiers-cross-team-manager";
 import { ModifiersManager } from "./modifiers/modifiers-manager";
 
 const FANTASY_VOTE_GOALKEEPER_RISERVA_UFFICIO = 1;
 const FANTASY_VOTE_MOVEMENT_PLAYER_RISERVA_UFFICIO = 3;
 
-export function getCrossTeamsPointsScored(homeTeamInfo: TeamInfo, awayTeamInfo: TeamInfo): { teamId: string, points: number }[] {
+export function getCrossTeamsPointsScored(homeTeamInfo: TeamInfo, awayTeamInfo: TeamInfo): CrossTeamCalculationEsit {
   const homeFormationAnalyzer = new FormationAnalyzer(homeTeamInfo);
   const awayFormationAnalyzer = new FormationAnalyzer(awayTeamInfo);
 
