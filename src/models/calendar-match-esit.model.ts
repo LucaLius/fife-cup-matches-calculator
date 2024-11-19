@@ -10,8 +10,8 @@ export class CalendarMatchEsit extends CalendarMatch {
 }
 
 class TeamMatchResultDetails {
-  homePoints!: number;
-  homeScore!: number;
+  fantasyPoints!: number;
+  matchScore!: number;
   // baseModifiers: {
   //   id: string;
   //   value: number;

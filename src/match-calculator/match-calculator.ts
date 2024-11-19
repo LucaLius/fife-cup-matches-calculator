@@ -36,8 +36,8 @@ export class MatchCalculator implements MatchCalculatorI {
     result.awayId = awayTeamInfo.teamId;
     result.score = `${homeTeamGoalsScored} - ${awayTeamGoalsScored}`;
     result.homeDetails = {
-      homePoints: homeTeamPointsScored,
-      homeScore: homeTeamGoalsScored,
+      fantasyPoints: homeTeamPointsScored,
+      matchScore: homeTeamGoalsScored,
       crossTeamModifiers: crossTeamsPointsScored.detailModifiers
         .filter(el => el.teamId === homeTeamInfo.teamId)
     };
