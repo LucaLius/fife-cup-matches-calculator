@@ -125,12 +125,15 @@ describe('processRound()', () => {
     const expected = [
       {
         awayId: "team_D",
-        awayPoints: 67.5,
-        awayScore: 1,
         esit: "X",
         homeId: "team_A",
         homeDetails: {
           fantasyPoints: 68,
+          matchScore: 1,
+          crossTeamModifiers: [],
+        },
+        awayDetails: {
+          fantasyPoints: 67.5,
           matchScore: 1,
           crossTeamModifiers: [],
         },
@@ -139,8 +142,6 @@ describe('processRound()', () => {
       },
       {
         awayId: "team_D",
-        awayPoints: 67.5,
-        awayScore: 1,
         esit: "1",
         homeId: "team_C",
         homeDetails: {
@@ -148,17 +149,25 @@ describe('processRound()', () => {
           matchScore: 2,
           crossTeamModifiers: [],
         },
+        awayDetails: {
+          fantasyPoints: 67.5,
+          matchScore: 1,
+          crossTeamModifiers: [],
+        },
         id: 2,
         score: "2 - 1",
       }, {
         awayId: "team_D",
-        awayPoints: 67.5,
-        awayScore: 1,
         esit: "2",
         homeId: "team_E",
         homeDetails: {
           fantasyPoints: 64.5,
           matchScore: 0,
+          crossTeamModifiers: [],
+        },
+        awayDetails: {
+          fantasyPoints: 67.5,
+          matchScore: 1,
           crossTeamModifiers: [],
         },
         id: 3,

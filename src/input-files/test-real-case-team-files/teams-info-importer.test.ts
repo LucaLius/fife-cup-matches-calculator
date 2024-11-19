@@ -24,8 +24,11 @@ describe('Giornata 1 safe-check', () => {
           fantasyPoints: 85.5,
           crossTeamModifiers: [],
         },
-        awayScore: 6,
-        awayPoints: 92
+        awayDetails: {
+          fantasyPoints: 92,
+          matchScore: 6,
+          crossTeamModifiers: [{ id: 'midfield', teamId: 'REAL DUREZZA', points: 2 }],
+        },
       },
       {
         id: 2,
@@ -40,8 +43,11 @@ describe('Giornata 1 safe-check', () => {
           fantasyPoints: 65,
           crossTeamModifiers: [],
         },
-        awayScore: 2,
-        awayPoints: 72.5
+        awayDetails: {
+          fantasyPoints: 72.5,
+          matchScore: 2,
+          crossTeamModifiers: [{ id: 'midfield', teamId: 'ASTON BIRRA', points: 2 }],
+        },
       },
       {
         id: 3,
@@ -56,8 +62,11 @@ describe('Giornata 1 safe-check', () => {
           fantasyPoints: 60,
           crossTeamModifiers: [],
         },
-        awayScore: 1,
-        awayPoints: 69.5
+        awayDetails: {
+          fantasyPoints: 69.5,
+          matchScore: 1,
+          crossTeamModifiers: [{ id: 'midfield', teamId: 'RIVER BOLUDOS', points: 2 }],
+        },
       },
       {
         id: 4,
@@ -72,8 +81,11 @@ describe('Giornata 1 safe-check', () => {
           fantasyPoints: 60.5,
           crossTeamModifiers: [],
         },
-        awayScore: 1,
-        awayPoints: 70.5
+        awayDetails: {
+          fantasyPoints: 70.5,
+          matchScore: 1,
+          crossTeamModifiers: [],
+        },
       },
       {
         id: 5,
@@ -88,8 +100,11 @@ describe('Giornata 1 safe-check', () => {
           fantasyPoints: 75.5,
           crossTeamModifiers: [],
         },
-        awayScore: 3,
-        awayPoints: 77
+        awayDetails: {
+          fantasyPoints: 77,
+          matchScore: 3,
+          crossTeamModifiers: [],
+        },
       },
       {
         id: 6,
@@ -104,8 +119,11 @@ describe('Giornata 1 safe-check', () => {
           fantasyPoints: 70.5,
           crossTeamModifiers: [],
         },
-        awayScore: 6,
-        awayPoints: 89.5
+        awayDetails: {
+          fantasyPoints: 89.5,
+          matchScore: 6,
+          crossTeamModifiers: [],
+        },
       },
       {
         id: 7,
@@ -120,8 +138,11 @@ describe('Giornata 1 safe-check', () => {
           fantasyPoints: 69,
           crossTeamModifiers: [],
         },
-        awayScore: 2,
-        awayPoints: 72
+        awayDetails: {
+          fantasyPoints: 72,
+          matchScore: 2,
+          crossTeamModifiers: [],
+        },
       },
       {
         id: 8,
@@ -136,8 +157,11 @@ describe('Giornata 1 safe-check', () => {
           fantasyPoints: 85.5,
           crossTeamModifiers: [],
         },
-        awayScore: 0,
-        awayPoints: 59.5
+        awayDetails: {
+          fantasyPoints: 59.5,
+          matchScore: 0,
+          crossTeamModifiers: [],
+        },
       },
       {
         id: 9,
@@ -152,8 +176,11 @@ describe('Giornata 1 safe-check', () => {
           fantasyPoints: 67,
           crossTeamModifiers: [],
         },
-        awayScore: 3,
-        awayPoints: 79.5
+        awayDetails: {
+          fantasyPoints: 79.5,
+          matchScore: 3,
+          crossTeamModifiers: [],
+        },
       },
       {
         id: 10,
@@ -168,8 +195,11 @@ describe('Giornata 1 safe-check', () => {
           fantasyPoints: 89,
           crossTeamModifiers: [],
         },
-        awayScore: 8,
-        awayPoints: 97
+        awayDetails: {
+          fantasyPoints: 97,
+          matchScore: 8,
+          crossTeamModifiers: [],
+        },
       },
       {
         id: 11,
@@ -184,8 +214,11 @@ describe('Giornata 1 safe-check', () => {
           fantasyPoints: 75,
           crossTeamModifiers: [],
         },
-        awayScore: 1,
-        awayPoints: 71.5
+        awayDetails: {
+          fantasyPoints: 71.5,
+          matchScore: 1,
+          crossTeamModifiers: [],
+        },
       },
       {
         id: 12,
@@ -200,8 +233,11 @@ describe('Giornata 1 safe-check', () => {
           fantasyPoints: 67,
           crossTeamModifiers: [],
         },
-        awayScore: 1,
-        awayPoints: 70.5
+        awayDetails: {
+          fantasyPoints: 70.5,
+          matchScore: 1,
+          crossTeamModifiers: [],
+        },
       },
       {
         id: 13,
@@ -216,8 +252,11 @@ describe('Giornata 1 safe-check', () => {
           fantasyPoints: 77.5,
           crossTeamModifiers: [],
         },
-        awayScore: 1,
-        awayPoints: 66
+        awayDetails: {
+          fantasyPoints: 66,
+          matchScore: 1,
+          crossTeamModifiers: [],
+        },
       },
       {
         id: 14,
@@ -232,8 +271,11 @@ describe('Giornata 1 safe-check', () => {
           fantasyPoints: 82,
           crossTeamModifiers: [],
         },
-        awayScore: 1,
-        awayPoints: 70
+        awayDetails: {
+          fantasyPoints: 70,
+          matchScore: 1,
+          crossTeamModifiers: [],
+        },
       },
       {
         id: 15,
@@ -248,8 +290,11 @@ describe('Giornata 1 safe-check', () => {
           fantasyPoints: 82,
           crossTeamModifiers: [],
         },
-        awayScore: 1,
-        awayPoints: 69.5
+        awayDetails: {
+          fantasyPoints: 69.5,
+          matchScore: 1,
+          crossTeamModifiers: [],
+        },
       },
       {
         id: 16,
@@ -264,8 +309,11 @@ describe('Giornata 1 safe-check', () => {
           fantasyPoints: 64.5,
           crossTeamModifiers: [],
         },
-        awayScore: 3,
-        awayPoints: 77.5
+        awayDetails: {
+          fantasyPoints: 77.5,
+          matchScore: 3,
+          crossTeamModifiers: [],
+        },
       }
     ];
 

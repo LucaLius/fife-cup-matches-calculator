@@ -106,7 +106,7 @@ function replaceTeamsModule(workSheet: XLSX.WorkSheet, teamsInfo: TeamInfo[], ma
 function replaceTeamsTotals(workSheet: XLSX.WorkSheet, match: CalendarMatchEsit, index: number): void {
   const origin = index == 0 ? 'A28' : 'A56';
 
-  const replacedRow = [match.homeDetails.fantasyPoints, /*empty*/, /*empty*/, /*empty*/, /*empty*/, /*empty*/, match.awayPoints];
+  const replacedRow = [match.homeDetails.fantasyPoints, /*empty*/, /*empty*/, /*empty*/, /*empty*/, /*empty*/, match.awayDetails.fantasyPoints];
 
   const aoa = [replacedRow];
   const opts = { origin };

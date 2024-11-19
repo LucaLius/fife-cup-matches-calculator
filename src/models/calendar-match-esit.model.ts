@@ -4,9 +4,8 @@ export class CalendarMatchEsit extends CalendarMatch {
 
   esit!: '1' | 'X' | '2';
   score!: string;
-  awayPoints!: number;
-  awayScore!: number;
   homeDetails!: TeamMatchResultDetails;
+  awayDetails!: TeamMatchResultDetails;
 }
 
 class TeamMatchResultDetails {

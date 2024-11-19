@@ -41,11 +41,14 @@ export class MatchCalculator implements MatchCalculatorI {
       crossTeamModifiers: crossTeamsPointsScored.detailModifiers
         .filter(el => el.teamId === homeTeamInfo.teamId)
     };
-    console.log("home: " + homeTeamInfo.teamId)
-    console.log("away: " + awayTeamInfo.teamId)
-    console.log(crossTeamsPointsScored.detailModifiers);
-    result.awayScore = awayTeamGoalsScored;
-    result.awayPoints = awayTeamPointsScored;
+
+    result.awayDetails = {
+      fantasyPoints: awayTeamPointsScored,
+      matchScore: awayTeamGoalsScored,
+      crossTeamModifiers: crossTeamsPointsScored.detailModifiers
+        .filter(el => el.teamId === awayTeamInfo.teamId)
+    };
+
     return result;
   }
 
