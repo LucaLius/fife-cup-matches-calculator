@@ -2,7 +2,7 @@ import { PlayerInfo, PlayerInfoAVoto } from "../../models/player-info.model";
 import { TeamInfo } from "../../models/team-info.model";
 import { FormationAnalyzer } from "./formation-analyzer";
 import { CrossTeamCalculationEsit, ModifiersCrossTeamsManager } from "./modifiers/modifiers-cross-team-manager";
-import { ModifiersManager } from "./modifiers/modifiers-manager";
+import { ModifiersManager, TeamCalculationEsit } from "./modifiers/modifiers-manager";
 
 const FANTASY_VOTE_GOALKEEPER_RISERVA_UFFICIO = 1;
 const FANTASY_VOTE_MOVEMENT_PLAYER_RISERVA_UFFICIO = 3;
@@ -18,15 +18,20 @@ export function getCrossTeamsPointsScored(homeTeamInfo: TeamInfo, awayTeamInfo: 
     .applyModifiers(homeTeamInfo.teamId, awayTeamInfo.teamId, homeFormationAnalyzer, awayFormationAnalyzer);
 }
 
-export function getTeamsPointsScored(teamInfo: TeamInfo): number {
+export function getTeamsPointsScored(teamInfo: TeamInfo): { totalPoints: number, modifiers: TeamCalculationEsit } {
   const formationAnalyzer = new FormationAnalyzer(teamInfo);
 
   const playersAVoto = getPlayersAVoto(teamInfo, formationAnalyzer);
 
   const modifiers = new ModifiersManager(teamInfo, playersAVoto).applyModifiers(formationAnalyzer);
-  return modifiers + playersAVoto
+  const totalPoints = modifiers.totalModifiers + playersAVoto
     .map(el => el.fantasyVote)
     .reduce(getSum);
+
+  return {
+    totalPoints,
+    modifiers
+  }
 }
 
 function getPlayersAVoto(teamInfo: TeamInfo, formationAnalyzer: FormationAnalyzer): PlayerInfoAVoto[] {

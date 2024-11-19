@@ -10,21 +10,24 @@ export class MatchCalculator implements MatchCalculatorI {
 
   calcuate(calendarMatch: CalendarMatch, homeTeamInfo: TeamInfo, awayTeamInfo: TeamInfo): CalendarMatchEsit {
 
-    let homeTeamPointsScored = getTeamsPointsScored(homeTeamInfo);
-    let awayTeamPointsScored = getTeamsPointsScored(awayTeamInfo);
+    const homeTeamPointsScored = getTeamsPointsScored(homeTeamInfo);
+    const awayTeamPointsScored = getTeamsPointsScored(awayTeamInfo);
+
+    let homeTotalPointsScored = homeTeamPointsScored.totalPoints;
+    let awayTotalPointsScored = awayTeamPointsScored.totalPoints;
 
     const crossTeamsPointsScored = getCrossTeamsPointsScored(homeTeamInfo, awayTeamInfo);
     crossTeamsPointsScored.totalModifiers.forEach(el => {
       if (el.teamId === homeTeamInfo.teamId) {
-        homeTeamPointsScored += el.points;
+        homeTotalPointsScored += el.points;
       }
       if (el.teamId === awayTeamInfo.teamId) {
-        awayTeamPointsScored += el.points;
+        awayTotalPointsScored += el.points;
       }
     });
 
-    const homeTeamGoalsScored = getGoalsScored(homeTeamPointsScored);
-    const awayTeamGoalsScored = getGoalsScored(awayTeamPointsScored);
+    const homeTeamGoalsScored = getGoalsScored(homeTotalPointsScored);
+    const awayTeamGoalsScored = getGoalsScored(awayTotalPointsScored);
     const esit = getMatchEsit(homeTeamGoalsScored, awayTeamGoalsScored);
 
     const result = new CalendarMatchEsit();
@@ -36,14 +39,14 @@ export class MatchCalculator implements MatchCalculatorI {
     result.awayId = awayTeamInfo.teamId;
     result.score = `${homeTeamGoalsScored} - ${awayTeamGoalsScored}`;
     result.homeDetails = {
-      fantasyPoints: homeTeamPointsScored,
+      fantasyPoints: homeTotalPointsScored,
       matchScore: homeTeamGoalsScored,
       crossTeamModifiers: crossTeamsPointsScored.detailModifiers
         .filter(el => el.teamId === homeTeamInfo.teamId)
     };
 
     result.awayDetails = {
-      fantasyPoints: awayTeamPointsScored,
+      fantasyPoints: awayTotalPointsScored,
       matchScore: awayTeamGoalsScored,
       crossTeamModifiers: crossTeamsPointsScored.detailModifiers
         .filter(el => el.teamId === awayTeamInfo.teamId)
