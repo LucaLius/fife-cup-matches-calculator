@@ -1,3 +1,4 @@
+import { DetailModifier } from "../match-calculator/src/modifiers/modifiers-manager";
 import { CalendarMatch } from "./calendar-match.model";
 
 export class CalendarMatchEsit extends CalendarMatch {
@@ -11,13 +12,6 @@ export class CalendarMatchEsit extends CalendarMatch {
 class TeamMatchResultDetails {
   fantasyPoints!: number;
   matchScore!: number;
-  // baseModifiers: {
-  //   id: string;
-  //   value: number;
-  // }[];
-  crossTeamModifiers!: {
-    id: string;
-    teamId: string;
-    points: number;
-  }[];
+  baseModifiers!: DetailModifier[];
+  crossTeamModifiers!: DetailModifier[];
 }

@@ -40,5 +40,11 @@ export class ModifiersManager {
 
 export class TeamCalculationEsit {
   totalModifiers!: number;
-  detailModifiers!: { id: string, teamId: string, points: number }[];
+  detailModifiers!: DetailModifier[];
+}
+
+export class DetailModifier {
+  id!: string;
+  teamId!: string;
+  points!: number;
 }

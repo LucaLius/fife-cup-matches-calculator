@@ -4,6 +4,7 @@ import { TeamInfo } from '../models/team-info.model';
 import { MatchCalculatorI } from './match-calculator.interface';
 import { getGoalsScored } from './src/goals-scored-getter';
 import { getMatchEsit } from './src/match-esit-getter';
+import { DetailModifier } from './src/modifiers/modifiers-manager';
 import { getCrossTeamsPointsScored, getTeamsPointsScored } from './src/team-points-scored-getter';
 
 export class MatchCalculator implements MatchCalculatorI {
@@ -41,18 +42,22 @@ export class MatchCalculator implements MatchCalculatorI {
     result.homeDetails = {
       fantasyPoints: homeTotalPointsScored,
       matchScore: homeTeamGoalsScored,
-      crossTeamModifiers: crossTeamsPointsScored.detailModifiers
-        .filter(el => el.teamId === homeTeamInfo.teamId)
+      crossTeamModifiers: this.filterModifiers(homeTeamInfo, crossTeamsPointsScored),
+      baseModifiers: homeTeamPointsScored.modifiers.detailModifiers
     };
 
     result.awayDetails = {
       fantasyPoints: awayTotalPointsScored,
       matchScore: awayTeamGoalsScored,
-      crossTeamModifiers: crossTeamsPointsScored.detailModifiers
-        .filter(el => el.teamId === awayTeamInfo.teamId)
+      crossTeamModifiers: this.filterModifiers(awayTeamInfo, crossTeamsPointsScored),
+      baseModifiers: awayTeamPointsScored.modifiers.detailModifiers
     };
 
     return result;
+  }
+
+  private filterModifiers(teamInfo: TeamInfo, modifiers: { detailModifiers: DetailModifier[] }): DetailModifier[] {
+    return modifiers.detailModifiers.filter(el => el.teamId === teamInfo.teamId);
   }
 
 }
