@@ -63,6 +63,8 @@ function editGeneratedFiles(resultsGrouped: { groupId: number, matches: Calendar
       replaceTeamsModule(workSheet, teamsInfo, match, matchIndex);
       replaceTeamsTotals(workSheet, match, matchIndex);
       replaceTeamsCaptainMod(workSheet, teamsInfo, match, matchIndex);
+      replaceTeamsDefenseMod(workSheet, match, matchIndex);
+      replaceTeamsMidfieldMod(workSheet, match, matchIndex);
 
       XLSX.writeFile(workBook, dest);
     });
@@ -74,9 +76,7 @@ function replaceHeader(workSheet: XLSX.WorkSheet, matchNumber: number): void {
 
   const replacedRow = [`Formazioni Campionato 24/25 - Giornata ${matchNumber}`];
 
-  const aoa = [replacedRow];
-  const opts = { origin };
-  XLSX.utils.sheet_add_aoa(workSheet, aoa, opts);
+  applyReplace(workSheet, replacedRow, origin);
 }
 
 
@@ -85,9 +85,7 @@ function replaceTeamsIdAndScore(workSheet: XLSX.WorkSheet, match: CalendarMatchE
 
   const replacedRow = [match.homeId, /*empty*/, /*empty*/, /*empty*/, /*empty*/, match.score, match.awayId];
 
-  const aoa = [replacedRow];
-  const opts = { origin };
-  XLSX.utils.sheet_add_aoa(workSheet, aoa, opts);
+  applyReplace(workSheet, replacedRow, origin);
 }
 
 function replaceTeamsModule(workSheet: XLSX.WorkSheet, teamsInfo: TeamInfo[], match: CalendarMatchEsit, index: number): void {
@@ -97,9 +95,7 @@ function replaceTeamsModule(workSheet: XLSX.WorkSheet, teamsInfo: TeamInfo[], ma
   const targetTeamInfoAway = teamsInfo.find(teamInfo => teamInfo.teamId === match.awayId);
   const replacedRow = [targetTeamInfoHome?.formation, /*empty*/, /*empty*/, /*empty*/, /*empty*/, /*empty*/, targetTeamInfoAway?.formation];
 
-  const aoa = [replacedRow];
-  const opts = { origin };
-  XLSX.utils.sheet_add_aoa(workSheet, aoa, opts);
+  applyReplace(workSheet, replacedRow, origin);
 }
 
 
@@ -108,9 +104,7 @@ function replaceTeamsTotals(workSheet: XLSX.WorkSheet, match: CalendarMatchEsit,
 
   const replacedRow = [match.homeDetails.fantasyPoints, /*empty*/, /*empty*/, /*empty*/, /*empty*/, /*empty*/, match.awayDetails.fantasyPoints];
 
-  const aoa = [replacedRow];
-  const opts = { origin };
-  XLSX.utils.sheet_add_aoa(workSheet, aoa, opts);
+  applyReplace(workSheet, replacedRow, origin);
 }
 
 function replaceTeamsCaptainMod(workSheet: XLSX.WorkSheet, teamsInfo: TeamInfo[], match: CalendarMatchEsit, index: number): void {
@@ -120,7 +114,40 @@ function replaceTeamsCaptainMod(workSheet: XLSX.WorkSheet, teamsInfo: TeamInfo[]
   const targetTeamInfoAway = teamsInfo.find(teamInfo => teamInfo.teamId === match.awayId);
   const replacedRow = [targetTeamInfoHome?.captainPoints, /*empty*/, 'Modificatore Capitano', /*empty*/, /*empty*/, /*empty*/, targetTeamInfoAway?.captainPoints];
 
+  applyReplace(workSheet, replacedRow, origin);
+}
+
+function replaceTeamsDefenseMod(workSheet: XLSX.WorkSheet, match: CalendarMatchEsit, index: number): void {
+  const origin = index == 0 ? 'E25' : 'E53';
+
+  const homeDefenseMod = match.homeDetails.baseModifiers.find(modifier => modifier.id === 'defense');
+  const awayDefenseMod = match.awayDetails.baseModifiers.find(modifier => modifier.id === 'defense');
+
+  const homePoints = homeDefenseMod ? homeDefenseMod.points : 0;
+  const awayPoints = awayDefenseMod ? awayDefenseMod.points : 0;
+
+  const replacedRow = [homePoints, /*empty*/, 'Modificatore difesa', /*empty*/, /*empty*/, /*empty*/, awayPoints];
+
+  applyReplace(workSheet, replacedRow, origin);
+}
+
+function replaceTeamsMidfieldMod(workSheet: XLSX.WorkSheet, match: CalendarMatchEsit, index: number): void {
+  const origin = index == 0 ? 'E26' : 'E54';
+
+  const homeDefenseMod = match.homeDetails.crossTeamModifiers.find(modifier => modifier.id === 'midfield');
+  const awayDefenseMod = match.awayDetails.crossTeamModifiers.find(modifier => modifier.id === 'midfield');
+
+  const homePoints = homeDefenseMod ? homeDefenseMod.points : 0;
+  const awayPoints = awayDefenseMod ? awayDefenseMod.points : 0;
+
+  const replacedRow = [homePoints, /*empty*/, 'Modificatore centrocampo', /*empty*/, /*empty*/, /*empty*/, awayPoints];
+
+  applyReplace(workSheet, replacedRow, origin);
+}
+
+function applyReplace(workSheet: XLSX.WorkSheet, replacedRow: (string | number | undefined)[], origin: string) {
   const aoa = [replacedRow];
   const opts = { origin };
   XLSX.utils.sheet_add_aoa(workSheet, aoa, opts);
 }
+
