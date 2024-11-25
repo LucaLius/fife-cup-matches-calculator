@@ -121,7 +121,8 @@ function getPlayerInfo(player: string[], isHomeTeam: boolean): PlayerInfo {
   const columnIndexes = isHomeTeam ? COLUMNS_INDEXES_SETTINGS.teamOne : COLUMNS_INDEXES_SETTINGS.teamTwo;
 
   const fantasyVote = getParsedCellValue(player, columnIndexes.fantasyVotePlayerIndex);
-  const vote = getVote(player, columnIndexes.votePlayerIndex, fantasyVote);
+  const voteValue = getParsedCellValue(player, columnIndexes.votePlayerIndex);
+  const vote = getVote(voteValue, fantasyVote);
   return {
     role: player[columnIndexes.rolePlayerIndex],
     name: player[columnIndexes.namePlayerIndex],
@@ -193,13 +194,13 @@ function getParsedCellValue(player: (string | number)[], index: number): number 
   return Number.isFinite(targetValue) ? targetValue : undefined;
 }
 
-function getVote(player: (string | number)[], votePlayerIndex: number, fantasyVote?: number): number | undefined {
-  const voteValue = getParsedCellValue(player, votePlayerIndex);
+function getVote(vote?: number, fantasyVote?: number): number | undefined {
+  // è la get "voto ai fini del conteggio", se fosse solo del valore della cella voto ci sarebbero poi errori nei totali 
 
-  if (fantasyVote !== undefined && voteValue === undefined) {
+  if (fantasyVote !== undefined && vote === undefined) {
     // esempio: giocatori SV ammoniti (fantavoto 5,5 e voto '-')
     return 5;
   }
 
-  return voteValue;
+  return vote;
 }
