@@ -1,4 +1,5 @@
 import { CalendarMatchEsit } from '../models/calendar-match-esit.model';
+import { CalendarMatchInfo } from '../models/calendar-match-info.model';
 import { CalendarMatch } from '../models/calendar-match.model';
 import { TeamInfo } from '../models/team-info.model';
 import { MatchCalculatorI } from './match-calculator.interface';
@@ -9,20 +10,20 @@ import { getCrossTeamsPointsScored, getTeamsPointsScored } from './src/team-poin
 
 export class MatchCalculator implements MatchCalculatorI {
 
-  calcuate(calendarMatch: CalendarMatch, homeTeamInfo: TeamInfo, awayTeamInfo: TeamInfo): CalendarMatchEsit {
+  calcuate(calendarMatch: CalendarMatch, calendarMatchInfo: CalendarMatchInfo): CalendarMatchEsit {
 
-    const homeTeamPointsScored = getTeamsPointsScored(homeTeamInfo);
-    const awayTeamPointsScored = getTeamsPointsScored(awayTeamInfo);
+    const homeTeamPointsScored = getTeamsPointsScored(calendarMatchInfo.home);
+    const awayTeamPointsScored = getTeamsPointsScored(calendarMatchInfo.away);
 
     let homeTotalPointsScored = homeTeamPointsScored.totalPoints;
     let awayTotalPointsScored = awayTeamPointsScored.totalPoints;
 
-    const crossTeamsPointsScored = getCrossTeamsPointsScored(homeTeamInfo, awayTeamInfo);
+    const crossTeamsPointsScored = getCrossTeamsPointsScored(calendarMatchInfo.home, calendarMatchInfo.away);
     crossTeamsPointsScored.totalModifiers.forEach(el => {
-      if (el.teamId === homeTeamInfo.teamId) {
+      if (el.teamId === calendarMatchInfo.home.teamId) {
         homeTotalPointsScored += el.points;
       }
-      if (el.teamId === awayTeamInfo.teamId) {
+      if (el.teamId === calendarMatchInfo.away.teamId) {
         awayTotalPointsScored += el.points;
       }
     });
@@ -36,20 +37,20 @@ export class MatchCalculator implements MatchCalculatorI {
     result.idGroup = calendarMatch.idGroup;
     result.matchNumber = calendarMatch.matchNumber;
     result.esit = esit;
-    result.homeId = homeTeamInfo.teamId;
-    result.awayId = awayTeamInfo.teamId;
+    result.homeId = calendarMatchInfo.home.teamId;
+    result.awayId = calendarMatchInfo.away.teamId;
     result.score = `${homeTeamGoalsScored} - ${awayTeamGoalsScored}`;
     result.homeDetails = {
       fantasyPoints: homeTotalPointsScored,
       matchScore: homeTeamGoalsScored,
-      crossTeamModifiers: this.filterModifiers(homeTeamInfo, crossTeamsPointsScored),
+      crossTeamModifiers: this.filterModifiers(calendarMatchInfo.home, crossTeamsPointsScored),
       baseModifiers: homeTeamPointsScored.modifiers.detailModifiers
     };
 
     result.awayDetails = {
       fantasyPoints: awayTotalPointsScored,
       matchScore: awayTeamGoalsScored,
-      crossTeamModifiers: this.filterModifiers(awayTeamInfo, crossTeamsPointsScored),
+      crossTeamModifiers: this.filterModifiers(calendarMatchInfo.away, crossTeamsPointsScored),
       baseModifiers: awayTeamPointsScored.modifiers.detailModifiers
     };
 

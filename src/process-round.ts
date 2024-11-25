@@ -5,12 +5,13 @@ import { TeamInfo } from "./models/team-info.model";
 
 export function processRound(calendarMatches: CalendarMatch[], teamsInfo: TeamInfo[]): CalendarMatchEsit[] {
   return calendarMatches.map(calendarMatch => {
-    const teamAInfo = teamsInfo.find(teamInfo => teamInfo.teamId === calendarMatch.homeId);
-    const teamBInfo = teamsInfo.find(teamInfo => teamInfo.teamId === calendarMatch.awayId);
-    if (!teamAInfo || !teamBInfo) {
+    const home = teamsInfo.find(teamInfo => teamInfo.teamId === calendarMatch.homeId);
+    const away = teamsInfo.find(teamInfo => teamInfo.teamId === calendarMatch.awayId);
+    if (!home || !away) {
       throw new Error("All teams info must be found!");
     }
-    return new MatchCalculator().calcuate(calendarMatch, teamAInfo, teamBInfo);
+    const calendarMatchInfo = { home, away };
+    return new MatchCalculator().calcuate(calendarMatch, calendarMatchInfo);
   });
 }
 
