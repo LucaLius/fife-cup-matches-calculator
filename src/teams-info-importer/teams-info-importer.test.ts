@@ -44,7 +44,7 @@ describe('TeamsInfoImporter.getTeamsInfo()', () => {
     const matchIndex = 0;
     const startingRowIndex = matchesInfoIndexes[matchIndex];
 
-    const actual = new TeamsInfoImporter(INPUT_TEST_FILES_TEAMS_DIR_PATH).getAllPlayers(fileContent, startingRowIndex);
+    const actual = new TeamsInfoImporter(INPUT_TEST_FILES_TEAMS_DIR_PATH).getRawAllPlayers(fileContent, startingRowIndex);
 
     expect(actual.length).toEqual(expected);
   })

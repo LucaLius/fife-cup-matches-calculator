@@ -66,6 +66,9 @@ function editGeneratedFiles(resultsGrouped: { groupId: number, matches: Calendar
       replaceTeamsDefenseMod(workSheet, match, matchIndex);
       replaceTeamsMidfieldMod(workSheet, match, matchIndex);
 
+      fillTeamsPlayersTitolari(workSheet, teamsInfo, match, matchIndex);
+      fillTeamsPlayersPanchinari(workSheet, teamsInfo, match, matchIndex);
+
       XLSX.writeFile(workBook, dest);
     });
   });
@@ -144,6 +147,61 @@ function replaceTeamsMidfieldMod(workSheet: XLSX.WorkSheet, match: CalendarMatch
 
   applyReplace(workSheet, replacedRow, origin);
 }
+
+function fillTeamsPlayersTitolari(workSheet: XLSX.WorkSheet, teamsInfo: TeamInfo[], match: CalendarMatchEsit, index: number): void {
+  const startingRow = index == 0 ? 5 : 33;
+
+  const teamInfoHome = teamsInfo.find(teamInfo => teamInfo.teamId === match.homeId);
+  const teamInfoAway = teamsInfo.find(teamInfo => teamInfo.teamId === match.awayId);
+
+  const homeRawTitolari = teamInfoHome?.rawTitolari || [];
+  const awayRawTitolari = teamInfoAway?.rawTitolari || [];
+
+  const count = Math.max(homeRawTitolari.length, awayRawTitolari.length);
+
+  for (let i = 0; i < count; i++) {
+    const replacedRow = getPlayersReplacedRow(homeRawTitolari, awayRawTitolari, i)
+
+    const origin = index == 0 ? `A${i + startingRow}` : `A${i + startingRow}`;
+    applyReplace(workSheet, replacedRow, origin);
+  }
+}
+
+function fillTeamsPlayersPanchinari(workSheet: XLSX.WorkSheet, teamsInfo: TeamInfo[], match: CalendarMatchEsit, index: number): void {
+  const startingRow = index == 0 ? 17 : 45;
+
+  const teamInfoHome = teamsInfo.find(teamInfo => teamInfo.teamId === match.homeId);
+  const teamInfoAway = teamsInfo.find(teamInfo => teamInfo.teamId === match.awayId);
+
+  const homeRawPanchinari = teamInfoHome?.rawPanchinari || [];
+  const awayRawPanchinari = teamInfoAway?.rawPanchinari || [];
+
+  const count = Math.max(homeRawPanchinari.length, awayRawPanchinari.length);
+
+  for (let i = 0; i < count; i++) {
+    const replacedRow = getPlayersReplacedRow(homeRawPanchinari, awayRawPanchinari, i)
+
+    const origin = index == 0 ? `A${i + startingRow}` : `A${i + startingRow}`;
+    applyReplace(workSheet, replacedRow, origin);
+  }
+}
+
+function getPlayersReplacedRow(homeRawPlayers: string[][], awayRawPlayers: string[][], rowIndex: number) {
+  return [
+    homeRawPlayers[rowIndex][0],
+    homeRawPlayers[rowIndex][1],
+    homeRawPlayers[rowIndex][2],
+    homeRawPlayers[rowIndex][3],
+    homeRawPlayers[rowIndex][4],
+    /*empty*/,
+    awayRawPlayers[rowIndex][0],
+    awayRawPlayers[rowIndex][1],
+    awayRawPlayers[rowIndex][2],
+    awayRawPlayers[rowIndex][3],
+    awayRawPlayers[rowIndex][4],
+  ];
+}
+
 
 function applyReplace(workSheet: XLSX.WorkSheet, replacedRow: (string | number | undefined)[], origin: string) {
   const aoa = [replacedRow];
