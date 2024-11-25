@@ -3,6 +3,7 @@ import { parseXlsx } from "../excel-utils/excel-parser";
 import { TeamInfo } from "../models/team-info.model";
 import { TeamsInfoImporterI } from "./teams-info-importer.interface";
 import { PlayerInfo } from '../models/player-info.model';
+import { StaticModifierCaptain } from './modifier-static-captain';
 
 const MATCHES_PER_FILE = 4;
 
@@ -120,8 +121,8 @@ export class TeamsInfoImporter implements TeamsInfoImporterI {
 function getPlayerInfo(player: string[], isHomeTeam: boolean): PlayerInfo {
   const columnIndexes = isHomeTeam ? COLUMNS_INDEXES_SETTINGS.teamOne : COLUMNS_INDEXES_SETTINGS.teamTwo;
 
-  const fantasyVote = getParsedCellValue(player, columnIndexes.fantasyVotePlayerIndex);
-  const voteValue = getParsedCellValue(player, columnIndexes.votePlayerIndex);
+  const fantasyVote = getNumericVoteFromCell(player, columnIndexes.fantasyVotePlayerIndex);
+  const voteValue = getNumericVoteFromCell(player, columnIndexes.votePlayerIndex);
   const vote = getVote(voteValue, fantasyVote);
   return {
     role: player[columnIndexes.rolePlayerIndex],
@@ -147,7 +148,9 @@ function getTeamInfo(fileContent: string[][], startingRowIndex: number, maximumR
 
   const columnIndexes = isHomeTeam ? COLUMNS_INDEXES_SETTINGS.teamOne : COLUMNS_INDEXES_SETTINGS.teamTwo;
 
-  const captainPoints = getCaptainPoints(fileContent, startingRowIndex, maximumRowIndex, isHomeTeam);
+  const fileContentRows = fileContent
+    .slice(startingRowIndex, maximumRowIndex);
+  const captainPoints = StaticModifierCaptain.getPoints(fileContentRows, columnIndexes);
 
   return {
     teamId: fileContent[rowIndexes.generalInfoIndex][columnIndexes.nameIndex].trim(),
@@ -164,31 +167,15 @@ function getTeamInfo(fileContent: string[][], startingRowIndex: number, maximumR
   }
 }
 
-function getCaptainPoints(fileContent: string[][], startingRowIndex: number, maximumRowIndex: number, isHomeTeam: boolean) {
-  const columnIndexes = isHomeTeam ? COLUMNS_INDEXES_SETTINGS.teamOne : COLUMNS_INDEXES_SETTINGS.teamTwo;
-
-  let captainPoints = 0;
-  const modifierCaptainRow = fileContent
-    .slice(startingRowIndex, maximumRowIndex)
-    .find(row => {
-      return row[columnIndexes.modifierIdIndex] === 'Modificatore Capitano';
-    });
-
-  if (modifierCaptainRow) {
-    captainPoints = Number.parseInt(modifierCaptainRow[columnIndexes.modifierValueIndex]);
-  }
-
-  return captainPoints;
-}
-
-function getParsedCellValue(player: (string | number)[], index: number): number | undefined {
+function getNumericVoteFromCell(player: (string | number)[], index: number): number | undefined {
   const targetValue = player[index];
   if (targetValue === '-') {
+    // No vote for the player
     return undefined;
   }
   if (typeof targetValue === 'string') {
-    throw new Error('Unexpected string value in getParsedCellValue() targetValue. Found value is : ' + targetValue);
-    ;
+    // String value? With index passed only numbers should be found
+    throw new Error('Unexpected string value in getNumericVoteFromCell() targetValue. Found value is : ' + targetValue);
   }
 
   return Number.isFinite(targetValue) ? targetValue : undefined;
