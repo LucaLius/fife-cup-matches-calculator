@@ -54,7 +54,7 @@ export class TeamsInfoImporter implements TeamsInfoImporterI {
 
         const matchFileRows = RawFileInfoGetter.getMatchFileRows(fileContent, matchIndex);
 
-        const rawAllPlayers = RawFileInfoGetter.getRawAllPlayers(fileContent);
+        const rawAllPlayers = RawFileInfoGetter.getRawAllPlayers(matchFileRows);
 
         const homeColumnIndexes = COLUMNS_INDEXES_SETTINGS.teamOne;
         const teamOneInfo = getTeamInfo(matchFileRows, rawAllPlayers, homeColumnIndexes);
