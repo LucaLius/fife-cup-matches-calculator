@@ -6,7 +6,7 @@ import { createOutputFiles } from "./output-files-generator/output-files-generat
 import { processRound } from "./process-round";
 import { TeamsInfoImporter } from "./teams-info-importer/teams-info-importer";
 
-const calendarMatches: CalendarMatch[] = new CalendarImporter().getCalendarMatches(2);
+const calendarMatches: CalendarMatch[] = new CalendarImporter().getCalendarMatches(3);
 const teamsInfo: TeamInfo[] = new TeamsInfoImporter(INPUT_FILES_TEAMS_DIR_PATH).getTeamsInfo();
 
 const result = processRound(calendarMatches, teamsInfo);
