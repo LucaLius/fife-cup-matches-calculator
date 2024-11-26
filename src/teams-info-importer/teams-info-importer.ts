@@ -6,19 +6,9 @@ import { PlayerInfo } from '../models/player-info.model';
 import { StaticModifierCaptain } from './modifier-static-captain';
 import { ColumnIndexes } from '../models/column-indexes.model';
 import { RawFileInfoGetter } from './raw-file-info-getter';
+import { TeamsInfoImporterConfig } from './teams-info-importer.config';
 
 const MATCHES_PER_FILE = 4;
-
-const matchInfoIndexesCalculator = function (startingIndex: number) {
-  return {
-    generalInfoIndex: startingIndex,
-    formationsIndex: startingIndex + 1,
-    firstTitolareIndex: startingIndex + 2,
-    lastTitolareIndex: startingIndex + 12,
-    firstPanchinaroIndex: startingIndex + 14,
-    lastPanchinaroIndex: startingIndex + 21
-  }
-}
 
 const COLUMNS_INDEXES_SETTINGS = {
   teamOne: {
@@ -112,12 +102,12 @@ export class TeamsInfoImporter implements TeamsInfoImporterI {
   }
 
   getRawTitolari(fileContent: string[][], startingRowIndex: number): string[][] {
-    const rowIndexes = matchInfoIndexesCalculator(startingRowIndex);
+    const rowIndexes = TeamsInfoImporterConfig.matchInfoIndexesCalculator(startingRowIndex);
     return fileContent.slice(rowIndexes.firstTitolareIndex, rowIndexes.lastTitolareIndex + 1);
   }
 
   getRawPanchinari(fileContent: string[][], startingRowIndex: number) {
-    const rowIndexes = matchInfoIndexesCalculator(startingRowIndex);
+    const rowIndexes = TeamsInfoImporterConfig.matchInfoIndexesCalculator(startingRowIndex);
     return fileContent.slice(rowIndexes.firstPanchinaroIndex, rowIndexes.lastPanchinaroIndex + 1);
   }
 }
@@ -135,7 +125,7 @@ function getPlayerInfo(player: string[], columnIndexes: ColumnIndexes): PlayerIn
 }
 
 function getTeamInfo(fileContent: string[][], startingRowIndex: number, maximumRowIndex: number, isHomeTeam: boolean, allPlayersInfo: PlayerInfo[], rawTitolari: string[][], rawPanchinari: string[][]): TeamInfo {
-  const rowIndexes = matchInfoIndexesCalculator(startingRowIndex);
+  const rowIndexes = TeamsInfoImporterConfig.matchInfoIndexesCalculator(startingRowIndex);
 
   const columnIndexes = isHomeTeam ? COLUMNS_INDEXES_SETTINGS.teamOne : COLUMNS_INDEXES_SETTINGS.teamTwo;
 
