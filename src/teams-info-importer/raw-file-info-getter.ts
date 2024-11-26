@@ -5,14 +5,21 @@ import { TeamsInfoImporterConfig } from "./teams-info-importer.config";
 
 export class RawFileInfoGetter {
 
+  static getMatchFileRows(fileContent: string[][], matchIndex: number) {
+    const matchesInfoIndexes = RawFileInfoGetter.getMatchesStartingIndexes(fileContent);
+    const startingRowIndex = matchesInfoIndexes[matchIndex];
+    const maximumRowIndex = matchesInfoIndexes[matchIndex + 1] || 999;
+    return fileContent.slice(startingRowIndex, maximumRowIndex);
+  }
+
   // return all the row indexes pointing to first line of match block 
-  static getMatchesStartingIndexes(fileContent: string[][]): number[] {
+  private static getMatchesStartingIndexes(fileContent: (string | number)[][]): number[] {
     const fileContentIndexed = fileContent.map((row, index) => ({ row, index }));
 
     // is always the one row with "Team name", <4 empty items>, "Result like N-N", "Team name"
     const generalInfoRows = fileContentIndexed.filter(el => {
       return el.row[0] && !Number.isFinite(el.row[0]) &&
-        el.row[5] && el.row[5].match(/[\d]-[\d]/g) &&
+        el.row[5] && (el.row[5] as string).match(/[\d]-[\d]/g) &&
         el.row[6] && !Number.isFinite(el.row[6]);
     });
 

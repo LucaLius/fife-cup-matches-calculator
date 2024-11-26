@@ -4,7 +4,7 @@ import { TeamInfo } from "../models/team-info.model";
 import { TeamsInfoImporterI } from "./teams-info-importer.interface";
 import { PlayerInfo } from '../models/player-info.model';
 import { StaticModifierCaptain } from './modifier-static-captain';
-import { ColumnIndexes, RowIndexes } from '../models/file-indexes.model';
+import { ColumnIndexes } from '../models/file-indexes.model';
 import { RawFileInfoGetter } from './raw-file-info-getter';
 import { TeamsInfoImporterConfig } from './teams-info-importer.config';
 // import { StaticModifierDefense } from './modifier-static-defense';
@@ -52,10 +52,7 @@ export class TeamsInfoImporter implements TeamsInfoImporterI {
     filesContent.forEach(fileContent => {
       for (let matchIndex = 0; matchIndex < MATCHES_PER_FILE; matchIndex++) {
 
-        const matchesInfoIndexes = RawFileInfoGetter.getMatchesStartingIndexes(fileContent);
-        const startingRowIndex = matchesInfoIndexes[matchIndex];
-        const maximumRowIndex = matchesInfoIndexes[matchIndex + 1] || 999;
-        const matchFileRows = fileContent.slice(startingRowIndex, maximumRowIndex);
+        const matchFileRows = RawFileInfoGetter.getMatchFileRows(fileContent, matchIndex);
 
         const rawAllPlayers = RawFileInfoGetter.getRawAllPlayers(fileContent);
 
