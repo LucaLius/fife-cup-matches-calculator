@@ -4,6 +4,7 @@ export interface TeamInfo {
   teamId: string;
   formation: string,
   captainPoints?: number;
+  defensePoints?: number;
   allPlayersByRole: {
     P: PlayerInfo[] // Goalkeepers
     D: PlayerInfo[] // Defender

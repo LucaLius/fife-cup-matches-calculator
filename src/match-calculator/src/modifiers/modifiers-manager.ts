@@ -1,5 +1,4 @@
 import { ModifierI, StaticModifier } from "../../../models/modifier.model";
-import { PlayerInfoAVoto } from "../../../models/player-info.model";
 import { TeamInfo } from "../../../models/team-info.model";
 import { FormationAnalyzer } from "../formation-analyzer";
 import { ModifierCaptain } from "./modifier-captain/modifier-captain";
@@ -9,9 +8,9 @@ export class ModifiersManager {
 
   public activeModifiers: (ModifierI | StaticModifier)[] = [];
 
-  constructor(public teamInfo: TeamInfo, allPlayers: PlayerInfoAVoto[]) {
+  constructor(public teamInfo: TeamInfo) {
     this.activeModifiers = [
-      new ModifierDefense(this.teamInfo.teamId, allPlayers),
+      new ModifierDefense(this.teamInfo),
       new ModifierCaptain(this.teamInfo),
     ];
   }
