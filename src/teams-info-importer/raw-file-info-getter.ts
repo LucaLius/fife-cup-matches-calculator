@@ -1,6 +1,7 @@
 // Used to get portions of the raw data 
 
 import { ColumnIndexes, RowIndexes } from "../models/file-indexes.model";
+import { TeamsInfoImporterConfig } from "./teams-info-importer.config";
 
 export class RawFileInfoGetter {
 
@@ -29,7 +30,8 @@ export class RawFileInfoGetter {
     ];
   }
 
-  static getRawAllPlayers(matchFileRows: string[][], rowIndexes: RowIndexes) {
+  static getRawAllPlayers(matchFileRows: string[][]) {
+    const rowIndexes = TeamsInfoImporterConfig.matchInfoIndexesCalculator();
     return [
       ...this.getRawTitolariRows(matchFileRows, rowIndexes),
       ...this.getRawPanchinariRows(matchFileRows, rowIndexes)

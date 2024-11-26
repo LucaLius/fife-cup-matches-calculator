@@ -57,15 +57,13 @@ export class TeamsInfoImporter implements TeamsInfoImporterI {
         const maximumRowIndex = matchesInfoIndexes[matchIndex + 1] || 999;
         const matchFileRows = fileContent.slice(startingRowIndex, maximumRowIndex);
 
-        const rowIndexes = TeamsInfoImporterConfig.matchInfoIndexesCalculator();
-
-        const rawAllPlayers = RawFileInfoGetter.getRawAllPlayers(fileContent, rowIndexes);
+        const rawAllPlayers = RawFileInfoGetter.getRawAllPlayers(fileContent);
 
         const homeColumnIndexes = COLUMNS_INDEXES_SETTINGS.teamOne;
-        const teamOneInfo = getTeamInfo(matchFileRows, rawAllPlayers, rowIndexes, homeColumnIndexes);
+        const teamOneInfo = getTeamInfo(matchFileRows, rawAllPlayers, homeColumnIndexes);
 
         const awayColumnIndexes = COLUMNS_INDEXES_SETTINGS.teamTwo;
-        const teamTwoInfo = getTeamInfo(matchFileRows, rawAllPlayers, rowIndexes, awayColumnIndexes);
+        const teamTwoInfo = getTeamInfo(matchFileRows, rawAllPlayers, awayColumnIndexes);
 
         allTeamsInfo.push(teamOneInfo);
         allTeamsInfo.push(teamTwoInfo);
@@ -102,7 +100,9 @@ function getPlayerInfo(player: (string | number)[], columnIndexes: ColumnIndexes
   } as PlayerInfo;
 }
 
-function getTeamInfo(matchFileRows: (string | number)[][], rawAllPlayers: (string | number)[][], rowIndexes: RowIndexes, columnIndexes: ColumnIndexes): TeamInfo {
+function getTeamInfo(matchFileRows: (string | number)[][], rawAllPlayers: (string | number)[][], columnIndexes: ColumnIndexes): TeamInfo {
+  const rowIndexes = TeamsInfoImporterConfig.matchInfoIndexesCalculator();
+
   const teamId = (matchFileRows[rowIndexes.generalInfoIndex][columnIndexes.nameIndex] as string).trim();
   const formation = (matchFileRows[rowIndexes.formationsIndex][columnIndexes.formationIndex] as string || '').split('').join('-');
 
