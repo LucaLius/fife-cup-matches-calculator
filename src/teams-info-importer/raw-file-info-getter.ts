@@ -1,6 +1,6 @@
 // Used to get portions of the raw data 
 
-import { ColumnIndexes } from "../models/file-indexes.model";
+import { ColumnIndexes, RowIndexes } from "../models/file-indexes.model";
 
 export class RawFileInfoGetter {
 
@@ -12,5 +12,20 @@ export class RawFileInfoGetter {
       player[columnIndexes.votePlayerIndex],
       player[columnIndexes.fantasyVotePlayerIndex],
     ];
+  }
+
+  static getRawAllPlayers(fileContent: string[][], rowIndexes: RowIndexes) {
+    return [
+      ...this.getRawTitolari(fileContent, rowIndexes),
+      ...this.getRawPanchinari(fileContent, rowIndexes)
+    ];
+  }
+
+  static getRawTitolari(fileContent: string[][], rowIndexes: RowIndexes): string[][] {
+    return fileContent.slice(rowIndexes.firstTitolareIndex, rowIndexes.lastTitolareIndex + 1);
+  }
+
+  static getRawPanchinari(fileContent: string[][], rowIndexes: RowIndexes) {
+    return fileContent.slice(rowIndexes.firstPanchinaroIndex, rowIndexes.lastPanchinaroIndex + 1);
   }
 }
