@@ -9,57 +9,29 @@ import { RawFileInfoGetter } from './raw-file-info-getter';
 import { TeamsInfoImporterConfig } from './teams-info-importer.config';
 // import { StaticModifierDefense } from './modifier-static-defense';
 
-const MATCHES_PER_FILE = 4;
-
-const COLUMNS_INDEXES_SETTINGS = {
-  teamOne: {
-    nameIndex: 0,
-    formationIndex: 0,
-    rolePlayerIndex: 0,
-    modifierIdIndex: 0,
-    namePlayerIndex: 1,
-    serieATeamInex: 2,
-    votePlayerIndex: 3,
-    fantasyVotePlayerIndex: 4,
-    modifierValueIndex: 4
-  } as ColumnIndexes,
-  teamTwo: {
-    nameIndex: 6,
-    formationIndex: 6,
-    rolePlayerIndex: 6,
-    modifierIdIndex: 6,
-    namePlayerIndex: 7,
-    serieATeamInex: 8,
-    votePlayerIndex: 9,
-    fantasyVotePlayerIndex: 10,
-    modifierValueIndex: 10
-  } as ColumnIndexes
-}
 
 export class TeamsInfoImporter implements TeamsInfoImporterI {
 
   constructor(public inputFilesDirPath: string) { }
 
   getTeamsInfo(): TeamInfo[] {
+    const allTeamsInfo: TeamInfo[] = [];
+
     const fileNames = fs.readdirSync(this.inputFilesDirPath);
 
-    const filesContent: string[][][] = [];
     fileNames.forEach(fileName => {
-      filesContent.push(parseXlsx(`${this.inputFilesDirPath}/${fileName}`));
-    });
+      const fileContent = parseXlsx(`${this.inputFilesDirPath}/${fileName}`);
 
-    const allTeamsInfo: TeamInfo[] = [];
-    filesContent.forEach(fileContent => {
-      for (let matchIndex = 0; matchIndex < MATCHES_PER_FILE; matchIndex++) {
+      for (let matchIndex = 0; matchIndex < TeamsInfoImporterConfig.MATCHES_PER_FILE; matchIndex++) {
 
         const matchFileRows = RawFileInfoGetter.getMatchFileRows(fileContent, matchIndex);
 
         const rawAllPlayers = RawFileInfoGetter.getRawAllPlayers(matchFileRows);
 
-        const homeColumnIndexes = COLUMNS_INDEXES_SETTINGS.teamOne;
+        const homeColumnIndexes = TeamsInfoImporterConfig.COLUMNS_INDEXES_SETTINGS.teamOne;
         const teamOneInfo = getTeamInfo(matchFileRows, rawAllPlayers, homeColumnIndexes);
 
-        const awayColumnIndexes = COLUMNS_INDEXES_SETTINGS.teamTwo;
+        const awayColumnIndexes = TeamsInfoImporterConfig.COLUMNS_INDEXES_SETTINGS.teamTwo;
         const teamTwoInfo = getTeamInfo(matchFileRows, rawAllPlayers, awayColumnIndexes);
 
         allTeamsInfo.push(teamOneInfo);
@@ -69,8 +41,6 @@ export class TeamsInfoImporter implements TeamsInfoImporterI {
 
     return allTeamsInfo;
   };
-
-
 
 }
 
