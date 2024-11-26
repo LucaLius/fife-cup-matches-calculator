@@ -7,6 +7,7 @@ import { StaticModifierCaptain } from './modifier-static-captain';
 import { ColumnIndexes, RowIndexes } from '../models/file-indexes.model';
 import { RawFileInfoGetter } from './raw-file-info-getter';
 import { TeamsInfoImporterConfig } from './teams-info-importer.config';
+// import { StaticModifierDefense } from './modifier-static-defense';
 
 const MATCHES_PER_FILE = 4;
 
@@ -105,7 +106,8 @@ function getTeamInfo(matchFileRows: (string | number)[][], rawAllPlayers: (strin
   const teamId = (matchFileRows[rowIndexes.generalInfoIndex][columnIndexes.nameIndex] as string).trim();
   const formation = (matchFileRows[rowIndexes.formationsIndex][columnIndexes.formationIndex] as string || '').split('').join('-');
 
-  const captainPoints = StaticModifierCaptain.getPoints(matchFileRows, columnIndexes);
+  const captainPoints = new StaticModifierCaptain().getPoints(matchFileRows, columnIndexes);
+  // const defensePoints = new StaticModifierDefense().getPoints(matchFileRows, columnIndexes);
 
   const allPlayersInfo = rawAllPlayers.map(player => getPlayerInfo(player, columnIndexes));
   const allPlayersByRole = getAllPlayersByRole(allPlayersInfo);
@@ -117,6 +119,7 @@ function getTeamInfo(matchFileRows: (string | number)[][], rawAllPlayers: (strin
     teamId,
     formation,
     captainPoints,
+    // defensePoints,
     allPlayersByRole,
     rawTitolari,
     rawPanchinari
