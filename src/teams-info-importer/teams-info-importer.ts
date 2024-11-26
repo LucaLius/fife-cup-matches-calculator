@@ -61,12 +61,10 @@ export class TeamsInfoImporter implements TeamsInfoImporterI {
         const rawAllPlayers = RawFileInfoGetter.getRawAllPlayers(fileContent, rowIndexes);
 
         const homeColumnIndexes = COLUMNS_INDEXES_SETTINGS.teamOne;
-        const allPlayersInfoHome = rawAllPlayers.map(player => getPlayerInfo(player, homeColumnIndexes));
-        const teamOneInfo = getTeamInfo(matchFileRows, allPlayersInfoHome, rowIndexes, homeColumnIndexes);
+        const teamOneInfo = getTeamInfo(matchFileRows, rawAllPlayers, rowIndexes, homeColumnIndexes);
 
         const awayColumnIndexes = COLUMNS_INDEXES_SETTINGS.teamTwo;
-        const allPlayersInfoAway = rawAllPlayers.map(player => getPlayerInfo(player, awayColumnIndexes));
-        const teamTwoInfo = getTeamInfo(matchFileRows, allPlayersInfoAway, rowIndexes, awayColumnIndexes);
+        const teamTwoInfo = getTeamInfo(matchFileRows, rawAllPlayers, rowIndexes, awayColumnIndexes);
 
         allTeamsInfo.push(teamOneInfo);
         allTeamsInfo.push(teamTwoInfo);
@@ -103,17 +101,21 @@ function getPlayerInfo(player: (string | number)[], columnIndexes: ColumnIndexes
   } as PlayerInfo;
 }
 
-function getTeamInfo(matchFileRows: (string | number)[][], allPlayersInfo: PlayerInfo[], rowIndexes: RowIndexes, columnIndexes: ColumnIndexes): TeamInfo {
+function getTeamInfo(matchFileRows: (string | number)[][], rawAllPlayers: (string | number)[][], rowIndexes: RowIndexes, columnIndexes: ColumnIndexes): TeamInfo {
+  const teamId = (matchFileRows[rowIndexes.generalInfoIndex][columnIndexes.nameIndex] as string).trim();
+  const formation = (matchFileRows[rowIndexes.formationsIndex][columnIndexes.formationIndex] as string || '').split('').join('-');
+
   const captainPoints = StaticModifierCaptain.getPoints(matchFileRows, columnIndexes);
 
+  const allPlayersInfo = rawAllPlayers.map(player => getPlayerInfo(player, columnIndexes));
   const allPlayersByRole = getAllPlayersByRole(allPlayersInfo);
-  const rawTitolari = RawFileInfoGetter.getRawTeamTitolari(matchFileRows, rowIndexes, columnIndexes);
 
+  const rawTitolari = RawFileInfoGetter.getRawTeamTitolari(matchFileRows, rowIndexes, columnIndexes);
   const rawPanchinari = RawFileInfoGetter.getRawTeamPanchinari(matchFileRows, rowIndexes, columnIndexes);
 
   return {
-    teamId: (matchFileRows[rowIndexes.generalInfoIndex][columnIndexes.nameIndex] as string).trim(),
-    formation: (matchFileRows[rowIndexes.formationsIndex][columnIndexes.formationIndex] as string || '').split('').join('-') as '4-4-2' | '3-4-3',
+    teamId,
+    formation,
     captainPoints,
     allPlayersByRole,
     rawTitolari,

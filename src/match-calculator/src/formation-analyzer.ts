@@ -2,7 +2,7 @@ import { TeamInfo } from "../../models/team-info.model";
 
 export class FormationAnalyzer {
 
-  public readonly formation: '4-4-2' | '3-4-3' | '4-5-1';
+  public readonly formation: string;
   public readonly numberOfP: number;
   public readonly numberOfD: number;
   public readonly numberOfC: number;
