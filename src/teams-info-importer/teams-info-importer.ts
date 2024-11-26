@@ -29,7 +29,7 @@ const COLUMNS_INDEXES_SETTINGS = {
     votePlayerIndex: 3,
     fantasyVotePlayerIndex: 4,
     modifierValueIndex: 4
-  },
+  } as ColumnIndexes,
   teamTwo: {
     nameIndex: 6,
     formationIndex: 6,
@@ -40,7 +40,19 @@ const COLUMNS_INDEXES_SETTINGS = {
     votePlayerIndex: 9,
     fantasyVotePlayerIndex: 10,
     modifierValueIndex: 10
-  }
+  } as ColumnIndexes
+}
+
+interface ColumnIndexes {
+  nameIndex: number,
+  formationIndex: number,
+  rolePlayerIndex: number,
+  modifierIdIndex: number,
+  namePlayerIndex: number,
+  serieATeamInex: number,
+  votePlayerIndex: number,
+  fantasyVotePlayerIndex: number,
+  modifierValueIndex: number,
 }
 
 export class TeamsInfoImporter implements TeamsInfoImporterI {
@@ -68,13 +80,15 @@ export class TeamsInfoImporter implements TeamsInfoImporterI {
         const rawPanchinari = this.getRawPanchinari(fileContent, startingRowIndex);
 
         const isHomeTeamHome = true; // is home team referred to match played in normal championship, not in cup calendar!!
-        const allPlayersInfoHome = rawAllPlayers.map(player => getPlayerInfo(player, isHomeTeamHome));
+        const homeColumnIndexes = COLUMNS_INDEXES_SETTINGS.teamOne;
+        const allPlayersInfoHome = rawAllPlayers.map(player => getPlayerInfo(player, homeColumnIndexes));
         const rawPlayersInfoHomeTitolari = rawTitolari.map(player => getPlayerRawInfo(player, isHomeTeamHome));
         const rawPlayersInfoHomePanchinari = rawPanchinari.map(player => getPlayerRawInfo(player, isHomeTeamHome));
         const teamOneInfo = getTeamInfo(fileContent, startingRowIndex, maximumRowIndex, isHomeTeamHome, allPlayersInfoHome, rawPlayersInfoHomeTitolari, rawPlayersInfoHomePanchinari);
 
         const isHomeTeamAway = false; // is home team referred to match played in normal championship, not in cup calendar!!
-        const allPlayersInfoAway = rawAllPlayers.map(player => getPlayerInfo(player, isHomeTeamAway));
+        const awayColumnIndexes = COLUMNS_INDEXES_SETTINGS.teamTwo;
+        const allPlayersInfoAway = rawAllPlayers.map(player => getPlayerInfo(player, awayColumnIndexes));
         const rawPlayersInfoAwayTitolari = rawTitolari.map(player => getPlayerRawInfo(player, isHomeTeamAway));
         const rawPlayersInfoAwayPanchinari = rawPanchinari.map(player => getPlayerRawInfo(player, isHomeTeamAway));
         const teamTwoInfo = getTeamInfo(fileContent, startingRowIndex, maximumRowIndex, isHomeTeamAway, allPlayersInfoAway, rawPlayersInfoAwayTitolari, rawPlayersInfoAwayPanchinari);
@@ -118,9 +132,7 @@ export class TeamsInfoImporter implements TeamsInfoImporterI {
   }
 }
 
-function getPlayerInfo(player: string[], isHomeTeam: boolean): PlayerInfo {
-  const columnIndexes = isHomeTeam ? COLUMNS_INDEXES_SETTINGS.teamOne : COLUMNS_INDEXES_SETTINGS.teamTwo;
-
+function getPlayerInfo(player: string[], columnIndexes: ColumnIndexes): PlayerInfo {
   const fantasyVote = getNumericVoteFromCell(player, columnIndexes.fantasyVotePlayerIndex);
   const voteValue = getNumericVoteFromCell(player, columnIndexes.votePlayerIndex);
   const vote = getVote(voteValue, fantasyVote);
