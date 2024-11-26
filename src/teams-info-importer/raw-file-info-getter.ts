@@ -7,15 +7,15 @@ export class RawFileInfoGetter {
 
   // from a list of rows extracted from file that contains info for both teams, 
   // return a list of "cleaned" rows for players of one single team
-  static getRawTeamTitolari(fileContent: (string | number)[][], rowIndexes: RowIndexes, columnIndexes: ColumnIndexes) {
-    const rawRows = this.getRawTitolariRows(fileContent, rowIndexes);
+  static getRawTeamTitolari(matchFileRows: (string | number)[][], rowIndexes: RowIndexes, columnIndexes: ColumnIndexes) {
+    const rawRows = this.getRawTitolariRows(matchFileRows, rowIndexes);
     return rawRows.map(row => this.getPlayerRawInfo(row, columnIndexes));
   }
 
   // from a list of rows extracted from file that contains info for both teams, 
   // return a list of "cleaned" rows for players of one single team
-  static getRawTeamPanchinari(fileContent: (string | number)[][], rowIndexes: RowIndexes, columnIndexes: ColumnIndexes) {
-    const rawRows = this.getRawPanchinariRows(fileContent, rowIndexes);
+  static getRawTeamPanchinari(matchFileRows: (string | number)[][], rowIndexes: RowIndexes, columnIndexes: ColumnIndexes) {
+    const rawRows = this.getRawPanchinariRows(matchFileRows, rowIndexes);
     return rawRows.map(row => this.getPlayerRawInfo(row, columnIndexes));
   }
 
@@ -29,18 +29,18 @@ export class RawFileInfoGetter {
     ];
   }
 
-  static getRawAllPlayers(fileContent: string[][], rowIndexes: RowIndexes) {
+  static getRawAllPlayers(matchFileRows: string[][], rowIndexes: RowIndexes) {
     return [
-      ...this.getRawTitolariRows(fileContent, rowIndexes),
-      ...this.getRawPanchinariRows(fileContent, rowIndexes)
+      ...this.getRawTitolariRows(matchFileRows, rowIndexes),
+      ...this.getRawPanchinariRows(matchFileRows, rowIndexes)
     ];
   }
 
-  private static getRawTitolariRows(fileContent: (string | number)[][], rowIndexes: RowIndexes): (string | number)[][] {
-    return fileContent.slice(rowIndexes.firstTitolareIndex, rowIndexes.lastTitolareIndex + 1);
+  private static getRawTitolariRows(matchFileRows: (string | number)[][], rowIndexes: RowIndexes): (string | number)[][] {
+    return matchFileRows.slice(rowIndexes.firstTitolareIndex, rowIndexes.lastTitolareIndex + 1);
   }
 
-  private static getRawPanchinariRows(fileContent: (string | number)[][], rowIndexes: RowIndexes): (string | number)[][] {
-    return fileContent.slice(rowIndexes.firstPanchinaroIndex, rowIndexes.lastPanchinaroIndex + 1);
+  private static getRawPanchinariRows(matchFileRows: (string | number)[][], rowIndexes: RowIndexes): (string | number)[][] {
+    return matchFileRows.slice(rowIndexes.firstPanchinaroIndex, rowIndexes.lastPanchinaroIndex + 1);
   }
 }

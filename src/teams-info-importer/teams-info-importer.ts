@@ -4,7 +4,7 @@ import { TeamInfo } from "../models/team-info.model";
 import { TeamsInfoImporterI } from "./teams-info-importer.interface";
 import { PlayerInfo } from '../models/player-info.model';
 import { StaticModifierCaptain } from './modifier-static-captain';
-import { ColumnIndexes } from '../models/file-indexes.model';
+import { ColumnIndexes, RowIndexes } from '../models/file-indexes.model';
 import { RawFileInfoGetter } from './raw-file-info-getter';
 import { TeamsInfoImporterConfig } from './teams-info-importer.config';
 
@@ -54,6 +54,7 @@ export class TeamsInfoImporter implements TeamsInfoImporterI {
         const matchesInfoIndexes = this.getMatchesInfoIndexes(fileContent);
         const startingRowIndex = matchesInfoIndexes[matchIndex];
         const maximumRowIndex = matchesInfoIndexes[matchIndex + 1] || 999;
+        const matchFileRows = fileContent.slice(startingRowIndex, maximumRowIndex);
 
         const rowIndexes = TeamsInfoImporterConfig.matchInfoIndexesCalculator(startingRowIndex);
 
@@ -61,11 +62,11 @@ export class TeamsInfoImporter implements TeamsInfoImporterI {
 
         const homeColumnIndexes = COLUMNS_INDEXES_SETTINGS.teamOne;
         const allPlayersInfoHome = rawAllPlayers.map(player => getPlayerInfo(player, homeColumnIndexes));
-        const teamOneInfo = getTeamInfo(fileContent, startingRowIndex, maximumRowIndex, allPlayersInfoHome, homeColumnIndexes);
+        const teamOneInfo = getTeamInfo(matchFileRows, allPlayersInfoHome, rowIndexes, homeColumnIndexes);
 
         const awayColumnIndexes = COLUMNS_INDEXES_SETTINGS.teamTwo;
         const allPlayersInfoAway = rawAllPlayers.map(player => getPlayerInfo(player, awayColumnIndexes));
-        const teamTwoInfo = getTeamInfo(fileContent, startingRowIndex, maximumRowIndex, allPlayersInfoAway, awayColumnIndexes);
+        const teamTwoInfo = getTeamInfo(matchFileRows, allPlayersInfoAway, rowIndexes, awayColumnIndexes);
 
         allTeamsInfo.push(teamOneInfo);
         allTeamsInfo.push(teamTwoInfo);
@@ -102,21 +103,17 @@ function getPlayerInfo(player: (string | number)[], columnIndexes: ColumnIndexes
   } as PlayerInfo;
 }
 
-function getTeamInfo(fileContent: (string | number)[][], startingRowIndex: number, maximumRowIndex: number, allPlayersInfo: PlayerInfo[], columnIndexes: ColumnIndexes): TeamInfo {
-  const rowIndexes = TeamsInfoImporterConfig.matchInfoIndexesCalculator(startingRowIndex);
-
-  const fileContentRows = fileContent
-    .slice(startingRowIndex, maximumRowIndex);
-  const captainPoints = StaticModifierCaptain.getPoints(fileContentRows, columnIndexes);
+function getTeamInfo(matchFileRows: (string | number)[][], allPlayersInfo: PlayerInfo[], rowIndexes: RowIndexes, columnIndexes: ColumnIndexes): TeamInfo {
+  const captainPoints = StaticModifierCaptain.getPoints(matchFileRows, columnIndexes);
 
   const allPlayersByRole = getAllPlayersByRole(allPlayersInfo);
-  const rawTitolari = RawFileInfoGetter.getRawTeamTitolari(fileContent, rowIndexes, columnIndexes);
+  const rawTitolari = RawFileInfoGetter.getRawTeamTitolari(matchFileRows, rowIndexes, columnIndexes);
 
-  const rawPanchinari = RawFileInfoGetter.getRawTeamPanchinari(fileContent, rowIndexes, columnIndexes);
+  const rawPanchinari = RawFileInfoGetter.getRawTeamPanchinari(matchFileRows, rowIndexes, columnIndexes);
 
   return {
-    teamId: (fileContent[rowIndexes.generalInfoIndex][columnIndexes.nameIndex] as string).trim(),
-    formation: (fileContent[rowIndexes.formationsIndex][columnIndexes.formationIndex] as string || '').split('').join('-') as '4-4-2' | '3-4-3',
+    teamId: (matchFileRows[rowIndexes.generalInfoIndex][columnIndexes.nameIndex] as string).trim(),
+    formation: (matchFileRows[rowIndexes.formationsIndex][columnIndexes.formationIndex] as string || '').split('').join('-') as '4-4-2' | '3-4-3',
     captainPoints,
     allPlayersByRole,
     rawTitolari,

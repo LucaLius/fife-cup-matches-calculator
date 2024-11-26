@@ -4,9 +4,9 @@ export class StaticModifierCaptain {
 
   private static readonly modifierId = 'Modificatore Capitano';
 
-  static getPoints(fileContentRows: (string | number)[][], columnIndexes: { modifierIdIndex: number, modifierValueIndex: number }): number {
+  static getPoints(matchFileRows: (string | number)[][], columnIndexes: { modifierIdIndex: number, modifierValueIndex: number }): number {
 
-    const modifierCaptainRow = fileContentRows
+    const modifierCaptainRow = matchFileRows
       .find(row => row[columnIndexes.modifierIdIndex] === this.modifierId);
 
     if (modifierCaptainRow) {
