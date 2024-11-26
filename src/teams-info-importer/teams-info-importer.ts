@@ -71,8 +71,8 @@ export class TeamsInfoImporter implements TeamsInfoImporterI {
         const isHomeTeamAway = false; // is home team referred to match played in normal championship, not in cup calendar!!
         const awayColumnIndexes = COLUMNS_INDEXES_SETTINGS.teamTwo;
         const allPlayersInfoAway = rawAllPlayers.map(player => getPlayerInfo(player, awayColumnIndexes));
-        const rawPlayersInfoAwayTitolari = rawTitolari.map(player => RawFileInfoGetter.getPlayerRawInfo(player, homeColumnIndexes));
-        const rawPlayersInfoAwayPanchinari = rawPanchinari.map(player => RawFileInfoGetter.getPlayerRawInfo(player, homeColumnIndexes));
+        const rawPlayersInfoAwayTitolari = rawTitolari.map(player => RawFileInfoGetter.getPlayerRawInfo(player, awayColumnIndexes));
+        const rawPlayersInfoAwayPanchinari = rawPanchinari.map(player => RawFileInfoGetter.getPlayerRawInfo(player, awayColumnIndexes));
         const teamTwoInfo = getTeamInfo(fileContent, startingRowIndex, maximumRowIndex, isHomeTeamAway, allPlayersInfoAway, rawPlayersInfoAwayTitolari, rawPlayersInfoAwayPanchinari);
 
         allTeamsInfo.push(teamOneInfo);
