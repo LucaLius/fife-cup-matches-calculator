@@ -9,7 +9,7 @@
     "start": "npx ts-node src/index.ts",
     "lint": "eslint src/**",
     "pretest": "npm run lint",
-    "test": "jest --runInBand src",
+    "test": "jest --runInBand src; jest --runInBand integration-test",
     "coverage": "jest --collectCoverageFrom=src/**.js --coverage src"
   },
   "keywords": [],

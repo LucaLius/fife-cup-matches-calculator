@@ -1,12 +1,13 @@
 import { describe, expect, test } from '@jest/globals';
-import { CalendarImporter } from '../../calendar-importer/calendar-importer';
-import { CalendarMatch } from '../../models/calendar-match.model';
-import { TeamInfo } from '../../models/team-info.model';
-import { INPUT_TEST_REAL_CASE_1_FILES_TEAMS_DIR_PATH } from '../input-files.utils';
-import { processRound } from '../../process-round';
-import { TeamsInfoImporter } from '../../teams-info-importer/teams-info-importer';
+import { CalendarImporter } from '../../src/calendar-importer/calendar-importer';
+import { CalendarMatch } from '../../src/models/calendar-match.model';
+import { TeamInfo } from '../../src/models/team-info.model';
+import { processRound } from '../../src/process-round';
+import { TeamsInfoImporter } from '../../src/teams-info-importer/teams-info-importer';
 
 /* eslint-env jest */
+const INPUT_FILE_DIR_PATH = `${__dirname}`;
+const INPUT_TEST_REAL_CASE_1_FILES_TEAMS_DIR_PATH = `${INPUT_FILE_DIR_PATH}/in/1`;
 
 describe('Giornata 1 safe-check', () => {
   test('Should load and process the target test files and match results again hand-calculated results', () => {
