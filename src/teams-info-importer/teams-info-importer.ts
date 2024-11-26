@@ -4,6 +4,8 @@ import { TeamInfo } from "../models/team-info.model";
 import { TeamsInfoImporterI } from "./teams-info-importer.interface";
 import { PlayerInfo } from '../models/player-info.model';
 import { StaticModifierCaptain } from './modifier-static-captain';
+import { ColumnIndexes } from '../models/column-indexes.model';
+import { RawFileInfoGetter } from './raw-file-info-getter';
 
 const MATCHES_PER_FILE = 4;
 
@@ -43,18 +45,6 @@ const COLUMNS_INDEXES_SETTINGS = {
   } as ColumnIndexes
 }
 
-interface ColumnIndexes {
-  nameIndex: number,
-  formationIndex: number,
-  rolePlayerIndex: number,
-  modifierIdIndex: number,
-  namePlayerIndex: number,
-  serieATeamInex: number,
-  votePlayerIndex: number,
-  fantasyVotePlayerIndex: number,
-  modifierValueIndex: number,
-}
-
 export class TeamsInfoImporter implements TeamsInfoImporterI {
 
   constructor(public inputFilesDirPath: string) { }
@@ -82,15 +72,15 @@ export class TeamsInfoImporter implements TeamsInfoImporterI {
         const isHomeTeamHome = true; // is home team referred to match played in normal championship, not in cup calendar!!
         const homeColumnIndexes = COLUMNS_INDEXES_SETTINGS.teamOne;
         const allPlayersInfoHome = rawAllPlayers.map(player => getPlayerInfo(player, homeColumnIndexes));
-        const rawPlayersInfoHomeTitolari = rawTitolari.map(player => getPlayerRawInfo(player, homeColumnIndexes));
-        const rawPlayersInfoHomePanchinari = rawPanchinari.map(player => getPlayerRawInfo(player, homeColumnIndexes));
+        const rawPlayersInfoHomeTitolari = rawTitolari.map(player => RawFileInfoGetter.getPlayerRawInfo(player, homeColumnIndexes));
+        const rawPlayersInfoHomePanchinari = rawPanchinari.map(player => RawFileInfoGetter.getPlayerRawInfo(player, homeColumnIndexes));
         const teamOneInfo = getTeamInfo(fileContent, startingRowIndex, maximumRowIndex, isHomeTeamHome, allPlayersInfoHome, rawPlayersInfoHomeTitolari, rawPlayersInfoHomePanchinari);
 
         const isHomeTeamAway = false; // is home team referred to match played in normal championship, not in cup calendar!!
         const awayColumnIndexes = COLUMNS_INDEXES_SETTINGS.teamTwo;
         const allPlayersInfoAway = rawAllPlayers.map(player => getPlayerInfo(player, awayColumnIndexes));
-        const rawPlayersInfoAwayTitolari = rawTitolari.map(player => getPlayerRawInfo(player, homeColumnIndexes));
-        const rawPlayersInfoAwayPanchinari = rawPanchinari.map(player => getPlayerRawInfo(player, homeColumnIndexes));
+        const rawPlayersInfoAwayTitolari = rawTitolari.map(player => RawFileInfoGetter.getPlayerRawInfo(player, homeColumnIndexes));
+        const rawPlayersInfoAwayPanchinari = rawPanchinari.map(player => RawFileInfoGetter.getPlayerRawInfo(player, homeColumnIndexes));
         const teamTwoInfo = getTeamInfo(fileContent, startingRowIndex, maximumRowIndex, isHomeTeamAway, allPlayersInfoAway, rawPlayersInfoAwayTitolari, rawPlayersInfoAwayPanchinari);
 
         allTeamsInfo.push(teamOneInfo);
@@ -142,16 +132,6 @@ function getPlayerInfo(player: string[], columnIndexes: ColumnIndexes): PlayerIn
     vote,
     fantasyVote
   } as PlayerInfo;
-}
-
-function getPlayerRawInfo(player: string[], columnIndexes: ColumnIndexes): string[] {
-  return [
-    player[columnIndexes.rolePlayerIndex],
-    player[columnIndexes.namePlayerIndex],
-    player[columnIndexes.serieATeamInex],
-    player[columnIndexes.votePlayerIndex],
-    player[columnIndexes.fantasyVotePlayerIndex],
-  ];
 }
 
 function getTeamInfo(fileContent: string[][], startingRowIndex: number, maximumRowIndex: number, isHomeTeam: boolean, allPlayersInfo: PlayerInfo[], rawTitolari: string[][], rawPanchinari: string[][]): TeamInfo {
