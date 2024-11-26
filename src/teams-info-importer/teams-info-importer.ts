@@ -82,15 +82,15 @@ export class TeamsInfoImporter implements TeamsInfoImporterI {
         const isHomeTeamHome = true; // is home team referred to match played in normal championship, not in cup calendar!!
         const homeColumnIndexes = COLUMNS_INDEXES_SETTINGS.teamOne;
         const allPlayersInfoHome = rawAllPlayers.map(player => getPlayerInfo(player, homeColumnIndexes));
-        const rawPlayersInfoHomeTitolari = rawTitolari.map(player => getPlayerRawInfo(player, isHomeTeamHome));
-        const rawPlayersInfoHomePanchinari = rawPanchinari.map(player => getPlayerRawInfo(player, isHomeTeamHome));
+        const rawPlayersInfoHomeTitolari = rawTitolari.map(player => getPlayerRawInfo(player, homeColumnIndexes));
+        const rawPlayersInfoHomePanchinari = rawPanchinari.map(player => getPlayerRawInfo(player, homeColumnIndexes));
         const teamOneInfo = getTeamInfo(fileContent, startingRowIndex, maximumRowIndex, isHomeTeamHome, allPlayersInfoHome, rawPlayersInfoHomeTitolari, rawPlayersInfoHomePanchinari);
 
         const isHomeTeamAway = false; // is home team referred to match played in normal championship, not in cup calendar!!
         const awayColumnIndexes = COLUMNS_INDEXES_SETTINGS.teamTwo;
         const allPlayersInfoAway = rawAllPlayers.map(player => getPlayerInfo(player, awayColumnIndexes));
-        const rawPlayersInfoAwayTitolari = rawTitolari.map(player => getPlayerRawInfo(player, isHomeTeamAway));
-        const rawPlayersInfoAwayPanchinari = rawPanchinari.map(player => getPlayerRawInfo(player, isHomeTeamAway));
+        const rawPlayersInfoAwayTitolari = rawTitolari.map(player => getPlayerRawInfo(player, homeColumnIndexes));
+        const rawPlayersInfoAwayPanchinari = rawPanchinari.map(player => getPlayerRawInfo(player, homeColumnIndexes));
         const teamTwoInfo = getTeamInfo(fileContent, startingRowIndex, maximumRowIndex, isHomeTeamAway, allPlayersInfoAway, rawPlayersInfoAwayTitolari, rawPlayersInfoAwayPanchinari);
 
         allTeamsInfo.push(teamOneInfo);
@@ -144,8 +144,7 @@ function getPlayerInfo(player: string[], columnIndexes: ColumnIndexes): PlayerIn
   } as PlayerInfo;
 }
 
-function getPlayerRawInfo(player: string[], isHomeTeam: boolean): string[] {
-  const columnIndexes = isHomeTeam ? COLUMNS_INDEXES_SETTINGS.teamOne : COLUMNS_INDEXES_SETTINGS.teamTwo;
+function getPlayerRawInfo(player: string[], columnIndexes: ColumnIndexes): string[] {
   return [
     player[columnIndexes.rolePlayerIndex],
     player[columnIndexes.namePlayerIndex],
