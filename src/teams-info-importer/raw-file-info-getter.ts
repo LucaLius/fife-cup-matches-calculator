@@ -16,16 +16,16 @@ export class RawFileInfoGetter {
 
   static getRawAllPlayers(fileContent: string[][], rowIndexes: RowIndexes) {
     return [
-      ...this.getRawTitolari(fileContent, rowIndexes),
-      ...this.getRawPanchinari(fileContent, rowIndexes)
+      ...this.getRawTitolariRows(fileContent, rowIndexes),
+      ...this.getRawPanchinariRows(fileContent, rowIndexes)
     ];
   }
 
-  static getRawTitolari(fileContent: string[][], rowIndexes: RowIndexes): string[][] {
+  static getRawTitolariRows(fileContent: string[][], rowIndexes: RowIndexes): string[][] {
     return fileContent.slice(rowIndexes.firstTitolareIndex, rowIndexes.lastTitolareIndex + 1);
   }
 
-  static getRawPanchinari(fileContent: string[][], rowIndexes: RowIndexes) {
+  static getRawPanchinariRows(fileContent: string[][], rowIndexes: RowIndexes) {
     return fileContent.slice(rowIndexes.firstPanchinaroIndex, rowIndexes.lastPanchinaroIndex + 1);
   }
 }
