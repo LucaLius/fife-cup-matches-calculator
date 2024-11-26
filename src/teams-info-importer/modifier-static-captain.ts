@@ -6,4 +6,8 @@ export class StaticModifierCaptain extends StaticModifier {
 
   readonly modifierId = 'Modificatore Capitano';
 
+  constructor() {
+    super();
+  }
+
 }
