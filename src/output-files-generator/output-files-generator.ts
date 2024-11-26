@@ -186,7 +186,7 @@ function fillTeamsPlayersPanchinari(workSheet: XLSX.WorkSheet, teamsInfo: TeamIn
   }
 }
 
-function getPlayersReplacedRow(homeRawPlayers: string[][], awayRawPlayers: string[][], rowIndex: number) {
+function getPlayersReplacedRow(homeRawPlayers: (string | number)[][], awayRawPlayers: (string | number)[][], rowIndex: number) {
   return [
     homeRawPlayers[rowIndex][0],
     homeRawPlayers[rowIndex][1],

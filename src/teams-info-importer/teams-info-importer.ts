@@ -90,7 +90,7 @@ export class TeamsInfoImporter implements TeamsInfoImporterI {
 
 }
 
-function getPlayerInfo(player: string[], columnIndexes: ColumnIndexes): PlayerInfo {
+function getPlayerInfo(player: (string | number)[], columnIndexes: ColumnIndexes): PlayerInfo {
   const fantasyVote = getNumericVoteFromCell(player, columnIndexes.fantasyVotePlayerIndex);
   const voteValue = getNumericVoteFromCell(player, columnIndexes.votePlayerIndex);
   const vote = getVote(voteValue, fantasyVote);
@@ -102,22 +102,20 @@ function getPlayerInfo(player: string[], columnIndexes: ColumnIndexes): PlayerIn
   } as PlayerInfo;
 }
 
-function getTeamInfo(fileContent: string[][], startingRowIndex: number, maximumRowIndex: number, allPlayersInfo: PlayerInfo[], columnIndexes: ColumnIndexes): TeamInfo {
+function getTeamInfo(fileContent: (string | number)[][], startingRowIndex: number, maximumRowIndex: number, allPlayersInfo: PlayerInfo[], columnIndexes: ColumnIndexes): TeamInfo {
   const rowIndexes = TeamsInfoImporterConfig.matchInfoIndexesCalculator(startingRowIndex);
 
   const fileContentRows = fileContent
     .slice(startingRowIndex, maximumRowIndex);
   const captainPoints = StaticModifierCaptain.getPoints(fileContentRows, columnIndexes);
 
-  const rawTitolariRows = RawFileInfoGetter.getRawTitolariRows(fileContent, rowIndexes);
-  const rawTitolari = rawTitolariRows.map(row => RawFileInfoGetter.getPlayerRawInfo(row, columnIndexes));
+  const rawTitolari = RawFileInfoGetter.getRawTeamTitolari(fileContent, rowIndexes, columnIndexes);
 
-  const rawPanchinariRows = RawFileInfoGetter.getRawPanchinariRows(fileContent, rowIndexes);
-  const rawPanchinari = rawPanchinariRows.map(row => RawFileInfoGetter.getPlayerRawInfo(row, columnIndexes));
+  const rawPanchinari = RawFileInfoGetter.getRawTeamPanchinari(fileContent, rowIndexes, columnIndexes);
 
   return {
-    teamId: fileContent[rowIndexes.generalInfoIndex][columnIndexes.nameIndex].trim(),
-    formation: (fileContent[rowIndexes.formationsIndex][columnIndexes.formationIndex] || '').split('').join('-') as '4-4-2' | '3-4-3',
+    teamId: (fileContent[rowIndexes.generalInfoIndex][columnIndexes.nameIndex] as string).trim(),
+    formation: (fileContent[rowIndexes.formationsIndex][columnIndexes.formationIndex] as string || '').split('').join('-') as '4-4-2' | '3-4-3',
     captainPoints,
     allPlayersByRole: {
       P: allPlayersInfo.filter(player => player.role === 'P'),

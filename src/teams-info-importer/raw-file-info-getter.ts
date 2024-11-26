@@ -4,7 +4,22 @@ import { ColumnIndexes, RowIndexes } from "../models/file-indexes.model";
 
 export class RawFileInfoGetter {
 
-  static getPlayerRawInfo(player: string[], columnIndexes: ColumnIndexes): string[] {
+
+  // from a list of rows extracted from file that contains info for both teams, 
+  // return a list of "cleaned" rows for players of one single team
+  static getRawTeamTitolari(fileContent: (string | number)[][], rowIndexes: RowIndexes, columnIndexes: ColumnIndexes) {
+    const rawRows = this.getRawTitolariRows(fileContent, rowIndexes);
+    return rawRows.map(row => this.getPlayerRawInfo(row, columnIndexes));
+  }
+
+  // from a list of rows extracted from file that contains info for both teams, 
+  // return a list of "cleaned" rows for players of one single team
+  static getRawTeamPanchinari(fileContent: (string | number)[][], rowIndexes: RowIndexes, columnIndexes: ColumnIndexes) {
+    const rawRows = this.getRawPanchinariRows(fileContent, rowIndexes);
+    return rawRows.map(row => this.getPlayerRawInfo(row, columnIndexes));
+  }
+
+  private static getPlayerRawInfo(player: (string | number)[], columnIndexes: ColumnIndexes): (string | number)[] {
     return [
       player[columnIndexes.rolePlayerIndex],
       player[columnIndexes.namePlayerIndex],
@@ -21,11 +36,11 @@ export class RawFileInfoGetter {
     ];
   }
 
-  static getRawTitolariRows(fileContent: string[][], rowIndexes: RowIndexes): string[][] {
+  private static getRawTitolariRows(fileContent: (string | number)[][], rowIndexes: RowIndexes): (string | number)[][] {
     return fileContent.slice(rowIndexes.firstTitolareIndex, rowIndexes.lastTitolareIndex + 1);
   }
 
-  static getRawPanchinariRows(fileContent: string[][], rowIndexes: RowIndexes) {
+  private static getRawPanchinariRows(fileContent: (string | number)[][], rowIndexes: RowIndexes): (string | number)[][] {
     return fileContent.slice(rowIndexes.firstPanchinaroIndex, rowIndexes.lastPanchinaroIndex + 1);
   }
 }

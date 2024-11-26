@@ -10,6 +10,6 @@ export interface TeamInfo {
     C: PlayerInfo[] // Midfielders
     A: PlayerInfo[] // Strikers
   };
-  rawTitolari?: string[][];
-  rawPanchinari?: string[][];
+  rawTitolari?: (string | number)[][];
+  rawPanchinari?: (string | number)[][];
 }
