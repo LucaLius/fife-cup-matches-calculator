@@ -4,14 +4,14 @@ import { RowIndexes } from "../models/file-indexes.model";
 
 export class TeamsInfoImporterConfig {
 
-  static matchInfoIndexesCalculator(startingIndex: number): RowIndexes {
+  static matchInfoIndexesCalculator(): RowIndexes {
     return {
-      generalInfoIndex: startingIndex,
-      formationsIndex: startingIndex + 1,
-      firstTitolareIndex: startingIndex + 2,
-      lastTitolareIndex: startingIndex + 12,
-      firstPanchinaroIndex: startingIndex + 14,
-      lastPanchinaroIndex: startingIndex + 21
+      generalInfoIndex: 0,
+      formationsIndex: 1,
+      firstTitolareIndex: 2,
+      lastTitolareIndex: 12,
+      firstPanchinaroIndex: 14,
+      lastPanchinaroIndex: 21
     }
   }
 }

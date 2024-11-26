@@ -57,7 +57,7 @@ export class TeamsInfoImporter implements TeamsInfoImporterI {
         const maximumRowIndex = matchesInfoIndexes[matchIndex + 1] || 999;
         const matchFileRows = fileContent.slice(startingRowIndex, maximumRowIndex);
 
-        const rowIndexes = TeamsInfoImporterConfig.matchInfoIndexesCalculator(startingRowIndex);
+        const rowIndexes = TeamsInfoImporterConfig.matchInfoIndexesCalculator();
 
         const rawAllPlayers = RawFileInfoGetter.getRawAllPlayers(fileContent, rowIndexes);
 
