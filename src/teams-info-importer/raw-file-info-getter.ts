@@ -1,6 +1,6 @@
 // Used to get portions of the raw data 
 
-import { ColumnIndexes } from "../models/column-indexes.model";
+import { ColumnIndexes } from "../models/file-indexes.model";
 
 export class RawFileInfoGetter {
 

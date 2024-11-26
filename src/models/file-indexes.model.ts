@@ -9,3 +9,12 @@ export interface ColumnIndexes {
   fantasyVotePlayerIndex: number,
   modifierValueIndex: number,
 }
+
+export interface RowIndexes {
+  generalInfoIndex: number,
+  formationsIndex: number,
+  firstTitolareIndex: number,
+  lastTitolareIndex: number,
+  firstPanchinaroIndex: number,
+  lastPanchinaroIndex: number,
+}

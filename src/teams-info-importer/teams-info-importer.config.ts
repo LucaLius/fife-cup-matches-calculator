@@ -1,8 +1,10 @@
 // Used to collect the info about the input file structure
 
+import { RowIndexes } from "../models/file-indexes.model";
+
 export class TeamsInfoImporterConfig {
 
-  static matchInfoIndexesCalculator(startingIndex: number) {
+  static matchInfoIndexesCalculator(startingIndex: number): RowIndexes {
     return {
       generalInfoIndex: startingIndex,
       formationsIndex: startingIndex + 1,

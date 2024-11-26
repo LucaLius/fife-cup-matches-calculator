@@ -4,7 +4,7 @@ import { TeamInfo } from "../models/team-info.model";
 import { TeamsInfoImporterI } from "./teams-info-importer.interface";
 import { PlayerInfo } from '../models/player-info.model';
 import { StaticModifierCaptain } from './modifier-static-captain';
-import { ColumnIndexes } from '../models/column-indexes.model';
+import { ColumnIndexes, RowIndexes } from '../models/file-indexes.model';
 import { RawFileInfoGetter } from './raw-file-info-getter';
 import { TeamsInfoImporterConfig } from './teams-info-importer.config';
 
@@ -55,9 +55,11 @@ export class TeamsInfoImporter implements TeamsInfoImporterI {
         const startingRowIndex = matchesInfoIndexes[matchIndex];
         const maximumRowIndex = matchesInfoIndexes[matchIndex + 1] || 999;
 
-        const rawAllPlayers = this.getRawAllPlayers(fileContent, startingRowIndex);
-        const rawTitolari = this.getRawTitolari(fileContent, startingRowIndex);
-        const rawPanchinari = this.getRawPanchinari(fileContent, startingRowIndex);
+        const rowIndexes = TeamsInfoImporterConfig.matchInfoIndexesCalculator(startingRowIndex);
+
+        const rawAllPlayers = this.getRawAllPlayers(fileContent, rowIndexes);
+        const rawTitolari = this.getRawTitolari(fileContent, rowIndexes);
+        const rawPanchinari = this.getRawPanchinari(fileContent, rowIndexes);
 
         const isHomeTeamHome = true; // is home team referred to match played in normal championship, not in cup calendar!!
         const homeColumnIndexes = COLUMNS_INDEXES_SETTINGS.teamOne;
@@ -94,20 +96,18 @@ export class TeamsInfoImporter implements TeamsInfoImporterI {
     return generalInfoRows.map(el => el.index);
   }
 
-  getRawAllPlayers(fileContent: string[][], startingRowIndex: number) {
+  getRawAllPlayers(fileContent: string[][], rowIndexes: RowIndexes) {
     return [
-      ...this.getRawTitolari(fileContent, startingRowIndex),
-      ...this.getRawPanchinari(fileContent, startingRowIndex)
+      ...this.getRawTitolari(fileContent, rowIndexes),
+      ...this.getRawPanchinari(fileContent, rowIndexes)
     ];
   }
 
-  getRawTitolari(fileContent: string[][], startingRowIndex: number): string[][] {
-    const rowIndexes = TeamsInfoImporterConfig.matchInfoIndexesCalculator(startingRowIndex);
+  getRawTitolari(fileContent: string[][], rowIndexes: RowIndexes): string[][] {
     return fileContent.slice(rowIndexes.firstTitolareIndex, rowIndexes.lastTitolareIndex + 1);
   }
 
-  getRawPanchinari(fileContent: string[][], startingRowIndex: number) {
-    const rowIndexes = TeamsInfoImporterConfig.matchInfoIndexesCalculator(startingRowIndex);
+  getRawPanchinari(fileContent: string[][], rowIndexes: RowIndexes) {
     return fileContent.slice(rowIndexes.firstPanchinaroIndex, rowIndexes.lastPanchinaroIndex + 1);
   }
 }
