@@ -5,6 +5,19 @@ import { TeamsInfoImporterConfig } from "./teams-info-importer.config";
 
 export class RawFileInfoGetter {
 
+  // return all the row indexes pointing to first line of match block 
+  static getMatchesStartingIndexes(fileContent: string[][]): number[] {
+    const fileContentIndexed = fileContent.map((row, index) => ({ row, index }));
+
+    // is always the one row with "Team name", <4 empty items>, "Result like N-N", "Team name"
+    const generalInfoRows = fileContentIndexed.filter(el => {
+      return el.row[0] && !Number.isFinite(el.row[0]) &&
+        el.row[5] && el.row[5].match(/[\d]-[\d]/g) &&
+        el.row[6] && !Number.isFinite(el.row[6]);
+    });
+
+    return generalInfoRows.map(el => el.index);
+  }
 
   // from a list of rows extracted from file that contains info for both teams, 
   // return a list of "cleaned" rows for players of one single team

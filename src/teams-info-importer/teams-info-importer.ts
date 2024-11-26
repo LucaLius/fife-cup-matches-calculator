@@ -52,7 +52,7 @@ export class TeamsInfoImporter implements TeamsInfoImporterI {
     filesContent.forEach(fileContent => {
       for (let matchIndex = 0; matchIndex < MATCHES_PER_FILE; matchIndex++) {
 
-        const matchesInfoIndexes = this.getMatchesInfoIndexes(fileContent);
+        const matchesInfoIndexes = RawFileInfoGetter.getMatchesStartingIndexes(fileContent);
         const startingRowIndex = matchesInfoIndexes[matchIndex];
         const maximumRowIndex = matchesInfoIndexes[matchIndex + 1] || 999;
         const matchFileRows = fileContent.slice(startingRowIndex, maximumRowIndex);
@@ -73,18 +73,7 @@ export class TeamsInfoImporter implements TeamsInfoImporterI {
     return allTeamsInfo;
   };
 
-  getMatchesInfoIndexes(fileContent: string[][]): number[] {
-    const fileContentIndexed = fileContent.map((row, index) => ({ row, index }));
 
-    // is always the one row with "Team name", <4 empty items>, "Result like N-N", "Team name"
-    const generalInfoRows = fileContentIndexed.filter(el => {
-      return el.row[0] && !Number.isFinite(el.row[0]) &&
-        el.row[5] && el.row[5].match(/[\d]-[\d]/g) &&
-        el.row[6] && !Number.isFinite(el.row[6]);
-    });
-
-    return generalInfoRows.map(el => el.index);
-  }
 
 }
 
