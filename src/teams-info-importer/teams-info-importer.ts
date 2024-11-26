@@ -109,6 +109,7 @@ function getTeamInfo(fileContent: (string | number)[][], startingRowIndex: numbe
     .slice(startingRowIndex, maximumRowIndex);
   const captainPoints = StaticModifierCaptain.getPoints(fileContentRows, columnIndexes);
 
+  const allPlayersByRole = getAllPlayersByRole(allPlayersInfo);
   const rawTitolari = RawFileInfoGetter.getRawTeamTitolari(fileContent, rowIndexes, columnIndexes);
 
   const rawPanchinari = RawFileInfoGetter.getRawTeamPanchinari(fileContent, rowIndexes, columnIndexes);
@@ -117,15 +118,19 @@ function getTeamInfo(fileContent: (string | number)[][], startingRowIndex: numbe
     teamId: (fileContent[rowIndexes.generalInfoIndex][columnIndexes.nameIndex] as string).trim(),
     formation: (fileContent[rowIndexes.formationsIndex][columnIndexes.formationIndex] as string || '').split('').join('-') as '4-4-2' | '3-4-3',
     captainPoints,
-    allPlayersByRole: {
-      P: allPlayersInfo.filter(player => player.role === 'P'),
-      D: allPlayersInfo.filter(player => player.role === 'D'),
-      C: allPlayersInfo.filter(player => player.role === 'C'),
-      A: allPlayersInfo.filter(player => player.role === 'A')
-    },
+    allPlayersByRole,
     rawTitolari,
     rawPanchinari
   }
+}
+
+function getAllPlayersByRole(allPlayersInfo: PlayerInfo[]): { P: PlayerInfo[], C: PlayerInfo[], D: PlayerInfo[], A: PlayerInfo[] } {
+  return {
+    P: allPlayersInfo.filter(player => player.role === 'P'),
+    D: allPlayersInfo.filter(player => player.role === 'D'),
+    C: allPlayersInfo.filter(player => player.role === 'C'),
+    A: allPlayersInfo.filter(player => player.role === 'A')
+  };
 }
 
 function getNumericVoteFromCell(player: (string | number)[], index: number): number | undefined {
