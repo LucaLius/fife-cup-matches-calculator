@@ -13,7 +13,7 @@ export class RawFileInfoGetter {
   }
 
   // return all the row indexes pointing to first line of match block 
-  private static getMatchesStartingIndexes(fileContent: (string | number)[][]): number[] {
+  static getMatchesStartingIndexes(fileContent: (string | number)[][]): number[] {
     const fileContentIndexed = fileContent.map((row, index) => ({ row, index }));
 
     // is always the one row with "Team name", <4 empty items>, "Result like N-N", "Team name"
