@@ -427,8 +427,6 @@ describe('Giornata 1 safe-check', () => {
 
     // modifiers check
     actual.forEach((el, index) => {
-      console.log(`${index}, actual: ${JSON.stringify(el.homeDetails.crossTeamModifiers)}`)
-      console.log(`${index}, expected: ${JSON.stringify(expected[index].homeDetails.crossTeamModifiers)}`)
       expect(el.homeDetails.crossTeamModifiers).toEqual(expected[index].homeDetails.crossTeamModifiers);
     })
   })
