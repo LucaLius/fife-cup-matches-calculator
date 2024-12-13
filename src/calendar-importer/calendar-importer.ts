@@ -1,25 +1,15 @@
 import { CalendarMatch } from "../models/calendar-match.model";
+import { MatchDayCombinationsBuilder } from "./builders/match-day-combinations-builder.interface";
 import { CalendarImporterI, Combination, Group, GroupsComposition, MatchDayCombinations } from "./calendar-importer.interface";
 
 export class CalendarImporter implements CalendarImporterI {
 
   groupsComposition: GroupsComposition;
+  matchDayCombinations: MatchDayCombinations;
 
-  matchDayCombinations: MatchDayCombinations = {
-    1: combinationsMatchDayOne,
-    2: combinationsMatchDayTwo,
-    3: combinationsMatchDayThree,
-    4: combinationsMatchDayFour,
-  };
-
-  constructor() {
+  constructor(public matchDayCombinationsBuilder: MatchDayCombinationsBuilder) {
     this.groupsComposition = this.initGroups();
-  }
-
-  getCalendarMatches(matchNumber: number): CalendarMatch[] {
-    const calendarImporter = new CalendarImporter();
-    const matchDayMatches = calendarImporter.getMatchDayMatches(matchNumber);
-    return matchDayMatches ?? [];
+    this.matchDayCombinations = matchDayCombinationsBuilder.getMatchDayCombinations();
   }
 
   getMatchDayMatches(matchDay: number): CalendarMatch[] {
@@ -122,42 +112,3 @@ export class CalendarImporter implements CalendarImporterI {
     };
   }
 }
-
-
-
-const combinationsMatchDayOne = [
-  {
-    homeTeamGroup: 'A',
-    awayTeamGroup: 'B',
-  },
-  {
-    homeTeamGroup: 'C',
-    awayTeamGroup: 'D',
-  }
-];
-
-const combinationsMatchDayTwo = [
-  {
-    homeTeamGroup: 'A',
-    awayTeamGroup: 'C',
-  },
-  {
-    homeTeamGroup: 'B',
-    awayTeamGroup: 'D',
-  }
-];
-
-
-const combinationsMatchDayThree = [
-  {
-    homeTeamGroup: 'A',
-    awayTeamGroup: 'D',
-  },
-  {
-    homeTeamGroup: 'B',
-    awayTeamGroup: 'C',
-  }
-];
-
-
-const combinationsMatchDayFour = combinationsMatchDayOne;

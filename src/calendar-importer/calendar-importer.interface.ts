@@ -6,8 +6,6 @@ export interface CalendarImporterI {
 
   matchDayCombinations: MatchDayCombinations;
 
-  getCalendarMatches(matchDay: number): CalendarMatch[];
-
   getMatchDayMatches(matchDay: number): CalendarMatch[];
 }
 

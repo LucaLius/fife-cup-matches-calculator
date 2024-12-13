@@ -1,9 +1,9 @@
 import { describe, expect, test } from '@jest/globals';
 import { CalendarImporter } from '../../src/calendar-importer/calendar-importer';
-import { CalendarMatch } from '../../src/models/calendar-match.model';
 import { TeamInfo } from '../../src/models/team-info.model';
 import { processRound } from '../../src/process-round';
 import { TeamsInfoImporter } from '../../src/teams-info-importer/teams-info-importer';
+import { MatchDayCombinationsGroupPhaseBuilder } from '../../src/calendar-importer/builders/match-day-combination-group-phase.builder';
 
 /* eslint-env jest */
 const INPUT_FILE_DIR_PATH = `${__dirname}`;
@@ -419,7 +419,12 @@ describe('Giornata 1 safe-check', () => {
       }
     ];
 
-    const calendarMatches: CalendarMatch[] = new CalendarImporter().getCalendarMatches(1);
+    const matchDay = 1;
+    const matchDayCombinationsGroupPhaseBuilder = new MatchDayCombinationsGroupPhaseBuilder();
+    const calendarImporter = new CalendarImporter(matchDayCombinationsGroupPhaseBuilder);
+    const matchDayMatches = calendarImporter.getMatchDayMatches(matchDay);
+    const calendarMatches = matchDayMatches ?? [];
+
     const teamsInfo: TeamInfo[] = new TeamsInfoImporter(INPUT_TEST_REAL_CASE_1_FILES_TEAMS_DIR_PATH).getTeamsInfo();
     const actual = processRound(calendarMatches, teamsInfo);
 
