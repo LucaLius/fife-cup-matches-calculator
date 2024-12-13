@@ -1,3 +1,4 @@
+import { GroupCompositionBuilder } from "./calendar-importer/builders/group-composition.builder";
 import { MatchDayCombinationsGroupPhaseBuilder } from "./calendar-importer/builders/match-day-combination-group-phase.builder";
 import { CalendarImporter } from "./calendar-importer/calendar-importer";
 import { INPUT_FILES_TEAMS_DIR_PATH } from "./input-files/input-files.utils";
@@ -9,7 +10,8 @@ import { TeamsInfoImporter } from "./teams-info-importer/teams-info-importer";
 // TODO: pass me as runtime variable
 const matchDay = 4;
 const matchDayCombinationsGroupPhaseBuilder = new MatchDayCombinationsGroupPhaseBuilder();
-const calendarImporter = new CalendarImporter(matchDayCombinationsGroupPhaseBuilder);
+const groupCompositionBuilder = new GroupCompositionBuilder();
+const calendarImporter = new CalendarImporter(matchDayCombinationsGroupPhaseBuilder, groupCompositionBuilder);
 const matchDayMatches = calendarImporter.getMatchDayMatches(matchDay);
 const calendarMatches = matchDayMatches ?? [];
 

@@ -2,6 +2,7 @@ import { describe, expect, test } from '@jest/globals';
 import { CalendarImporter } from './calendar-importer';
 import { CalendarMatch } from '../models/calendar-match.model';
 import { MatchDayCombinationsGroupPhaseBuilder } from './builders/match-day-combination-group-phase.builder';
+import { GroupCompositionBuilder } from './builders/group-composition.builder';
 
 /* eslint-env jest */
 
@@ -9,7 +10,8 @@ describe('calendar.importer', () => {
   test('Should create all the match combinations for hard-coded matchday one', () => {
     const matchDay = 1;
     const matchDayCombinationsGroupPhaseBuilder = new MatchDayCombinationsGroupPhaseBuilder();
-    const calendarImporter = new CalendarImporter(matchDayCombinationsGroupPhaseBuilder);
+    const groupCompositionBuilder = new GroupCompositionBuilder();
+    const calendarImporter = new CalendarImporter(matchDayCombinationsGroupPhaseBuilder, groupCompositionBuilder);
 
     const match_number_1_matches: CalendarMatch[] = [
       {
@@ -135,7 +137,8 @@ describe('calendar.importer', () => {
   test('Should create all the match combinations for hard-coded matchday two', () => {
     const matchDay = 2;
     const matchDayCombinationsGroupPhaseBuilder = new MatchDayCombinationsGroupPhaseBuilder();
-    const calendarImporter = new CalendarImporter(matchDayCombinationsGroupPhaseBuilder);
+    const groupCompositionBuilder = new GroupCompositionBuilder();
+    const calendarImporter = new CalendarImporter(matchDayCombinationsGroupPhaseBuilder, groupCompositionBuilder);
 
     const match_number_2_matches: CalendarMatch[] = [
       {
