@@ -7,6 +7,9 @@ export class CalendarImporter implements CalendarImporterI {
 
   matchDayCombinations: MatchDayCombinations = {
     1: combinationsMatchDayOne,
+    2: combinationsMatchDayTwo,
+    3: combinationsMatchDayThree,
+    4: combinationsMatchDayFour,
   };
 
   constructor() {
@@ -15,13 +18,8 @@ export class CalendarImporter implements CalendarImporterI {
 
   getCalendarMatches(matchNumber: number): CalendarMatch[] {
     const calendarImporter = new CalendarImporter();
-
-    return {
-      '1': calendarImporter.getMatchDayMatches(1),
-      '2': match_number_2_matches,
-      '3': match_number_3_matches,
-      '4': match_number_4_matches,
-    }[matchNumber] || [];
+    const matchDayMatches = calendarImporter.getMatchDayMatches(matchNumber);
+    return matchDayMatches ?? [];
   }
 
   getMatchDayMatches(matchDay: number): CalendarMatch[] {
@@ -138,348 +136,28 @@ const combinationsMatchDayOne = [
   }
 ];
 
-
-const match_number_2_matches: CalendarMatch[] = [
+const combinationsMatchDayTwo = [
   {
-    id: 1,
-    idGroup: 1, // Girone A,
-    matchNumber: 2,
-    homeId: 'SMOKING BIANCO.',
-    awayId: 'BORGO GRAZZANO'
+    homeTeamGroup: 'A',
+    awayTeamGroup: 'C',
   },
   {
-    id: 2,
-    idGroup: 1, // Girone A
-    matchNumber: 2,
-    homeId: 'REAL DUREZZA',
-    awayId: 'ASTON BIRRA'
-  },
-  {
-    id: 3,
-    idGroup: 2, // Girone B
-    matchNumber: 2,
-    homeId: 'NEROAZZURRI',
-    awayId: 'REDBLACK'
-  },
-  {
-    id: 4,
-    idGroup: 2, // Girone B
-    matchNumber: 2,
-    homeId: 'RIVER BOLUDOS',
-    awayId: 'FC PUSSY MIX'
-  },
-  {
-    id: 5,
-    idGroup: 3, // Girone C
-    matchNumber: 2,
-    homeId: 'IRON GAS',
-    awayId: 'STARK INDUSTRIES'
-  },
-  {
-    id: 6,
-    idGroup: 3, // Girone C
-    matchNumber: 2,
-    homeId: 'AHI 3 CROCIATI',
-    awayId: 'NOT ATHLETIC CRODANZO'
-  },
-  {
-    id: 7,
-    idGroup: 4, // Girone D
-    matchNumber: 2,
-    homeId: 'MANCHESTER SINTY',
-    awayId: 'TEAM DADA'
-  },
-  {
-    id: 8,
-    idGroup: 4, // Girone D
-    matchNumber: 2,
-    homeId: 'COCABRODA',
-    awayId: 'REAL MAKADAM'
-  },
-  {
-    id: 9,
-    idGroup: 5, // Girone E
-    matchNumber: 2,
-    homeId: 'NAPOLETHANOS',
-    awayId: 'LOS ANGELO - UN ESPERTO'
-  },
-  {
-    id: 10,
-    idGroup: 5, // Girone E
-    matchNumber: 2,
-    homeId: 'BEN FICA',
-    awayId: 'KANTÉ CABRIOLET'
-  },
-  {
-    id: 11,
-    idGroup: 6, // Girone F
-    matchNumber: 2,
-    homeId: 'BAYERN LEVERDUREN.',
-    awayId: 'FC DIREZIONE'
-  },
-  {
-    id: 12,
-    idGroup: 6, // Girone F
-    matchNumber: 2,
-    homeId: 'CHIAVOVERONICA',
-    awayId: 'DALLAS'
-  },
-  {
-    id: 13,
-    idGroup: 7, // Girone G
-    matchNumber: 2,
-    homeId: 'REAL GRIFONE',
-    awayId: 'MICCOLILLE'
-  },
-  {
-    id: 14,
-    idGroup: 7, // Girone G
-    matchNumber: 2,
-    homeId: 'DINAMO KEYV',
-    awayId: 'CSKA PIAVON'
-  },
-  {
-    id: 15,
-    idGroup: 8, // Girone H
-    matchNumber: 2,
-    homeId: 'I RAGAZZI',
-    awayId: 'VILLA FRIGNAVERA'
-  },
-  {
-    id: 16,
-    idGroup: 8, // Girone H
-    matchNumber: 2,
-    homeId: 'CCORYO JUNIORS',
-    awayId: 'ACK BOMBA'
-  },
+    homeTeamGroup: 'B',
+    awayTeamGroup: 'D',
+  }
 ];
 
-const match_number_3_matches: CalendarMatch[] = [
+
+const combinationsMatchDayThree = [
   {
-    id: 1,
-    idGroup: 1, // Girone A,
-    matchNumber: 3,
-    homeId: 'SMOKING BIANCO.',
-    awayId: 'ASTON BIRRA'
+    homeTeamGroup: 'A',
+    awayTeamGroup: 'D',
   },
   {
-    id: 2,
-    idGroup: 1, // Girone A
-    matchNumber: 3,
-    homeId: 'BORGO GRAZZANO',
-    awayId: 'REAL DUREZZA'
-  },
-  {
-    id: 3,
-    idGroup: 2, // Girone B
-    matchNumber: 3,
-    homeId: 'NEROAZZURRI',
-    awayId: 'FC PUSSY MIX'
-  },
-  {
-    id: 4,
-    idGroup: 2, // Girone B
-    matchNumber: 3,
-    homeId: 'REDBLACK',
-    awayId: 'RIVER BOLUDOS'
-  },
-  {
-    id: 5,
-    idGroup: 3, // Girone C
-    matchNumber: 3,
-    homeId: 'IRON GAS',
-    awayId: 'NOT ATHLETIC CRODANZO'
-  },
-  {
-    id: 6,
-    idGroup: 3, // Girone C
-    matchNumber: 3,
-    homeId: 'STARK INDUSTRIES',
-    awayId: 'AHI 3 CROCIATI',
-  },
-  {
-    id: 7,
-    idGroup: 4, // Girone D
-    matchNumber: 3,
-    homeId: 'MANCHESTER SINTY',
-    awayId: 'REAL MAKADAM'
-  },
-  {
-    id: 8,
-    idGroup: 4, // Girone D
-    matchNumber: 3,
-    homeId: 'TEAM DADA',
-    awayId: 'COCABRODA'
-  },
-  {
-    id: 9,
-    idGroup: 5, // Girone E
-    matchNumber: 3,
-    homeId: 'NAPOLETHANOS',
-    awayId: 'KANTÉ CABRIOLET'
-  },
-  {
-    id: 10,
-    idGroup: 5, // Girone E
-    matchNumber: 3,
-    homeId: 'LOS ANGELO - UN ESPERTO',
-    awayId: 'BEN FICA'
-  },
-  {
-    id: 11,
-    idGroup: 6, // Girone F
-    matchNumber: 3,
-    homeId: 'BAYERN LEVERDUREN.',
-    awayId: 'DALLAS'
-  },
-  {
-    id: 12,
-    idGroup: 6, // Girone F
-    matchNumber: 3,
-    homeId: 'FC DIREZIONE',
-    awayId: 'CHIAVOVERONICA'
-  },
-  {
-    id: 13,
-    idGroup: 7, // Girone G
-    matchNumber: 3,
-    homeId: 'REAL GRIFONE',
-    awayId: 'CSKA PIAVON'
-  },
-  {
-    id: 14,
-    idGroup: 7, // Girone G
-    matchNumber: 3,
-    homeId: 'MICCOLILLE',
-    awayId: 'DINAMO KEYV'
-  },
-  {
-    id: 15,
-    idGroup: 8, // Girone H
-    matchNumber: 3,
-    homeId: 'I RAGAZZI',
-    awayId: 'ACK BOMBA'
-  },
-  {
-    id: 16,
-    idGroup: 8, // Girone H
-    matchNumber: 3,
-    homeId: 'VILLA FRIGNAVERA',
-    awayId: 'CCORYO JUNIORS'
-  },
+    homeTeamGroup: 'B',
+    awayTeamGroup: 'C',
+  }
 ];
 
-const match_number_4_matches: CalendarMatch[] = [
-  {
-    id: 1,
-    idGroup: 1, // Girone A,
-    matchNumber: 4,
-    homeId: 'SMOKING BIANCO.',
-    awayId: 'REAL DUREZZA'
-  },
-  {
-    id: 2,
-    idGroup: 1, // Girone A
-    matchNumber: 4,
-    homeId: 'BORGO GRAZZANO',
-    awayId: 'ASTON BIRRA'
-  },
-  {
-    id: 3,
-    idGroup: 2, // Girone B
-    matchNumber: 4,
-    homeId: 'NEROAZZURRI',
-    awayId: 'RIVER BOLUDOS'
-  },
-  {
-    id: 4,
-    idGroup: 2, // Girone B
-    matchNumber: 4,
-    homeId: 'REDBLACK',
-    awayId: 'FC PUSSY MIX'
-  },
-  {
-    id: 5,
-    idGroup: 3, // Girone C
-    matchNumber: 4,
-    homeId: 'IRON GAS',
-    awayId: 'AHI 3 CROCIATI'
-  },
-  {
-    id: 6,
-    idGroup: 3, // Girone C
-    matchNumber: 4,
-    homeId: 'STARK INDUSTRIES',
-    awayId: 'NOT ATHLETIC CRODANZO'
-  },
-  {
-    id: 7,
-    idGroup: 4, // Girone D
-    matchNumber: 4,
-    homeId: 'MANCHESTER SINTY',
-    awayId: 'COCABRODA'
-  },
-  {
-    id: 8,
-    idGroup: 4, // Girone D
-    matchNumber: 4,
-    homeId: 'TEAM DADA',
-    awayId: 'REAL MAKADAM'
-  },
-  {
-    id: 9,
-    idGroup: 5, // Girone E
-    matchNumber: 4,
-    homeId: 'NAPOLETHANOS',
-    awayId: 'BEN FICA'
-  },
-  {
-    id: 10,
-    idGroup: 5, // Girone E
-    matchNumber: 4,
-    homeId: 'LOS ANGELO - UN ESPERTO',
-    awayId: 'KANTÉ CABRIOLET'
-  },
-  {
-    id: 11,
-    idGroup: 6, // Girone F
-    matchNumber: 4,
-    homeId: 'BAYERN LEVERDUREN.',
-    awayId: 'CHIAVOVERONICA'
-  },
-  {
-    id: 12,
-    idGroup: 6, // Girone F
-    matchNumber: 4,
-    homeId: 'FC DIREZIONE',
-    awayId: 'DALLAS'
-  },
-  {
-    id: 13,
-    idGroup: 7, // Girone G
-    matchNumber: 4,
-    homeId: 'REAL GRIFONE',
-    awayId: 'DINAMO KEYV'
-  },
-  {
-    id: 14,
-    idGroup: 7, // Girone G
-    matchNumber: 4,
-    homeId: 'MICCOLILLE',
-    awayId: 'CSKA PIAVON'
-  },
-  {
-    id: 15,
-    idGroup: 8, // Girone H
-    matchNumber: 4,
-    homeId: 'I RAGAZZI',
-    awayId: 'CCORYO JUNIORS'
-  },
-  {
-    id: 16,
-    idGroup: 8, // Girone H
-    matchNumber: 4,
-    homeId: 'VILLA FRIGNAVERA',
-    awayId: 'ACK BOMBA'
-  },
-];
+
+const combinationsMatchDayFour = combinationsMatchDayOne;
