@@ -1,4 +1,4 @@
-import { GroupCompositionBuilder } from './builders/group-composition.builder';
+import { GroupCompositionBuilder } from './builders/group-composition-builder.interface';
 import { CalendarMatch } from "../models/calendar-match.model";
 import { MatchDayCombinationsBuilder } from "./builders/match-day-combinations-builder.interface";
 import { CalendarImporterI, Combination, Group, GroupsComposition, MatchDayCombinations } from "./calendar-importer.interface";

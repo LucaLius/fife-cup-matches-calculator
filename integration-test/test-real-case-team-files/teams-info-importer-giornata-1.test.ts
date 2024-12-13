@@ -1,10 +1,11 @@
+import { Group } from './../../src/calendar-importer/calendar-importer.interface';
 import { describe, expect, test } from '@jest/globals';
 import { CalendarImporter } from '../../src/calendar-importer/calendar-importer';
 import { TeamInfo } from '../../src/models/team-info.model';
 import { processRound } from '../../src/process-round';
 import { TeamsInfoImporter } from '../../src/teams-info-importer/teams-info-importer';
 import { MatchDayCombinationsGroupPhaseBuilder } from '../../src/calendar-importer/builders/match-day-combination-group-phase.builder';
-import { GroupCompositionBuilder } from '../../src/calendar-importer/builders/group-composition.builder';
+import { GroupCompositionGroupStageBuilder } from '../../src/calendar-importer/builders/group-composition-group-stage-builder';
 
 /* eslint-env jest */
 const INPUT_FILE_DIR_PATH = `${__dirname}`;
@@ -422,8 +423,8 @@ describe('Giornata 1 safe-check', () => {
 
     const matchDay = 1;
     const matchDayCombinationsGroupPhaseBuilder = new MatchDayCombinationsGroupPhaseBuilder();
-    const groupCompositionBuilder = new GroupCompositionBuilder();
-    const calendarImporter = new CalendarImporter(matchDayCombinationsGroupPhaseBuilder, groupCompositionBuilder);
+    const groupCompositionGroupStageBuilder = new GroupCompositionGroupStageBuilder();
+    const calendarImporter = new CalendarImporter(matchDayCombinationsGroupPhaseBuilder, groupCompositionGroupStageBuilder);
     const matchDayMatches = calendarImporter.getMatchDayMatches(matchDay);
     const calendarMatches = matchDayMatches ?? [];
 

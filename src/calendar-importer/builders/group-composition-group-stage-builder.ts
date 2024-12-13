@@ -1,6 +1,7 @@
 import { Group, GroupsComposition } from "../calendar-importer.interface";
+import { GroupCompositionBuilder } from "./group-composition-builder.interface";
 
-export class GroupCompositionBuilder {
+export class GroupCompositionGroupStageBuilder implements GroupCompositionBuilder {
 
   public groupsComposition: GroupsComposition;
 
