@@ -1,7 +1,7 @@
 import { MatchDayCombinations } from "../calendar-importer.interface";
 import { MatchDayCombinationsBuilder } from './match-day-combinations-builder.interface';
 
-export class MatchDayCombinationsGroupPhaseBuilder implements MatchDayCombinationsBuilder {
+export class MatchDayCombinationsGroupStageBuilder implements MatchDayCombinationsBuilder {
 
   readonly matchDayCombinations: MatchDayCombinations;
 

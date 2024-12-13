@@ -1,7 +1,7 @@
 import { describe, expect, test } from '@jest/globals';
 import { CalendarImporter } from './calendar-importer';
 import { CalendarMatch } from '../models/calendar-match.model';
-import { MatchDayCombinationsGroupPhaseBuilder } from './builders/match-day-combination-group-phase.builder';
+import { MatchDayCombinationsGroupStageBuilder } from './builders/match-day-combination-group-stage.builder';
 import { GroupCompositionGroupStageBuilder } from './builders/group-composition-group-stage-builder';
 
 /* eslint-env jest */
@@ -9,9 +9,9 @@ import { GroupCompositionGroupStageBuilder } from './builders/group-composition-
 describe('calendar.importer', () => {
   test('Should create all the match combinations for hard-coded matchday one', () => {
     const matchDay = 1;
-    const matchDayCombinationsGroupPhaseBuilder = new MatchDayCombinationsGroupPhaseBuilder();
+    const matchDayCombinationsGroupStageBuilder = new MatchDayCombinationsGroupStageBuilder();
     const groupCompositionGroupStageBuilder = new GroupCompositionGroupStageBuilder();
-    const calendarImporter = new CalendarImporter(matchDayCombinationsGroupPhaseBuilder, groupCompositionGroupStageBuilder);
+    const calendarImporter = new CalendarImporter(matchDayCombinationsGroupStageBuilder, groupCompositionGroupStageBuilder);
 
     const match_number_1_matches: CalendarMatch[] = [
       {
@@ -136,9 +136,9 @@ describe('calendar.importer', () => {
 
   test('Should create all the match combinations for hard-coded matchday two', () => {
     const matchDay = 2;
-    const matchDayCombinationsGroupPhaseBuilder = new MatchDayCombinationsGroupPhaseBuilder();
+    const matchDayCombinationsGroupStageBuilder = new MatchDayCombinationsGroupStageBuilder();
     const groupCompositionGroupStageBuilder = new GroupCompositionGroupStageBuilder();
-    const calendarImporter = new CalendarImporter(matchDayCombinationsGroupPhaseBuilder, groupCompositionGroupStageBuilder);
+    const calendarImporter = new CalendarImporter(matchDayCombinationsGroupStageBuilder, groupCompositionGroupStageBuilder);
 
     const match_number_2_matches: CalendarMatch[] = [
       {

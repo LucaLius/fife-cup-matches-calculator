@@ -4,7 +4,7 @@ import { CalendarImporter } from '../../src/calendar-importer/calendar-importer'
 import { TeamInfo } from '../../src/models/team-info.model';
 import { processRound } from '../../src/process-round';
 import { TeamsInfoImporter } from '../../src/teams-info-importer/teams-info-importer';
-import { MatchDayCombinationsGroupPhaseBuilder } from '../../src/calendar-importer/builders/match-day-combination-group-phase.builder';
+import { MatchDayCombinationsGroupStageBuilder } from '../../src/calendar-importer/builders/match-day-combination-group-stage.builder';
 import { GroupCompositionGroupStageBuilder } from '../../src/calendar-importer/builders/group-composition-group-stage-builder';
 
 /* eslint-env jest */
@@ -422,9 +422,9 @@ describe('Giornata 1 safe-check', () => {
     ];
 
     const matchDay = 1;
-    const matchDayCombinationsGroupPhaseBuilder = new MatchDayCombinationsGroupPhaseBuilder();
+    const matchDayCombinationsGroupStageBuilder = new MatchDayCombinationsGroupStageBuilder();
     const groupCompositionGroupStageBuilder = new GroupCompositionGroupStageBuilder();
-    const calendarImporter = new CalendarImporter(matchDayCombinationsGroupPhaseBuilder, groupCompositionGroupStageBuilder);
+    const calendarImporter = new CalendarImporter(matchDayCombinationsGroupStageBuilder, groupCompositionGroupStageBuilder);
     const matchDayMatches = calendarImporter.getMatchDayMatches(matchDay);
     const calendarMatches = matchDayMatches ?? [];
 
