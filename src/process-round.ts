@@ -8,7 +8,7 @@ export function processRound(calendarMatches: CalendarMatch[], teamsInfo: TeamIn
     const home = teamsInfo.find(teamInfo => teamInfo.teamId === calendarMatch.homeId);
     const away = teamsInfo.find(teamInfo => teamInfo.teamId === calendarMatch.awayId);
     if (!home || !away) {
-      throw new Error("All teams info must be found!");
+      throw new Error(`All teams info must be found! Home: ${!!home}, Away: ${!!away}`);
     }
     const calendarMatchInfo = { home, away };
     return new MatchCalculator().calcuate(calendarMatch, calendarMatchInfo);
