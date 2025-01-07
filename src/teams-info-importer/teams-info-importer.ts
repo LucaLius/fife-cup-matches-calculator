@@ -19,25 +19,28 @@ export class TeamsInfoImporter implements TeamsInfoImporterI {
 
     const fileNames = fs.readdirSync(this.inputFilesDirPath);
 
-    fileNames.forEach(fileName => {
-      const fileContent = parseXlsx(`${this.inputFilesDirPath}/${fileName}`);
+    fileNames
+      .filter(fileName => !fileName.startsWith('.')) // skip hidden files
+      .forEach(fileName => {
+        console.log(fileName);
+        const fileContent = parseXlsx(`${this.inputFilesDirPath}/${fileName}`);
 
-      for (let matchIndex = 0; matchIndex < TeamsInfoImporterConfig.MATCHES_PER_FILE; matchIndex++) {
+        for (let matchIndex = 0; matchIndex < TeamsInfoImporterConfig.MATCHES_PER_FILE; matchIndex++) {
 
-        const matchFileRows = RawFileInfoGetter.getMatchFileRows(fileContent, matchIndex);
+          const matchFileRows = RawFileInfoGetter.getMatchFileRows(fileContent, matchIndex);
 
-        const rawAllPlayers = RawFileInfoGetter.getRawAllPlayers(matchFileRows);
+          const rawAllPlayers = RawFileInfoGetter.getRawAllPlayers(matchFileRows);
 
-        const homeColumnIndexes = TeamsInfoImporterConfig.COLUMNS_INDEXES_SETTINGS.teamOne;
-        const teamOneInfo = getTeamInfo(matchFileRows, rawAllPlayers, homeColumnIndexes);
+          const homeColumnIndexes = TeamsInfoImporterConfig.COLUMNS_INDEXES_SETTINGS.teamOne;
+          const teamOneInfo = getTeamInfo(matchFileRows, rawAllPlayers, homeColumnIndexes);
 
-        const awayColumnIndexes = TeamsInfoImporterConfig.COLUMNS_INDEXES_SETTINGS.teamTwo;
-        const teamTwoInfo = getTeamInfo(matchFileRows, rawAllPlayers, awayColumnIndexes);
+          const awayColumnIndexes = TeamsInfoImporterConfig.COLUMNS_INDEXES_SETTINGS.teamTwo;
+          const teamTwoInfo = getTeamInfo(matchFileRows, rawAllPlayers, awayColumnIndexes);
 
-        allTeamsInfo.push(teamOneInfo);
-        allTeamsInfo.push(teamTwoInfo);
-      }
-    });
+          allTeamsInfo.push(teamOneInfo);
+          allTeamsInfo.push(teamTwoInfo);
+        }
+      });
 
     return allTeamsInfo;
   };
