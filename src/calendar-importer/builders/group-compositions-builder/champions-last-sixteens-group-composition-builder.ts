@@ -1,8 +1,8 @@
 import { Group, GroupsComposition } from "../../calendar-importer.interface";
 import { GroupCompositionBuilder } from "./group-composition-builder.interface";
 
-export class GroupCompositionEliminationPhaseBuilder implements GroupCompositionBuilder {
-  // Essendo ottavi di finale, potenzialmente sono tutti istanze diverse di GroupCompositionEliminationPhaseBuilder)
+export class ChampionsLastSixteensGroupCompositionBuilder implements GroupCompositionBuilder {
+  // Essendo ottavi di finale, potenzialmente sono tutti istanze diverse di GroupCompositionBuilder)
   // TODO: capire come gestire ottavi, quarti, etc senza creare altre classi
   // TODO: capire come gestire competizioni diverse
 

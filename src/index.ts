@@ -1,5 +1,5 @@
 import { GroupCompositionBuilder } from "./calendar-importer/builders/group-compositions-builder/group-composition-builder.interface";
-import { GroupCompositionEliminationPhaseBuilder } from "./calendar-importer/builders/group-compositions-builder/group-composition-elimination-phase-builder";
+import { ChampionsLastSixteensGroupCompositionBuilder } from "./calendar-importer/builders/group-compositions-builder/champions-last-sixteens-group-composition-builder";
 import { GroupCompositionGroupStageBuilder } from "./calendar-importer/builders/group-compositions-builder/group-composition-group-stage-builder";
 import { MatchDayCombinationsEliminationPhaseBuilder } from "./calendar-importer/builders/match-day-combinations-builder/match-day-combination-elimination-phase.builder";
 import { MatchDayCombinationsGroupStageBuilder } from "./calendar-importer/builders/match-day-combinations-builder/match-day-combination-group-stage.builder";
@@ -26,7 +26,7 @@ if (matchDayType === 'GROUP_STAGE') {
   groupCompositionBuilder = new GroupCompositionGroupStageBuilder();
 } else {
   matchDayCombinationsBuilder = new MatchDayCombinationsEliminationPhaseBuilder();
-  groupCompositionBuilder = new GroupCompositionEliminationPhaseBuilder();
+  groupCompositionBuilder = new ChampionsLastSixteensGroupCompositionBuilder();
 }
 
 const calendarImporter = new CalendarImporter(matchDayCombinationsBuilder, groupCompositionBuilder);
