@@ -10,24 +10,24 @@ import { TeamInfo } from "./models/team-info.model";
 import { createOutputFiles } from "./output-files-generator/output-files-generator";
 import { processRound } from "./process-round";
 import { TeamsInfoImporter } from "./teams-info-importer/teams-info-importer";
+import { GroupCompositionFactory } from "./calendar-importer/group-composition-factory";
 
 // TODO: pass as runtime variables
 let matchDay: number;
-let matchDayType: string; // 'GROUP_STAGE' | 'ELIMINATION';
+let competition: string; // 'GROUP_STAGE' | 'CHAMPIONS_LEAGUE';
 
 // TODO: remove this assignments
 matchDay = 1;
-matchDayType = 'ELIMINATION';
+competition = 'CHAMPIONS_LEAGUE';
 
 let matchDayCombinationsBuilder!: MatchDayCombinationsBuilder;
-let groupCompositionBuilder!: GroupCompositionBuilder;
-if (matchDayType === 'GROUP_STAGE') {
+if (competition === 'GROUP_STAGE') {
   matchDayCombinationsBuilder = new MatchDayCombinationsGroupStageBuilder();
-  groupCompositionBuilder = new GroupCompositionGroupStageBuilder();
 } else {
   matchDayCombinationsBuilder = new MatchDayCombinationsEliminationPhaseBuilder();
-  groupCompositionBuilder = new ChampionsLastSixteensGroupCompositionBuilder();
 }
+
+const groupCompositionBuilder = new GroupCompositionFactory(competition, matchDay).build();
 
 const calendarImporter = new CalendarImporter(matchDayCombinationsBuilder, groupCompositionBuilder);
 const matchDayMatches = calendarImporter.getMatchDayMatches(matchDay);

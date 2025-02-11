@@ -1,0 +1,36 @@
+import { ChampionsLastSixteensGroupCompositionBuilder } from "./builders/group-compositions-builder/champions-last-sixteens-group-composition-builder";
+import { GroupCompositionBuilder } from "./builders/group-compositions-builder/group-composition-builder.interface";
+import { GroupCompositionGroupStageBuilder } from "./builders/group-compositions-builder/group-composition-group-stage-builder";
+
+export class GroupCompositionFactory {
+
+  private competition: string;
+  private matchDay: number;
+
+  constructor(competition: string, matchDay: number) {
+    this.competition = competition;
+    this.matchDay = matchDay;
+  }
+
+  build(): GroupCompositionBuilder {
+
+    if (this.competition === undefined) {
+      throw new Error('competition type must be provided');
+    }
+
+    if (this.competition === 'GROUP_STAGE') {
+      return new GroupCompositionGroupStageBuilder();
+    }
+
+    if (this.competition === 'CHAMPIONS_LEAGUE') {
+      if (this.matchDay === 1) {
+        return new ChampionsLastSixteensGroupCompositionBuilder();
+      }
+      if (this.matchDay === 2) {
+        // return new ChampionsQuarterFinalsGroupCompositionBuilder();
+      }
+    }
+
+    throw new Error('Invalid competition or matchDay');
+  }
+}
