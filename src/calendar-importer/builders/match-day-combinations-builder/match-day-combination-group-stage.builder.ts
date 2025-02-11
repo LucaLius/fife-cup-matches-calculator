@@ -1,4 +1,4 @@
-import { MatchDayCombinations } from "../calendar-importer.interface";
+import { MatchDayCombinations } from "../../calendar-importer.interface";
 import { MatchDayCombinationsBuilder } from './match-day-combinations-builder.interface';
 
 export class MatchDayCombinationsGroupStageBuilder implements MatchDayCombinationsBuilder {

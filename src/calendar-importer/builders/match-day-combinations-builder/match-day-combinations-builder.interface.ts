@@ -1,4 +1,4 @@
-import { MatchDayCombinations } from "../calendar-importer.interface";
+import { MatchDayCombinations } from "../../calendar-importer.interface";
 
 export interface MatchDayCombinationsBuilder {
 

@@ -1,6 +1,6 @@
-import { GroupCompositionBuilder } from './builders/group-composition-builder.interface';
+import { GroupCompositionBuilder } from './builders/group-compositions-builder/group-composition-builder.interface';
 import { CalendarMatch } from "../models/calendar-match.model";
-import { MatchDayCombinationsBuilder } from "./builders/match-day-combinations-builder.interface";
+import { MatchDayCombinationsBuilder } from "./builders/match-day-combinations-builder/match-day-combinations-builder.interface";
 import { CalendarImporterI, Combination, Group, GroupsComposition, MatchDayCombinations } from "./calendar-importer.interface";
 
 export class CalendarImporter implements CalendarImporterI {

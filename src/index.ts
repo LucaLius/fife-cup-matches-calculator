@@ -1,9 +1,9 @@
-import { GroupCompositionBuilder } from "./calendar-importer/builders/group-composition-builder.interface";
-import { GroupCompositionEliminationPhaseBuilder } from "./calendar-importer/builders/group-composition-elimination-phase-builder";
-import { GroupCompositionGroupStageBuilder } from "./calendar-importer/builders/group-composition-group-stage-builder";
-import { MatchDayCombinationsEliminationPhaseBuilder } from "./calendar-importer/builders/match-day-combination-elimination-phase.builder";
-import { MatchDayCombinationsGroupStageBuilder } from "./calendar-importer/builders/match-day-combination-group-stage.builder";
-import { MatchDayCombinationsBuilder } from "./calendar-importer/builders/match-day-combinations-builder.interface";
+import { GroupCompositionBuilder } from "./calendar-importer/builders/group-compositions-builder/group-composition-builder.interface";
+import { GroupCompositionEliminationPhaseBuilder } from "./calendar-importer/builders/group-compositions-builder/group-composition-elimination-phase-builder";
+import { GroupCompositionGroupStageBuilder } from "./calendar-importer/builders/group-compositions-builder/group-composition-group-stage-builder";
+import { MatchDayCombinationsEliminationPhaseBuilder } from "./calendar-importer/builders/match-day-combinations-builder/match-day-combination-elimination-phase.builder";
+import { MatchDayCombinationsGroupStageBuilder } from "./calendar-importer/builders/match-day-combinations-builder/match-day-combination-group-stage.builder";
+import { MatchDayCombinationsBuilder } from "./calendar-importer/builders/match-day-combinations-builder/match-day-combinations-builder.interface";
 import { CalendarImporter } from "./calendar-importer/calendar-importer";
 import { INPUT_FILES_TEAMS_DIR_PATH } from "./input-files/input-files.utils";
 import { TeamInfo } from "./models/team-info.model";

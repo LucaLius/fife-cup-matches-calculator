@@ -1,8 +1,8 @@
 import { describe, expect, test } from '@jest/globals';
 import { CalendarImporter } from './calendar-importer';
 import { CalendarMatch } from '../models/calendar-match.model';
-import { MatchDayCombinationsGroupStageBuilder } from './builders/match-day-combination-group-stage.builder';
-import { GroupCompositionGroupStageBuilder } from './builders/group-composition-group-stage-builder';
+import { MatchDayCombinationsGroupStageBuilder } from './builders/match-day-combinations-builder/match-day-combination-group-stage.builder';
+import { GroupCompositionGroupStageBuilder } from './builders/group-compositions-builder/group-composition-group-stage-builder';
 
 /* eslint-env jest */
 

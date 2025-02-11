@@ -1,4 +1,4 @@
-import { Group, GroupsComposition } from "../calendar-importer.interface";
+import { Group, GroupsComposition } from "../../calendar-importer.interface";
 import { GroupCompositionBuilder } from "./group-composition-builder.interface";
 
 export class GroupCompositionEliminationPhaseBuilder implements GroupCompositionBuilder {
