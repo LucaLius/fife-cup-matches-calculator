@@ -15,7 +15,7 @@ let competition: string; // 'GROUP_STAGE' | 'EUROPA_LEAGUE' | 'CHAMPIONS_LEAGUE'
 
 // TODO: remove this assignments
 matchDay = 2;
-competition = 'CHAMPIONS_LEAGUE';
+competition = 'EUROPA_LEAGUE';
 
 let matchDayCombinationsBuilder!: MatchDayCombinationsBuilder;
 if (competition === 'GROUP_STAGE') {
