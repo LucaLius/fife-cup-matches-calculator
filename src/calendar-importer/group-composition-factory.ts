@@ -1,4 +1,5 @@
 import { ChampionsLastSixteensGroupCompositionBuilder } from "./builders/group-compositions-builder/champions-last-sixteens-group-composition-builder";
+import { ChampionsQuarterFinalsGroupCompositionBuilder } from "./builders/group-compositions-builder/champions-quarter-finals-group-composition-builder";
 import { EuropeLastSixteensGroupCompositionBuilder } from "./builders/group-compositions-builder/europe-last-sixteens-group-composition-builder";
 import { GroupCompositionBuilder } from "./builders/group-compositions-builder/group-composition-builder.interface";
 import { GroupCompositionGroupStageBuilder } from "./builders/group-compositions-builder/group-composition-group-stage-builder";
@@ -28,7 +29,10 @@ export class GroupCompositionFactory {
         return new ChampionsLastSixteensGroupCompositionBuilder();
       }
       if (this.matchDay === 2) {
-        // return new ChampionsQuarterFinalsGroupCompositionBuilder();
+        return new ChampionsQuarterFinalsGroupCompositionBuilder();
+      }
+      if (this.matchDay === 3) {
+        // return new ChampionsSemiFinalsGroupCompositionBuilder();
       }
     }
 
@@ -38,6 +42,9 @@ export class GroupCompositionFactory {
       }
       if (this.matchDay === 2) {
         // return new EuropeQuarterFinalsGroupCompositionBuilder();
+      }
+      if (this.matchDay === 3) {
+        // return new EuropeSemiFinalsGroupCompositionBuilder();
       }
     }
 

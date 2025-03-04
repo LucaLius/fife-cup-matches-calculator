@@ -9,7 +9,10 @@ export class MatchDayCombinationsEliminationPhaseBuilder implements MatchDayComb
 
   constructor() {
     this.matchDayCombinations = {
-      1: combinationsMatchDayOne
+      1: combinationsMatchDayOne, // last sixteens
+      2: combinationsMatchDayOne, // quarter finals
+      3: combinationsMatchDayOne, // semi finals
+      4: combinationsMatchDayOne // final
     };
   }
   getMatchDayCombinations(): MatchDayCombinations {

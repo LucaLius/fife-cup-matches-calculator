@@ -1,6 +1,3 @@
-import { GroupCompositionBuilder } from "./calendar-importer/builders/group-compositions-builder/group-composition-builder.interface";
-import { ChampionsLastSixteensGroupCompositionBuilder } from "./calendar-importer/builders/group-compositions-builder/champions-last-sixteens-group-composition-builder";
-import { GroupCompositionGroupStageBuilder } from "./calendar-importer/builders/group-compositions-builder/group-composition-group-stage-builder";
 import { MatchDayCombinationsEliminationPhaseBuilder } from "./calendar-importer/builders/match-day-combinations-builder/match-day-combination-elimination-phase.builder";
 import { MatchDayCombinationsGroupStageBuilder } from "./calendar-importer/builders/match-day-combinations-builder/match-day-combination-group-stage.builder";
 import { MatchDayCombinationsBuilder } from "./calendar-importer/builders/match-day-combinations-builder/match-day-combinations-builder.interface";
@@ -14,11 +11,11 @@ import { GroupCompositionFactory } from "./calendar-importer/group-composition-f
 
 // TODO: pass as runtime variables
 let matchDay: number;
-let competition: string; // 'GROUP_STAGE' | 'CHAMPIONS_LEAGUE';
+let competition: string; // 'GROUP_STAGE' | 'EUROPA_LEAGUE' | 'CHAMPIONS_LEAGUE';
 
 // TODO: remove this assignments
-matchDay = 1;
-competition = 'EUROPA_LEAGUE';
+matchDay = 2;
+competition = 'CHAMPIONS_LEAGUE';
 
 let matchDayCombinationsBuilder!: MatchDayCombinationsBuilder;
 if (competition === 'GROUP_STAGE') {
