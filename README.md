@@ -8,9 +8,9 @@ nvm use
 npm install
 
 ## Local development
-To develop locally or just generate the files in your local environment, you have to run this commands.
-Replace :competition with 'GROUP_STAGE' | 'EUROPA_LEAGUE' | 'CHAMPIONS_LEAGUE' and round with a valid integer
+To develop locally or just generate the files in your local environment, you have to run this command:
 
 npm run start:dev-server
-curl -X GET http://localhost:3000/calculate/:competition/:round
+
+then, open with your browser the file src/gui/index.html, fill the inputs and it will generate the files under src/output-files/team-files directory
 
