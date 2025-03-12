@@ -8,33 +8,46 @@ import { createOutputFiles } from "./output-files-generator/output-files-generat
 import { processRound } from "./process-round";
 import { TeamsInfoImporter } from "./teams-info-importer/teams-info-importer";
 import { GroupCompositionFactory } from "./calendar-importer/group-composition-factory";
+import { Competition } from "./enums/competition.enum";
+import { CalendarMatch } from "./models/calendar-match.model";
 
-// TODO: pass as runtime variables
-let matchDay: number;
-let competition: string; // 'GROUP_STAGE' | 'EUROPA_LEAGUE' | 'CHAMPIONS_LEAGUE';
+type MainProcessParams = {
+  competition: Competition,
+  round: number
+};
 
-// TODO: remove this assignments
-matchDay = 2;
-competition = 'EUROPA_LEAGUE';
+export function mainProcess(params: MainProcessParams) {
 
-let matchDayCombinationsBuilder!: MatchDayCombinationsBuilder;
-if (competition === 'GROUP_STAGE') {
-  matchDayCombinationsBuilder = new MatchDayCombinationsGroupStageBuilder();
-} else {
-  matchDayCombinationsBuilder = new MatchDayCombinationsEliminationPhaseBuilder();
+  const calendarMatches = getCalendarMatches(params);
+  const teamsInfo = getTeamsInfo();
+
+  const result = processRound(calendarMatches, teamsInfo);
+
+  // TODO: try to return the files zipped instead
+  createOutputFiles(result);
+
+  return { esit: "Success", params };
 }
 
-const groupCompositionBuilder = new GroupCompositionFactory(competition, matchDay).build();
+function getCalendarMatches(params: MainProcessParams): CalendarMatch[] {
+  let matchDayCombinationsBuilder!: MatchDayCombinationsBuilder;
 
-const calendarImporter = new CalendarImporter(matchDayCombinationsBuilder, groupCompositionBuilder);
-const matchDayMatches = calendarImporter.getMatchDayMatches(matchDay);
-const calendarMatches = matchDayMatches ?? [];
+  if (params.competition === Competition.GROUP_STAGE) {
+    matchDayCombinationsBuilder = new MatchDayCombinationsGroupStageBuilder();
+  } else {
+    matchDayCombinationsBuilder = new MatchDayCombinationsEliminationPhaseBuilder();
+  }
 
-const teamsInfo: TeamInfo[] = new TeamsInfoImporter(INPUT_FILES_TEAMS_DIR_PATH).getTeamsInfo();
+  const groupCompositionBuilder = new GroupCompositionFactory(params.competition, params.round).build();
 
-const result = processRound(calendarMatches, teamsInfo);
-console.log(result);
+  const calendarImporter = new CalendarImporter(matchDayCombinationsBuilder, groupCompositionBuilder);
+  const matchDayMatches = calendarImporter.getMatchDayMatches(params.round);
+  const calendarMatches = matchDayMatches ?? [];
 
-createOutputFiles(result);
+  return calendarMatches;
+}
 
-// TODO: aggiungere in file di output eventuali riserve d'ufficio
+function getTeamsInfo(): TeamInfo[] {
+  const teamsInfo: TeamInfo[] = new TeamsInfoImporter(INPUT_FILES_TEAMS_DIR_PATH).getTeamsInfo();
+  return teamsInfo;
+}

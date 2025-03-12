@@ -1,3 +1,4 @@
+import { Competition } from "../enums/competition.enum";
 import { ChampionsLastSixteensGroupCompositionBuilder } from "./builders/group-compositions-builder/champions-last-sixteens-group-composition-builder";
 import { ChampionsQuarterFinalsGroupCompositionBuilder } from "./builders/group-compositions-builder/champions-quarter-finals-group-composition-builder";
 import { EuropeLastSixteensGroupCompositionBuilder } from "./builders/group-compositions-builder/europe-last-sixteens-group-composition-builder";
@@ -21,11 +22,11 @@ export class GroupCompositionFactory {
       throw new Error('competition type must be provided');
     }
 
-    if (this.competition === 'GROUP_STAGE') {
+    if (this.competition === Competition.GROUP_STAGE) {
       return new GroupCompositionGroupStageBuilder();
     }
 
-    if (this.competition === 'CHAMPIONS_LEAGUE') {
+    if (this.competition === Competition.CHAMPIONS_LEAGUE) {
       if (this.matchDay === 1) {
         return new ChampionsLastSixteensGroupCompositionBuilder();
       }
@@ -37,7 +38,7 @@ export class GroupCompositionFactory {
       }
     }
 
-    if (this.competition === 'EUROPA_LEAGUE') {
+    if (this.competition === Competition.EUROPA_LEAGUE) {
       if (this.matchDay === 1) {
         return new EuropeLastSixteensGroupCompositionBuilder();
       }
