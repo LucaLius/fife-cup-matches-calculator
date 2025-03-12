@@ -7,6 +7,9 @@
   "type": "commonjs",
   "scripts": {
     "start": "npx ts-node src/index.ts",
+    "dev": "nodemon --exec ts-node src/app.ts",
+    "build": "tsc",
+    "start:server": "node dist/app.js",
     "lint": "eslint src/**",
     "pretest": "npm run lint",
     "test": "jest --runInBand src; jest --runInBand integration-test",
@@ -20,16 +23,20 @@
     "@eslint/compat": "^1.2.1",
     "@eslint/eslintrc": "^3.1.0",
     "@eslint/js": "^9.13.0",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.13.10",
     "eslint": "^9.13.0",
     "eslint-plugin-jest": "^28.8.3",
     "globals": "^15.11.0",
     "jest": "^29.7.0",
+    "nodemon": "^3.1.9",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3",
     "typescript-eslint": "^8.10.0"
   },
   "dependencies": {
+    "express": "^4.21.2",
     "node-xlsx": "^0.24.0"
   }
 }
