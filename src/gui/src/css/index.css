@@ -15,3 +15,7 @@ input {
   font-weight: bold;
   color: green;
 }
+
+.downloadBtn {
+  margin-top: 16px;
+}
