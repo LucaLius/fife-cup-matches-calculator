@@ -7,8 +7,12 @@
   "type": "commonjs",
   "scripts": {
     "build": "tsc",
+    "start-environment:macos": "npm run open-browser:macos; npm run start:dev-server",
+    "start-environment:windows": "npm run open-browser:windows; npm run start:dev-server",
     "start:dev-server": "nodemon --exec ts-node src/app.ts",
     "start:server": "node dist/app.js",
+    "open-browser:windows": "google-chrome ./src/gui/index.html",
+    "open-browser:macos": "open -a \"Google Chrome\" ./src/gui/index.html",
     "lint": "eslint src/**",
     "pretest": "npm run lint",
     "test": "jest --runInBand src; jest --runInBand integration-test",
