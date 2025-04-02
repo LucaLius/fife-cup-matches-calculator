@@ -14,16 +14,19 @@ export class TeamsInfoImporter implements TeamsInfoImporterI {
 
   constructor(public inputFilesDirPath: string) { }
 
-  getTeamsInfo(): TeamInfo[] {
+  getTeamsInfo(): { serieAMatchNumber: string, teamsInfo: TeamInfo[] } {
     const allTeamsInfo: TeamInfo[] = [];
 
     const fileNames = fs.readdirSync(this.inputFilesDirPath);
+    let serieAMatchNumber = 'N.D.';
 
     fileNames
       .filter(fileName => !fileName.startsWith('.')) // skip hidden files
       .forEach(fileName => {
-        console.log(fileName);
         const fileContent = parseXlsx(`${this.inputFilesDirPath}/${fileName}`);
+
+        const fileNameRow = RawFileInfoGetter.getFileNameRow(fileContent);
+        serieAMatchNumber = getSerieAMatchNumber(fileNameRow);
 
         for (let matchIndex = 0; matchIndex < TeamsInfoImporterConfig.MATCHES_PER_FILE; matchIndex++) {
 
@@ -42,9 +45,19 @@ export class TeamsInfoImporter implements TeamsInfoImporterI {
         }
       });
 
-    return allTeamsInfo;
+    return { serieAMatchNumber, teamsInfo: allTeamsInfo };
   };
 
+}
+
+function getSerieAMatchNumber(titleRow: string[][]): string {
+  const title = titleRow[0][0];
+  const giornataStrings = title.split('Giornata');
+  const giornataNumber = giornataStrings[1];
+  if (!giornataNumber) {
+    throw new Error("Title of file could be changed, I cannot find competition match day number");
+  }
+  return giornataNumber.trim();
 }
 
 function getPlayerInfo(player: (string | number)[], columnIndexes: ColumnIndexes): PlayerInfo {

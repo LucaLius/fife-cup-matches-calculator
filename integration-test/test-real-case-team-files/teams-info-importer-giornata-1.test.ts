@@ -428,8 +428,8 @@ describe('Giornata 1 safe-check', () => {
     const matchDayMatches = calendarImporter.getMatchDayMatches(matchDay);
     const calendarMatches = matchDayMatches ?? [];
 
-    const teamsInfo: TeamInfo[] = new TeamsInfoImporter(INPUT_TEST_REAL_CASE_1_FILES_TEAMS_DIR_PATH).getTeamsInfo();
-    const actual = processRound(calendarMatches, teamsInfo);
+    const filesExtraction = new TeamsInfoImporter(INPUT_TEST_REAL_CASE_1_FILES_TEAMS_DIR_PATH).getTeamsInfo();
+    const actual = processRound(calendarMatches, filesExtraction.teamsInfo);
 
     expect(actual).toEqual(expected);
 

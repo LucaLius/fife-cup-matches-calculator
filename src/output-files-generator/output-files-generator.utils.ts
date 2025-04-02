@@ -1,2 +1,3 @@
 export const OUTPUT_FILE_GENERATOR_DIR_PATH = `${__dirname}`;
-export const OUTPUT_FILES_GENERATOR_TEMPLATE_FILE_PATH = `${OUTPUT_FILE_GENERATOR_DIR_PATH}/Template output _Giornata N - Girone X.xlsx`;
+export const OUTPUT_FILES_GENERATOR_TEMPLATE_FILE_GROUP_STAGE_PATH = `${OUTPUT_FILE_GENERATOR_DIR_PATH}/Template output _Giornata N - Girone X.xlsx`;
+export const OUTPUT_FILES_GENERATOR_TEMPLATE_FILE_ELIMINATION_PHASE_PATH = `${OUTPUT_FILE_GENERATOR_DIR_PATH}/Template output _Round N - Match X.xlsx`;

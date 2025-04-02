@@ -2,20 +2,21 @@
 import { CalendarMatchEsit } from './../models/calendar-match-esit.model';
 import * as fs from 'fs';
 import { OUTPUT_FILES_TEAMS_DIR_PATH } from '../output-files/output-files.utils';
-import { OUTPUT_FILES_GENERATOR_TEMPLATE_FILE_PATH } from './output-files-generator.utils';
 import { openXlsxWorkbook } from '../excel-utils/excel-parser';
 import * as XLSX from 'xlsx';
 import { TeamsInfoImporter } from '../teams-info-importer/teams-info-importer';
 import { INPUT_FILES_TEAMS_DIR_PATH } from '../input-files/input-files.utils';
 import { TeamInfo } from '../models/team-info.model';
+import { Competition } from '../enums/competition.enum';
+import { OUTPUT_FILES_GENERATOR_TEMPLATE_FILE_ELIMINATION_PHASE_PATH, OUTPUT_FILES_GENERATOR_TEMPLATE_FILE_GROUP_STAGE_PATH } from './output-files-generator.utils';
 
-export function createOutputFiles(result: CalendarMatchEsit[]): void {
+export function createOutputFiles(competition: Competition, result: CalendarMatchEsit[]): void {
 
   const resultsGrouped = groupMatches(result);
 
-  generateTemplateFiles(resultsGrouped);
+  generateTemplateFiles(competition, resultsGrouped);
 
-  editGeneratedFiles(resultsGrouped);
+  editGeneratedFiles(competition, resultsGrouped);
 }
 
 function groupMatches(result: CalendarMatchEsit[]): { groupId: number, matches: CalendarMatchEsit[] }[] {
@@ -32,52 +33,132 @@ function groupMatches(result: CalendarMatchEsit[]): { groupId: number, matches: 
   return resultsGrouped;
 }
 
-function generateTemplateFiles(resultsGrouped: { groupId: number, matches: CalendarMatchEsit[] }[]): void {
+function generateTemplateFiles(competition: Competition, resultsGrouped: { groupId: number, matches: CalendarMatchEsit[] }[]): void {
   console.log("Start generating output files");
   resultsGrouped.forEach((group) => {
     group.matches.forEach((match) => {
-      const src = OUTPUT_FILES_GENERATOR_TEMPLATE_FILE_PATH;
-      const dest = getDestinationFileName(match.matchNumber, group.groupId);
+      const src = getCompetitonOutputTemplateSrc(competition);
+      const dest = getDestinationFileName(competition, match.matchNumber, group.groupId);
       fs.copyFileSync(src, dest);
     });
   });
 }
 
-function getDestinationFileName(matchNumber: number, groupIndex: number): string {
+function getCompetitonOutputTemplateSrc(competition: Competition) {
+  if (competition === Competition.GROUP_STAGE) {
+    return OUTPUT_FILES_GENERATOR_TEMPLATE_FILE_GROUP_STAGE_PATH;
+  }
+
+  if (competition === Competition.CHAMPIONS_LEAGUE || competition === Competition.EUROPA_LEAGUE) {
+    return OUTPUT_FILES_GENERATOR_TEMPLATE_FILE_ELIMINATION_PHASE_PATH;
+  }
+
+  return OUTPUT_FILES_GENERATOR_TEMPLATE_FILE_GROUP_STAGE_PATH;
+}
+
+function getDestinationFileName(competition: Competition, matchNumber: number, groupIndex: number): string {
+  if (competition === Competition.GROUP_STAGE) {
+    return getDestinationFileNameGroupStage(matchNumber, groupIndex);
+  }
+
+  if (competition === Competition.CHAMPIONS_LEAGUE || competition === Competition.EUROPA_LEAGUE) {
+    return getDestinationFileNameEliminationPhase(competition, matchNumber, groupIndex);
+  }
+
+  return getDestinationFileNameGroupStage(matchNumber, groupIndex);
+}
+
+function getDestinationFileNameGroupStage(matchNumber: number, groupIndex: number): string {
   const mappedGroupId = ['-', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'][groupIndex];
   return `${OUTPUT_FILES_TEAMS_DIR_PATH}/Giornata ${matchNumber} - Girone ${mappedGroupId}.xlsx`;
 }
 
-function editGeneratedFiles(resultsGrouped: { groupId: number, matches: CalendarMatchEsit[] }[]): void {
-  console.log("Start editing generated files");
+function getDestinationFileNameEliminationPhase(competition: Competition, matchNumber: number, groupIndex: number): string {
+  const mappedRound = ['-', 'Last sixteens', 'Quarter finals', 'Semi finals', 'Finals'][matchNumber];
+  const competitionMapped = competition === Competition.CHAMPIONS_LEAGUE ? 'Champions League' : 'Europa League';
+  return `${OUTPUT_FILES_TEAMS_DIR_PATH}/${competitionMapped} round ${mappedRound} - Match ${groupIndex}.xlsx`;
+}
+
+function editGeneratedFiles(competition: Competition, resultsGrouped: { groupId: number, matches: CalendarMatchEsit[] }[]): void {
+  if (competition === Competition.GROUP_STAGE) {
+    editGeneratedGroupStageFiles(competition, resultsGrouped);
+    return;
+  }
+
+  if (competition === Competition.CHAMPIONS_LEAGUE || competition === Competition.EUROPA_LEAGUE) {
+    editGeneratedEliminationPhaseFiles(competition, resultsGrouped);
+    return;
+  }
+
+  editGeneratedGroupStageFiles(competition, resultsGrouped);
+}
+
+function editGeneratedGroupStageFiles(competition: Competition, resultsGrouped: { groupId: number, matches: CalendarMatchEsit[] }[]): void {
+  console.log("Start editing generated Group Stage files");
   resultsGrouped.forEach((group) => {
     group.matches.forEach((match, matchIndex) => {
-      const dest = getDestinationFileName(match.matchNumber, group.groupId);
+      const dest = getDestinationFileName(competition, match.matchNumber, group.groupId);
       const workBook: XLSX.WorkBook = openXlsxWorkbook(dest);
       const workSheet = workBook.Sheets[workBook.SheetNames[0]];
 
-      const teamsInfo: TeamInfo[] = new TeamsInfoImporter(INPUT_FILES_TEAMS_DIR_PATH).getTeamsInfo();
+      const fileExtraction = new TeamsInfoImporter(INPUT_FILES_TEAMS_DIR_PATH).getTeamsInfo();
 
-      replaceHeader(workSheet, match.matchNumber);
+      replaceHeaderGroupStage(workSheet, match.matchNumber);
       replaceTeamsIdAndScore(workSheet, match, matchIndex);
-      replaceTeamsModule(workSheet, teamsInfo, match, matchIndex);
+      replaceTeamsModule(workSheet, fileExtraction.teamsInfo, match, matchIndex);
       replaceTeamsTotals(workSheet, match, matchIndex);
-      replaceTeamsCaptainMod(workSheet, teamsInfo, match, matchIndex);
+      replaceTeamsCaptainMod(workSheet, fileExtraction.teamsInfo, match, matchIndex);
       replaceTeamsDefenseMod(workSheet, match, matchIndex);
       replaceTeamsMidfieldMod(workSheet, match, matchIndex);
 
-      fillTeamsPlayersTitolari(workSheet, teamsInfo, match, matchIndex);
-      fillTeamsPlayersPanchinari(workSheet, teamsInfo, match, matchIndex);
+      fillTeamsPlayersTitolari(workSheet, fileExtraction.teamsInfo, match, matchIndex);
+      fillTeamsPlayersPanchinari(workSheet, fileExtraction.teamsInfo, match, matchIndex);
 
       XLSX.writeFile(workBook, dest);
     });
   });
 }
 
-function replaceHeader(workSheet: XLSX.WorkSheet, matchNumber: number): void {
+function editGeneratedEliminationPhaseFiles(competition: Competition, resultsGrouped: { groupId: number, matches: CalendarMatchEsit[] }[]): void {
+  console.log("Start editing generated Elimination Phase files");
+  resultsGrouped.forEach((group) => {
+    group.matches.forEach((match, matchIndex) => {
+      const dest = getDestinationFileName(competition, match.matchNumber, group.groupId);
+      const workBook: XLSX.WorkBook = openXlsxWorkbook(dest);
+      const workSheet = workBook.Sheets[workBook.SheetNames[0]];
+
+      const fileExtraction = new TeamsInfoImporter(INPUT_FILES_TEAMS_DIR_PATH).getTeamsInfo();
+
+      replaceHeaderEliminationPhase(workSheet, competition, fileExtraction.serieAMatchNumber, match.matchNumber, group.groupId);
+      replaceTeamsIdAndScore(workSheet, match, matchIndex);
+      replaceTeamsModule(workSheet, fileExtraction.teamsInfo, match, matchIndex);
+      replaceTeamsTotals(workSheet, match, matchIndex);
+      replaceTeamsCaptainMod(workSheet, fileExtraction.teamsInfo, match, matchIndex);
+      replaceTeamsDefenseMod(workSheet, match, matchIndex);
+      replaceTeamsMidfieldMod(workSheet, match, matchIndex);
+
+      fillTeamsPlayersTitolari(workSheet, fileExtraction.teamsInfo, match, matchIndex);
+      fillTeamsPlayersPanchinari(workSheet, fileExtraction.teamsInfo, match, matchIndex);
+
+      XLSX.writeFile(workBook, dest);
+    });
+  });
+}
+
+function replaceHeaderGroupStage(workSheet: XLSX.WorkSheet, matchNumber: number): void {
   const origin = 'A1';
 
   const replacedRow = [`Formazioni Campionato 24/25 - Giornata ${matchNumber}`];
+
+  applyReplace(workSheet, replacedRow, origin);
+}
+
+function replaceHeaderEliminationPhase(workSheet: XLSX.WorkSheet, competition: Competition, serieAMatchNumber: string, roundId: number, matchId: number): void {
+  const origin = 'A1';
+  const competitionMapped = competition === Competition.CHAMPIONS_LEAGUE ? 'Champions League' : 'Europa League';
+  const mappedRound = ['-', 'Last sixteens', 'Quarter finals', 'Semi finals', 'Finals'][roundId];
+
+  const replacedRow = [`Formazioni ${competitionMapped} 24/25 - Giornata ${serieAMatchNumber} (${mappedRound} round, Match ${matchId})`];
 
   applyReplace(workSheet, replacedRow, origin);
 }

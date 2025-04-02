@@ -11,8 +11,8 @@ describe('TeamsInfoImporter.getTeamsInfo()', () => {
     const teamsForFile = 8;
     const expected = filesInDirectory * teamsForFile;
 
-    const actual = new TeamsInfoImporter(INPUT_TEST_FILES_TEAMS_DIR_PATH).getTeamsInfo();
+    const filesExtraction = new TeamsInfoImporter(INPUT_TEST_FILES_TEAMS_DIR_PATH).getTeamsInfo();
 
-    expect(actual.length).toEqual(expected);
+    expect(filesExtraction.teamsInfo.length).toEqual(expected);
   })
 })

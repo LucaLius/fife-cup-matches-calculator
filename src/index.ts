@@ -24,7 +24,7 @@ export function mainProcess(params: MainProcessParams) {
   const result = processRound(calendarMatches, teamsInfo);
 
   // TODO: try to return the files zipped instead
-  createOutputFiles(result);
+  createOutputFiles(params.competition, result);
 
   return { esit: "Success", params };
 }
@@ -48,6 +48,6 @@ function getCalendarMatches(params: MainProcessParams): CalendarMatch[] {
 }
 
 function getTeamsInfo(): TeamInfo[] {
-  const teamsInfo: TeamInfo[] = new TeamsInfoImporter(INPUT_FILES_TEAMS_DIR_PATH).getTeamsInfo();
-  return teamsInfo;
+  const filesExtraction = new TeamsInfoImporter(INPUT_FILES_TEAMS_DIR_PATH).getTeamsInfo();
+  return filesExtraction.teamsInfo;
 }

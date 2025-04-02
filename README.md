@@ -14,5 +14,7 @@ To develop locally or just generate the files in your local environment, you hav
 npm run start-environment:macos (for macOS users)
 npm run start-environment:windows (for Windows users)
 
-then, open with your browser the file src/gui/index.html, fill the inputs and it will generate the files under src/output-files/team-files directory
+then, your browser should be openin the generator page.
+Put your files with matches result inside src/input-files/team-files directory (delete all the previous content).
+Fill the inputs and it will generate the files under src/output-files/team-files directory.
 

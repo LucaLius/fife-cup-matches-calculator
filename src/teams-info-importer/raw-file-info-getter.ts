@@ -5,6 +5,12 @@ import { TeamsInfoImporterConfig } from "./teams-info-importer.config";
 
 export class RawFileInfoGetter {
 
+
+  static getFileNameRow(fileContent: string[][]) {
+    return fileContent.slice(0, 1); // I alwys the first row
+  }
+
+
   static getMatchFileRows(fileContent: string[][], matchIndex: number) {
     const matchesInfoIndexes = RawFileInfoGetter.getMatchesStartingIndexes(fileContent);
     const startingRowIndex = matchesInfoIndexes[matchIndex];
