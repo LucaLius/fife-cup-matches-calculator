@@ -1,8 +1,10 @@
 import { Competition } from "../enums/competition.enum";
 import { ChampionsLastSixteensGroupCompositionBuilder } from "./builders/group-compositions-builder/champions-last-sixteens-group-composition-builder";
 import { ChampionsQuarterFinalsGroupCompositionBuilder } from "./builders/group-compositions-builder/champions-quarter-finals-group-composition-builder";
+import { ChampionsSemiFinalsGroupCompositionBuilder } from "./builders/group-compositions-builder/champions-semi-finals-group-composition-builder";
 import { EuropeLastSixteensGroupCompositionBuilder } from "./builders/group-compositions-builder/europe-last-sixteens-group-composition-builder";
 import { EuropeQuarterFinalsGroupCompositionBuilder } from "./builders/group-compositions-builder/europe-quarter-finals-group-composition-builder";
+import { EuropeSemiFinalsGroupCompositionBuilder } from "./builders/group-compositions-builder/europe-semi-finals-group-composition-builder";
 import { GroupCompositionBuilder } from "./builders/group-compositions-builder/group-composition-builder.interface";
 import { GroupCompositionGroupStageBuilder } from "./builders/group-compositions-builder/group-composition-group-stage-builder";
 
@@ -34,7 +36,10 @@ export class GroupCompositionFactory {
         return new ChampionsQuarterFinalsGroupCompositionBuilder();
       }
       if (this.matchDay === 3) {
-        // return new ChampionsSemiFinalsGroupCompositionBuilder();
+        return new ChampionsSemiFinalsGroupCompositionBuilder();
+      }
+      if (this.matchDay === 4) {
+        // return new ChampionsFinalsGroupCompositionBuilder();
       }
     }
 
@@ -46,7 +51,10 @@ export class GroupCompositionFactory {
         return new EuropeQuarterFinalsGroupCompositionBuilder();
       }
       if (this.matchDay === 3) {
-        // return new EuropeSemiFinalsGroupCompositionBuilder();
+        return new EuropeSemiFinalsGroupCompositionBuilder();
+      }
+      if (this.matchDay === 4) {
+        // return new EuropeFinalsGroupCompositionBuilder();
       }
     }
 

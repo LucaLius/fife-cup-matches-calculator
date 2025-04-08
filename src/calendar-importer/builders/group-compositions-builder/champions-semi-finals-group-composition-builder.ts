@@ -1,0 +1,36 @@
+import { Group, GroupsComposition } from "../../calendar-importer.interface";
+import { GroupCompositionBuilder } from "./group-composition-builder.interface";
+
+export class ChampionsSemiFinalsGroupCompositionBuilder implements GroupCompositionBuilder {
+  // Essendo semifinali, potenzialmente sono tutti istanze diverse di GroupCompositionBuilder)
+  // TODO: capire come gestire ottavi, quarti, etc senza creare altre classi
+  // TODO: capire come gestire competizioni diverse
+
+  public groupsComposition: GroupsComposition;
+
+  constructor() {
+    this.groupsComposition = this.initGroups();
+  }
+
+  public getGroupsComposition(): GroupsComposition {
+    return this.groupsComposition;
+  }
+
+  // Ogni Group è un accoppiamento tra due squadre
+  private initGroups(): GroupsComposition {
+    const groupA = new Group();
+    groupA.idGroup = 1;
+    groupA.teamIdA = 'ASTON BIRRA';
+    groupA.teamIdB = 'TEAM DADA';
+
+    const groupB = new Group();
+    groupB.idGroup = 2;
+    groupB.teamIdA = 'AHI 3 CROCIATI';
+    groupB.teamIdB = 'ACK BOMBA';
+
+    return {
+      A: groupA,
+      B: groupB
+    };
+  }
+}
