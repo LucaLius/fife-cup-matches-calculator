@@ -19,3 +19,12 @@ input {
 .downloadBtn {
   margin-top: 16px;
 }
+
+.settings-container {
+  text-align: left;
+}
+
+/* Utils */
+.m-left-16 {
+  margin-left: 16px;
+}

@@ -7,6 +7,8 @@
   <title>Calculate Matches</title>
   <link rel="stylesheet" href="./src/css/index.css">
   </link>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="./src/js/page-settings.js"></script>
 </head>
 
 <body>
@@ -21,13 +23,43 @@
   </select>
 
   <label for="round">Enter Round:</label>
-  <input type="number" id="round" min="1" placeholder="Round number">
+  <select id="round">
+    <option value="1">Round of Sixteens</option>
+    <option value="2">Quarter Finals</option>
+    <option value="3">Semi Finals</option>
+    <option value="4">Finals</option>
+  </select>
 
   <button onclick="calculate()">Calculate</button>
 
   <div id="result"></div>
 
   <button class="downloadBtn" id="downloadBtn">Scarica Excels</button>
+
+  <div class="settings-container" x-data="pageSettings">
+    <h3>Impostazioni</h3>
+
+    <h4>Fase a gironi</h4>
+    <div x-data="groupStage">
+      <template x-for="(group, index) in groups" :key="index">
+        <div>
+          <p>
+            Girone <span x-text="group.id"></span>
+          </p>
+
+          <template x-if="group.teams.length > 0">
+            <ul>
+              <template x-for="team in group.teams" :key="team">
+                <li x-text="team"></li>
+              </template>
+            </ul>
+          </template>
+        </div>
+
+      </template>
+    </div>
+
+  </div>
 
   <script src="./src/js/index.js"></script>
 

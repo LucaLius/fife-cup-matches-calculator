@@ -5,6 +5,7 @@ import cors from 'cors';
 import archiver from 'archiver';
 import fs from 'fs';
 import { OUTPUT_FILES_TEAMS_DIR_PATH } from "./output-files/output-files.utils";
+import { getTeamList } from "./config/team-list.config";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -16,6 +17,14 @@ app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("Hello, Express with TypeScript!");
+});
+
+app.get("/config", (req: Request, res: any) => {
+
+  const config = {
+    teams: getTeamList()
+  };
+  res.send({ config });
 });
 
 app.get("/calculate/:competition/:round", (req: Request, res: any) => {
