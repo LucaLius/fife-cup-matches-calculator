@@ -15,7 +15,7 @@ export type GroupsComposition = {
 
 export class Group {
 
-  public idGroup!: number;
+  public idGroup!: string;
   public teamIdA!: string;
   public teamIdB!: string;
   public teamIdC!: string;

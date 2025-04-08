@@ -19,8 +19,8 @@ export function createOutputFiles(competition: Competition, result: CalendarMatc
   editGeneratedFiles(competition, resultsGrouped);
 }
 
-function groupMatches(result: CalendarMatchEsit[]): { groupId: number, matches: CalendarMatchEsit[] }[] {
-  const resultsGrouped: { groupId: number, matches: CalendarMatchEsit[] }[] = [];
+function groupMatches(result: CalendarMatchEsit[]): { groupId: string, matches: CalendarMatchEsit[] }[] {
+  const resultsGrouped: { groupId: string, matches: CalendarMatchEsit[] }[] = [];
   result.forEach(match => {
     const target = resultsGrouped.find(el => el.groupId === match.idGroup);
     if (target) {
@@ -33,7 +33,7 @@ function groupMatches(result: CalendarMatchEsit[]): { groupId: number, matches: 
   return resultsGrouped;
 }
 
-function generateTemplateFiles(competition: Competition, resultsGrouped: { groupId: number, matches: CalendarMatchEsit[] }[]): void {
+function generateTemplateFiles(competition: Competition, resultsGrouped: { groupId: string, matches: CalendarMatchEsit[] }[]): void {
   console.log("Start generating output files");
   resultsGrouped.forEach((group) => {
     group.matches.forEach((match) => {
@@ -56,30 +56,29 @@ function getCompetitonOutputTemplateSrc(competition: Competition) {
   return OUTPUT_FILES_GENERATOR_TEMPLATE_FILE_GROUP_STAGE_PATH;
 }
 
-function getDestinationFileName(competition: Competition, matchNumber: number, groupIndex: number): string {
+function getDestinationFileName(competition: Competition, matchNumber: number, groupId: string): string {
   if (competition === Competition.GROUP_STAGE) {
-    return getDestinationFileNameGroupStage(matchNumber, groupIndex);
+    return getDestinationFileNameGroupStage(matchNumber, groupId);
   }
 
   if (competition === Competition.CHAMPIONS_LEAGUE || competition === Competition.EUROPA_LEAGUE) {
-    return getDestinationFileNameEliminationPhase(competition, matchNumber, groupIndex);
+    return getDestinationFileNameEliminationPhase(competition, matchNumber, groupId);
   }
 
-  return getDestinationFileNameGroupStage(matchNumber, groupIndex);
+  return getDestinationFileNameGroupStage(matchNumber, groupId);
 }
 
-function getDestinationFileNameGroupStage(matchNumber: number, groupIndex: number): string {
-  const mappedGroupId = ['-', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'][groupIndex];
-  return `${OUTPUT_FILES_TEAMS_DIR_PATH}/Giornata ${matchNumber} - Girone ${mappedGroupId}.xlsx`;
+function getDestinationFileNameGroupStage(matchNumber: number, groupId: string): string {
+  return `${OUTPUT_FILES_TEAMS_DIR_PATH}/Giornata ${matchNumber} - Girone ${groupId}.xlsx`;
 }
 
-function getDestinationFileNameEliminationPhase(competition: Competition, matchNumber: number, groupIndex: number): string {
+function getDestinationFileNameEliminationPhase(competition: Competition, matchNumber: number, groupId: string): string {
   const mappedRound = ['-', 'Last sixteens', 'Quarter finals', 'Semi finals', 'Finals'][matchNumber];
   const competitionMapped = competition === Competition.CHAMPIONS_LEAGUE ? 'Champions League' : 'Europa League';
-  return `${OUTPUT_FILES_TEAMS_DIR_PATH}/${competitionMapped} round ${mappedRound} - Match ${groupIndex}.xlsx`;
+  return `${OUTPUT_FILES_TEAMS_DIR_PATH}/${competitionMapped} round ${mappedRound} - Match ${groupId}.xlsx`;
 }
 
-function editGeneratedFiles(competition: Competition, resultsGrouped: { groupId: number, matches: CalendarMatchEsit[] }[]): void {
+function editGeneratedFiles(competition: Competition, resultsGrouped: { groupId: string, matches: CalendarMatchEsit[] }[]): void {
   if (competition === Competition.GROUP_STAGE) {
     editGeneratedGroupStageFiles(competition, resultsGrouped);
     return;
@@ -93,7 +92,7 @@ function editGeneratedFiles(competition: Competition, resultsGrouped: { groupId:
   editGeneratedGroupStageFiles(competition, resultsGrouped);
 }
 
-function editGeneratedGroupStageFiles(competition: Competition, resultsGrouped: { groupId: number, matches: CalendarMatchEsit[] }[]): void {
+function editGeneratedGroupStageFiles(competition: Competition, resultsGrouped: { groupId: string, matches: CalendarMatchEsit[] }[]): void {
   console.log("Start editing generated Group Stage files");
   resultsGrouped.forEach((group) => {
     group.matches.forEach((match, matchIndex) => {
@@ -119,7 +118,7 @@ function editGeneratedGroupStageFiles(competition: Competition, resultsGrouped: 
   });
 }
 
-function editGeneratedEliminationPhaseFiles(competition: Competition, resultsGrouped: { groupId: number, matches: CalendarMatchEsit[] }[]): void {
+function editGeneratedEliminationPhaseFiles(competition: Competition, resultsGrouped: { groupId: string, matches: CalendarMatchEsit[] }[]): void {
   console.log("Start editing generated Elimination Phase files");
   resultsGrouped.forEach((group) => {
     group.matches.forEach((match, matchIndex) => {
@@ -153,7 +152,7 @@ function replaceHeaderGroupStage(workSheet: XLSX.WorkSheet, matchNumber: number)
   applyReplace(workSheet, replacedRow, origin);
 }
 
-function replaceHeaderEliminationPhase(workSheet: XLSX.WorkSheet, competition: Competition, serieAMatchNumber: string, roundId: number, matchId: number): void {
+function replaceHeaderEliminationPhase(workSheet: XLSX.WorkSheet, competition: Competition, serieAMatchNumber: string, roundId: number, matchId: string): void {
   const origin = 'A1';
   const competitionMapped = competition === Competition.CHAMPIONS_LEAGUE ? 'Champions League' : 'Europa League';
   const mappedRound = ['-', 'Last sixteens', 'Quarter finals', 'Semi finals', 'Finals'][roundId];

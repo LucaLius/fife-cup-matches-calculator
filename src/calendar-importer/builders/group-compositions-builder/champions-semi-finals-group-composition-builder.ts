@@ -19,12 +19,12 @@ export class ChampionsSemiFinalsGroupCompositionBuilder implements GroupComposit
   // Ogni Group è un accoppiamento tra due squadre
   private initGroups(): GroupsComposition {
     const groupA = new Group();
-    groupA.idGroup = 1;
+    groupA.idGroup = 'A';
     groupA.teamIdA = 'ASTON BIRRA';
     groupA.teamIdB = 'TEAM DADA';
 
     const groupB = new Group();
-    groupB.idGroup = 2;
+    groupB.idGroup = 'B';
     groupB.teamIdA = 'AHI 3 CROCIATI';
     groupB.teamIdB = 'ACK BOMBA';
 

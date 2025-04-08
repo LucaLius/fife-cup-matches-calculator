@@ -19,22 +19,22 @@ export class EuropeQuarterFinalsGroupCompositionBuilder implements GroupComposit
   // Ogni Group è un accoppiamento tra due squadre
   private initGroups(): GroupsComposition {
     const groupA = new Group();
-    groupA.idGroup = 1;
+    groupA.idGroup = 'A';
     groupA.teamIdA = 'CHIAVOVERONICA';
     groupA.teamIdB = 'FC PUSSY MIX';
 
     const groupB = new Group();
-    groupB.idGroup = 2;
+    groupB.idGroup = 'B';
     groupB.teamIdA = 'BORGO GRAZZANO';
     groupB.teamIdB = 'CCORYO JUNIORS';
 
     const groupC = new Group();
-    groupC.idGroup = 3;
+    groupC.idGroup = 'C';
     groupC.teamIdA = 'VILLA FRIGNAVERA';
     groupC.teamIdB = 'IRON GAS';
 
     const groupD = new Group();
-    groupD.idGroup = 4;
+    groupD.idGroup = 'D';
     groupD.teamIdA = 'SMOKING BIANCO.';
     groupD.teamIdB = 'DINAMO KEYV';
 

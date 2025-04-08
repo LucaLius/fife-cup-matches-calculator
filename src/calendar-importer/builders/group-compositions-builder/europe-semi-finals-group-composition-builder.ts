@@ -19,12 +19,12 @@ export class EuropeSemiFinalsGroupCompositionBuilder implements GroupComposition
   // Ogni Group è un accoppiamento tra due squadre
   private initGroups(): GroupsComposition {
     const groupA = new Group();
-    groupA.idGroup = 1;
+    groupA.idGroup = 'A';
     groupA.teamIdA = 'CHIAVOVERONICA';
     groupA.teamIdB = 'CCORYO JUNIORS';
 
     const groupB = new Group();
-    groupB.idGroup = 2;
+    groupB.idGroup = 'B';
     groupB.teamIdA = 'VILLA FRIGNAVERA';
     groupB.teamIdB = 'DINAMO KEYV';
 

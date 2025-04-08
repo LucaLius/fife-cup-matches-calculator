@@ -41,7 +41,7 @@
 
     <h4>Fase a gironi</h4>
     <div x-data="groupStage">
-      <template x-for="(group, index) in groups" :key="index">
+      <template x-for="(group, index) in config.groups" :key="index">
         <div>
           <p>
             Girone <span x-text="group.id"></span>

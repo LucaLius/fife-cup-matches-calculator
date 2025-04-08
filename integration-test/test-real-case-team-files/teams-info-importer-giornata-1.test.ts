@@ -16,7 +16,7 @@ describe('Giornata 1 safe-check', () => {
     const expected = [
       {
         id: 1,
-        idGroup: 1,
+        idGroup: 'A',
         matchNumber: 1,
         esit: '2',
         homeId: 'SMOKING BIANCO.',
@@ -43,7 +43,7 @@ describe('Giornata 1 safe-check', () => {
       },
       {
         id: 2,
-        idGroup: 1,
+        idGroup: 'A',
         matchNumber: 1,
         esit: '2',
         homeId: 'BORGO GRAZZANO',
@@ -68,7 +68,7 @@ describe('Giornata 1 safe-check', () => {
       },
       {
         id: 3,
-        idGroup: 2,
+        idGroup: 'B',
         matchNumber: 1,
         esit: '2',
         homeId: 'NEROAZZURRI',
@@ -93,7 +93,7 @@ describe('Giornata 1 safe-check', () => {
       },
       {
         id: 4,
-        idGroup: 2,
+        idGroup: 'B',
         matchNumber: 1,
         esit: '2',
         homeId: 'REDBLACK',
@@ -117,7 +117,7 @@ describe('Giornata 1 safe-check', () => {
       },
       {
         id: 5,
-        idGroup: 3,
+        idGroup: 'C',
         matchNumber: 1,
         esit: '2',
         homeId: 'IRON GAS',
@@ -142,7 +142,7 @@ describe('Giornata 1 safe-check', () => {
       },
       {
         id: 6,
-        idGroup: 3,
+        idGroup: 'C',
         matchNumber: 1,
         esit: '2',
         homeId: 'STARK INDUSTRIES',
@@ -168,7 +168,7 @@ describe('Giornata 1 safe-check', () => {
       },
       {
         id: 7,
-        idGroup: 4,
+        idGroup: 'D',
         matchNumber: 1,
         esit: '2',
         homeId: 'MANCHESTER SINTY',
@@ -193,7 +193,7 @@ describe('Giornata 1 safe-check', () => {
       },
       {
         id: 8,
-        idGroup: 4,
+        idGroup: 'D',
         matchNumber: 1,
         esit: '1',
         homeId: 'TEAM DADA',
@@ -217,7 +217,7 @@ describe('Giornata 1 safe-check', () => {
       },
       {
         id: 9,
-        idGroup: 5,
+        idGroup: 'E',
         matchNumber: 1,
         esit: '2',
         homeId: 'NAPOLETHANOS',
@@ -242,7 +242,7 @@ describe('Giornata 1 safe-check', () => {
       },
       {
         id: 10,
-        idGroup: 5,
+        idGroup: 'E',
         matchNumber: 1,
         esit: '2',
         homeId: 'LOS ANGELO - UN ESPERTO',
@@ -269,7 +269,7 @@ describe('Giornata 1 safe-check', () => {
       },
       {
         id: 11,
-        idGroup: 6,
+        idGroup: 'F',
         matchNumber: 1,
         esit: '1',
         homeId: 'BAYERN LEVERDUREN.',
@@ -293,7 +293,7 @@ describe('Giornata 1 safe-check', () => {
       },
       {
         id: 12,
-        idGroup: 6,
+        idGroup: 'F',
         matchNumber: 1,
         esit: 'X',
         homeId: 'FC DIREZIONE',
@@ -319,7 +319,7 @@ describe('Giornata 1 safe-check', () => {
       },
       {
         id: 13,
-        idGroup: 7,
+        idGroup: 'G',
         matchNumber: 1,
         esit: '1',
         homeId: 'REAL GRIFONE',
@@ -345,7 +345,7 @@ describe('Giornata 1 safe-check', () => {
       },
       {
         id: 14,
-        idGroup: 7,
+        idGroup: 'G',
         matchNumber: 1,
         esit: '1',
         homeId: 'MICCOLILLE',
@@ -370,7 +370,7 @@ describe('Giornata 1 safe-check', () => {
       },
       {
         id: 15,
-        idGroup: 8,
+        idGroup: 'H',
         matchNumber: 1,
         esit: '1',
         homeId: 'I RAGAZZI',
@@ -396,7 +396,7 @@ describe('Giornata 1 safe-check', () => {
       },
       {
         id: 16,
-        idGroup: 8,
+        idGroup: 'H',
         matchNumber: 1,
         esit: '2',
         homeId: 'VILLA FRIGNAVERA',

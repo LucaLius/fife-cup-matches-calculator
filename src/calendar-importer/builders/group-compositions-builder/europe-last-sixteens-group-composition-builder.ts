@@ -19,42 +19,42 @@ export class EuropeLastSixteensGroupCompositionBuilder implements GroupCompositi
   // Ogni Group è un accoppiamento tra due squadre
   private initGroups(): GroupsComposition {
     const groupA = new Group();
-    groupA.idGroup = 1;
+    groupA.idGroup = 'A';
     groupA.teamIdA = 'FC DIREZIONE';
     groupA.teamIdB = 'CHIAVOVERONICA';
 
     const groupB = new Group();
-    groupB.idGroup = 2;
+    groupB.idGroup = 'B';
     groupB.teamIdA = 'REDBLACK';
     groupB.teamIdB = 'FC PUSSY MIX';
 
     const groupC = new Group();
-    groupC.idGroup = 3;
+    groupC.idGroup = 'C';
     groupC.teamIdA = 'NAPOLETHANOS';
     groupC.teamIdB = 'BORGO GRAZZANO';
 
     const groupD = new Group();
-    groupD.idGroup = 4;
+    groupD.idGroup = 'D';
     groupD.teamIdA = 'CCORYO JUNIORS';
     groupD.teamIdB = 'BEN FICA';
 
     const groupE = new Group();
-    groupE.idGroup = 5;
+    groupE.idGroup = 'E';
     groupE.teamIdA = 'REAL MAKADAM';
     groupE.teamIdB = 'VILLA FRIGNAVERA';
 
     const groupF = new Group();
-    groupF.idGroup = 6;
+    groupF.idGroup = 'F';
     groupF.teamIdA = 'IRON GAS';
     groupF.teamIdB = 'CSKA PIAVON';
 
     const groupG = new Group();
-    groupG.idGroup = 7;
+    groupG.idGroup = 'G';
     groupG.teamIdA = 'SMOKING BIANCO.';
     groupG.teamIdB = 'STARK INDUSTRIES';
 
     const groupH = new Group();
-    groupH.idGroup = 8;
+    groupH.idGroup = 'H';
     groupH.teamIdA = 'DINAMO KEYV';
     groupH.teamIdB = 'MANCHESTER SINTY';
 

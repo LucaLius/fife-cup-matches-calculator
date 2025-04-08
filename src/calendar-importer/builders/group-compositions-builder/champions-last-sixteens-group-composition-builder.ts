@@ -19,42 +19,42 @@ export class ChampionsLastSixteensGroupCompositionBuilder implements GroupCompos
   // Ogni Group è un accoppiamento tra due squadre
   private initGroups(): GroupsComposition {
     const groupA = new Group();
-    groupA.idGroup = 1;
+    groupA.idGroup = 'A';
     groupA.teamIdA = 'NOT ATHLETIC CRODANZO';
     groupA.teamIdB = 'ASTON BIRRA';
 
     const groupB = new Group();
-    groupB.idGroup = 2;
+    groupB.idGroup = 'B';
     groupB.teamIdA = 'MICCOLILLE';
     groupB.teamIdB = 'DALLAS';
 
     const groupC = new Group();
-    groupC.idGroup = 3;
+    groupC.idGroup = 'C';
     groupC.teamIdA = 'TEAM DADA';
     groupC.teamIdB = 'NEROAZZURRI';
 
     const groupD = new Group();
-    groupD.idGroup = 4;
+    groupD.idGroup = 'D';
     groupD.teamIdA = 'KANTÉ CABRIOLET';
     groupD.teamIdB = 'COCABRODA';
 
     const groupE = new Group();
-    groupE.idGroup = 5;
+    groupE.idGroup = 'E';
     groupE.teamIdA = 'I RAGAZZI';
     groupE.teamIdB = 'REAL GRIFONE';
 
     const groupF = new Group();
-    groupF.idGroup = 6;
+    groupF.idGroup = 'F';
     groupF.teamIdA = 'RIVER BOLUDOS';
     groupF.teamIdB = 'AHI 3 CROCIATI';
 
     const groupG = new Group();
-    groupG.idGroup = 7;
+    groupG.idGroup = 'G';
     groupG.teamIdA = 'BAYERN LEVERDUREN.';
     groupG.teamIdB = 'ACK BOMBA';
 
     const groupH = new Group();
-    groupH.idGroup = 8;
+    groupH.idGroup = 'H';
     groupH.teamIdA = 'REAL DUREZZA';
     groupH.teamIdB = 'LOS ANGELO - UN ESPERTO';
 

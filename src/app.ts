@@ -6,6 +6,7 @@ import archiver from 'archiver';
 import fs from 'fs';
 import { OUTPUT_FILES_TEAMS_DIR_PATH } from "./output-files/output-files.utils";
 import { getTeamList } from "./config/team-list.config";
+import { getGroupStageGroups } from "./config/group-stage-group-list.config";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -22,7 +23,8 @@ app.get("/", (req, res) => {
 app.get("/config", (req: Request, res: any) => {
 
   const config = {
-    teams: getTeamList()
+    teams: getTeamList(),
+    groups: getGroupStageGroups(),
   };
   res.send({ config });
 });

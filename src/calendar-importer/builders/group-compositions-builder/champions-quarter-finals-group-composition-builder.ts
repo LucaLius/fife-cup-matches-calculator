@@ -19,22 +19,22 @@ export class ChampionsQuarterFinalsGroupCompositionBuilder implements GroupCompo
   // Ogni Group è un accoppiamento tra due squadre
   private initGroups(): GroupsComposition {
     const groupA = new Group();
-    groupA.idGroup = 1;
+    groupA.idGroup = 'A';
     groupA.teamIdA = 'ASTON BIRRA';
     groupA.teamIdB = 'MICCOLILLE';
 
     const groupB = new Group();
-    groupB.idGroup = 2;
+    groupB.idGroup = 'B';
     groupB.teamIdA = 'TEAM DADA';
     groupB.teamIdB = 'KANTÉ CABRIOLET';
 
     const groupC = new Group();
-    groupC.idGroup = 3;
+    groupC.idGroup = 'C';
     groupC.teamIdA = 'I RAGAZZI';
     groupC.teamIdB = 'AHI 3 CROCIATI';
 
     const groupD = new Group();
-    groupD.idGroup = 4;
+    groupD.idGroup = 'D';
     groupD.teamIdA = 'ACK BOMBA';
     groupD.teamIdB = 'REAL DUREZZA';
 
