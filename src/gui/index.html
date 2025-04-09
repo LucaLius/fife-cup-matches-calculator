@@ -104,12 +104,14 @@
               Round <span style="font-weight: 700" x-text="round.id"></span>
             </p>
 
-            <template x-if="round.teams.length > 0">
-              <ul>
-                <template x-for="team in round.teams" :key="team">
-                  <li x-text="team"></li>
-                </template>
-              </ul>
+            <template x-if="round.groups.length > 0">
+              <template x-for="group in round.groups" :key="group">
+                <ul>
+                  <template x-for="team in group.teams" :key="index">
+                    <li x-text="team"></li>
+                  </template>
+                </ul>
+              </template>
             </template>
           </div>
 

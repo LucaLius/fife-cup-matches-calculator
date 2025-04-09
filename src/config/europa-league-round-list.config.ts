@@ -1,78 +1,128 @@
 import { Team } from "./team-list.config"
 
 const EUROPA_LEAGUE_ROUNDS = [
-  // TODO CHANGE ME
   {
-    id: 'A',
-    teams: [
-      Team.SMOKING_BIANCO,
-      Team.REAL_DUREZZA,
-      Team.BORGO_GRAZZANO,
-      Team.ASTON_BIRRA,
-    ],
+    id: 'LAST_SIXTEENS',
+    groups: [
+      {
+        id: 'A',
+        teams: [
+          Team.FC_DIREZIONE,
+          Team.CHIAVOVERONICA,
+        ],
+      },
+      {
+        id: 'B',
+        teams: [
+          Team.REDBLACK,
+          Team.FC_PUSSY_MIX,
+        ],
+      },
+      {
+        id: 'C',
+        teams: [
+          Team.NAPOLETHANOS,
+          Team.BORGO_GRAZZANO,
+        ],
+      },
+      {
+        id: 'D',
+        teams: [
+          Team.CCORYO_JUNIORS,
+          Team.BEN_FICA,
+        ],
+      },
+      {
+        id: 'E',
+        teams: [
+          Team.REAL_MAKADAM,
+          Team.VILLA_FRIGNAVERA,
+        ],
+      },
+      {
+        id: 'F',
+        teams: [
+          Team.IRON_GAS,
+          Team.CSKA_PIAVON,
+        ],
+      },
+      {
+        id: 'G',
+        teams: [
+          Team.SMOKING_BIANCO,
+          Team.STARK_INDUSTRIES,
+        ],
+      },
+      {
+        id: 'H',
+        teams: [
+          Team.DINAMO_KEYV,
+          Team.MANCHESTER_SINTY,
+        ],
+      }
+    ]
   },
   {
-    id: 'B',
-    teams: [
-      Team.NEROAZZURRI,
-      Team.RIVER_BOLUDOS,
-      Team.REDBLACK,
-      Team.FC_PUSSY_MIX,
-    ],
-  },
-  {
-    id: 'C',
-    teams: [
-      Team.IRON_GAS,
-      Team.AHI_3_CROCIATI,
-      Team.STARK_INDUSTRIES,
-      Team.NOT_ATHLETIC_CRODANZO,
-    ],
-  },
-  {
-    id: 'D',
-    teams: [
-      Team.MANCHESTER_SINTY,
-      Team.COCABRODA,
-      Team.TEAM_DADA,
-      Team.REAL_MAKADAM,
-    ],
-  },
-  {
-    id: 'E',
-    teams: [
-      Team.NAPOLETHANOS,
-      Team.BEN_FICA,
-      Team.LOS_ANGELO_UN_ESPERTO,
-      Team.KANTÉ_CABRIOLET,
-    ],
-  },
-  {
-    id: 'F',
-    teams: [
-      Team.BAYERN_LEVERDUREN,
-      Team.CHIAVOVERONICA,
-      Team.FC_DIREZIONE,
-      Team.DALLAS,
-    ],
-  },
-  {
-    id: 'G',
-    teams: [
-      Team.REAL_GRIFONE,
-      Team.DINAMO_KEYV,
-      Team.MICCOLILLE,
-      Team.CSKA_PIAVON,
-    ],
-  },
-  {
-    id: 'H',
-    teams: [
-      Team.I_RAGAZZI,
-      Team.CCORYO_JUNIORS,
-      Team.VILLA_FRIGNAVERA,
-      Team.ACK_BOMBA,
-    ],
+    id: 'QUARTER_FINALS',
+    groups: [
+      {
+        id: 'A',
+        teams: [
+          Team.CHIAVOVERONICA,
+          Team.FC_PUSSY_MIX,
+        ],
+      },
+      {
+        id: 'B',
+        teams: [
+          Team.BORGO_GRAZZANO,
+          Team.CCORYO_JUNIORS,
+        ],
+      },
+      {
+        id: 'C',
+        teams: [
+          Team.VILLA_FRIGNAVERA,
+          Team.IRON_GAS,
+        ],
+      },
+      {
+        id: 'D',
+        teams: [
+          Team.SMOKING_BIANCO,
+          Team.DINAMO_KEYV,
+        ],
+      }
+    ]
+  }, {
+    id: 'SEMI_FINALS',
+    groups: [
+      {
+        id: 'A',
+        teams: [
+          Team.CHIAVOVERONICA,
+          Team.CCORYO_JUNIORS,
+        ],
+      },
+      {
+        id: 'B',
+        teams: [
+          Team.VILLA_FRIGNAVERA,
+          Team.DINAMO_KEYV,
+        ]
+      }
+    ]
+  }, {
+    id: 'FINALS',
+    groups: [
+      {
+        id: 'A',
+        teams: [
+          Team.TBD,
+          Team.TBD,
+        ]
+      }
+    ]
   }
 ];
 
@@ -80,3 +130,23 @@ export function getEuropaLeagueRounds(): { id: string, teams: Team[] }[] {
   return JSON.parse(JSON.stringify(EUROPA_LEAGUE_ROUNDS));
 }
 
+
+export function getEuropaLeagueLastSixteensRoundGroups(): { id: string, teams: Team[] }[] {
+  const lastSixteensRound = EUROPA_LEAGUE_ROUNDS.find(round => round.id === 'LAST_SIXTEENS');
+  return JSON.parse(JSON.stringify(lastSixteensRound?.groups ?? []));
+}
+
+export function getEuropaLeagueQuarterFinalsRoundGroups(): { id: string, teams: Team[] }[] {
+  const quarterFinalsRound = EUROPA_LEAGUE_ROUNDS.find(round => round.id === 'QUARTER_FINALS');
+  return JSON.parse(JSON.stringify(quarterFinalsRound?.groups ?? []));
+}
+
+export function getEuropaLeagueSemiFinalsRoundGroups(): { id: string, teams: Team[] }[] {
+  const semiFinalsRound = EUROPA_LEAGUE_ROUNDS.find(round => round.id === 'SEMI_FINALS');
+  return JSON.parse(JSON.stringify(semiFinalsRound?.groups ?? []));
+}
+
+export function getEuropaLeagueFinalsRoundGroups(): { id: string, teams: Team[] }[] {
+  const semiFinalsRound = EUROPA_LEAGUE_ROUNDS.find(round => round.id === 'FINALS');
+  return JSON.parse(JSON.stringify(semiFinalsRound?.groups ?? []));
+}
