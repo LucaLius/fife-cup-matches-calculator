@@ -1,7 +1,7 @@
+import { getChampionsLeagueFinalsRoundGroups, getChampionsLeagueLastSixteensRoundGroups, getChampionsLeagueQuarterFinalsRoundGroups, getChampionsLeagueSemiFinalsRoundGroups } from "../config/champions-league-round-list.config";
+import { Team } from "../config/team-list.config";
 import { Competition } from "../enums/competition.enum";
-import { ChampionsLastSixteensGroupCompositionBuilder } from "./builders/group-compositions-builder/champions-last-sixteens-group-composition-builder";
-import { ChampionsQuarterFinalsGroupCompositionBuilder } from "./builders/group-compositions-builder/champions-quarter-finals-group-composition-builder";
-import { ChampionsSemiFinalsGroupCompositionBuilder } from "./builders/group-compositions-builder/champions-semi-finals-group-composition-builder";
+import { EliminationPhaseRoundGroupCompositionBuilder } from "./builders/group-compositions-builder/elimination-phase-round-group-composition-builder";
 import { EuropeLastSixteensGroupCompositionBuilder } from "./builders/group-compositions-builder/europe-last-sixteens-group-composition-builder";
 import { EuropeQuarterFinalsGroupCompositionBuilder } from "./builders/group-compositions-builder/europe-quarter-finals-group-composition-builder";
 import { EuropeSemiFinalsGroupCompositionBuilder } from "./builders/group-compositions-builder/europe-semi-finals-group-composition-builder";
@@ -29,18 +29,20 @@ export class GroupCompositionFactory {
     }
 
     if (this.competition === Competition.CHAMPIONS_LEAGUE) {
+      let groups = [{ id: 'NULL', teams: [Team.TBD, Team.TBD] }];
       if (this.matchDay === 1) {
-        return new ChampionsLastSixteensGroupCompositionBuilder();
+        groups = getChampionsLeagueLastSixteensRoundGroups();
       }
       if (this.matchDay === 2) {
-        return new ChampionsQuarterFinalsGroupCompositionBuilder();
+        groups = getChampionsLeagueQuarterFinalsRoundGroups();
       }
       if (this.matchDay === 3) {
-        return new ChampionsSemiFinalsGroupCompositionBuilder();
+        groups = getChampionsLeagueSemiFinalsRoundGroups();
       }
       if (this.matchDay === 4) {
-        // return new ChampionsFinalsGroupCompositionBuilder();
+        groups = getChampionsLeagueFinalsRoundGroups();
       }
+      return new EliminationPhaseRoundGroupCompositionBuilder(groups);
     }
 
     if (this.competition === Competition.EUROPA_LEAGUE) {

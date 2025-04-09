@@ -145,3 +145,8 @@ export function getChampionsLeagueSemiFinalsRoundGroups(): { id: string, teams: 
   return JSON.parse(JSON.stringify(semiFinalsRound?.groups ?? []));
 }
 
+export function getChampionsLeagueFinalsRoundGroups(): { id: string, teams: Team[] }[] {
+  const finalsRound = CHAMPIONS_LEAGUE_ROUNDS.find(round => round.id === 'FINALS');
+  return JSON.parse(JSON.stringify(finalsRound?.groups ?? []));
+}
+

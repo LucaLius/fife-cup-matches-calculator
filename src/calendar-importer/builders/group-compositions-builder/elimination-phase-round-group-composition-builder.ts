@@ -1,17 +1,12 @@
-import { getChampionsLeagueQuarterFinalsRoundGroups } from "../../../config/champions-league-round-list.config";
 import { Team } from "../../../config/team-list.config";
 import { Group, GroupsComposition } from "../../calendar-importer.interface";
 import { GroupCompositionBuilder } from "./group-composition-builder.interface";
 
-export class ChampionsQuarterFinalsGroupCompositionBuilder implements GroupCompositionBuilder {
-  // Essendo quarti di finale, potenzialmente sono tutti istanze diverse di GroupCompositionBuilder)
-  // TODO: capire come gestire ottavi, quarti, etc senza creare altre classi
-  // TODO: capire come gestire competizioni diverse
+export class EliminationPhaseRoundGroupCompositionBuilder implements GroupCompositionBuilder {
 
   public groupsComposition: GroupsComposition;
 
-  constructor() {
-    const groups = getChampionsLeagueQuarterFinalsRoundGroups();
+  constructor(groups: { id: string, teams: Team[] }[]) {
     this.groupsComposition = this.initGroups(groups);
   }
 
@@ -21,6 +16,7 @@ export class ChampionsQuarterFinalsGroupCompositionBuilder implements GroupCompo
 
   // Ogni Group è un accoppiamento tra due squadre
   private initGroups(groups: { id: string, teams: Team[] }[]): GroupsComposition {
+
     const result = {} as { [groupId: string]: Group };
     groups.forEach(group => {
       const groupIstance = new Group();
