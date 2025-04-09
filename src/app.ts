@@ -7,6 +7,8 @@ import fs from 'fs';
 import { OUTPUT_FILES_TEAMS_DIR_PATH } from "./config/variables.config";
 import { getTeamList } from "./config/team-list.config";
 import { getGroupStageGroups } from "./config/group-stage-group-list.config";
+import { getEuropaLeagueRounds } from "./config/europa-league-round-list.config";
+import { getChampionsLeagueRounds } from "./config/champions-league-round-list.config";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -26,6 +28,12 @@ app.get("/config", (req: Request, res) => {
     teams: getTeamList(),
     groupStage: {
       groups: getGroupStageGroups(),
+    },
+    europaLeague: {
+      rounds: getEuropaLeagueRounds(),
+    },
+    championsLeague: {
+      rounds: getChampionsLeagueRounds(),
     }
   };
   res.send({ config });

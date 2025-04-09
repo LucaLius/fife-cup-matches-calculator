@@ -1,9 +1,15 @@
 const pageSettings = {
   competitionGroupStageSelected: true,
   config: {
+    teams: [],
     groupStage: {
-      teams: [],
       groups: []
+    },
+    europaLeague: {
+      rounds: []
+    },
+    championsLeague: {
+      rounds: []
     }
   }
 }

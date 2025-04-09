@@ -22,9 +22,18 @@ input {
 
 .settings-container {
   text-align: left;
+  display: flex;
+}
+
+.settings-container-col {
+  flex-grow: 1;
 }
 
 /* Utils */
 .m-left-16 {
   margin-left: 16px;
+}
+
+.text-left {
+  text-align: left !important;
 }

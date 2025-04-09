@@ -67,29 +67,77 @@
 
   <div id="result"></div>
 
-  <button class="downloadBtn" id="downloadBtn">Scarica Excels</button>
+  <button class="downloadBtn" id="downloadBtn">Download Excels</button>
+
+  <h3 class="text-left">Settings</h3>
 
   <div class="settings-container" x-data="pageSettings">
-    <h3>Impostazioni</h3>
 
-    <h4>Fase a gironi</h4>
-    <div x-data="config.groupStage">
-      <template x-for="(group, index) in groups" :key="index">
-        <div>
-          <p>
-            Girone <span x-text="group.id"></span>
-          </p>
+    <div class="settings-container-col">
+      <h4>Group Stage</h4>
+      <div x-data="config.groupStage">
+        <template x-for="(group, index) in groups" :key="index">
+          <div>
+            <p>
+              Group <span x-text="group.id"></span>
+            </p>
 
-          <template x-if="group.teams.length > 0">
-            <ul>
-              <template x-for="team in group.teams" :key="team">
-                <li x-text="team"></li>
-              </template>
-            </ul>
-          </template>
-        </div>
+            <template x-if="group.teams.length > 0">
+              <ul>
+                <template x-for="team in group.teams" :key="team">
+                  <li x-text="team"></li>
+                </template>
+              </ul>
+            </template>
+          </div>
 
-      </template>
+        </template>
+      </div>
+    </div>
+
+    <div class="settings-container-col">
+      <h4>Europa League</h4>
+      <div x-data="config.europaLeague">
+        <template x-for="(round, index) in rounds" :key="index">
+          <div>
+            <p>
+              Round <span x-text="round.id"></span>
+            </p>
+
+            <template x-if="round.teams.length > 0">
+              <ul>
+                <template x-for="team in round.teams" :key="team">
+                  <li x-text="team"></li>
+                </template>
+              </ul>
+            </template>
+          </div>
+
+        </template>
+      </div>
+    </div>
+
+    <div class="settings-container-col">
+      <h4>Champions League</h4>
+
+      <div x-data="config.championsLeague">
+        <template x-for="(round, index) in rounds" :key="index">
+          <div>
+            <p>
+              Round <span x-text="round.id"></span>
+            </p>
+
+            <template x-if="round.teams.length > 0">
+              <ul>
+                <template x-for="team in round.teams" :key="team">
+                  <li x-text="team"></li>
+                </template>
+              </ul>
+            </template>
+          </div>
+
+        </template>
+      </div>
     </div>
 
   </div>
