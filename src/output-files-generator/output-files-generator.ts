@@ -1,14 +1,13 @@
 /* eslint-disable no-sparse-arrays */
 import { CalendarMatchEsit } from './../models/calendar-match-esit.model';
 import * as fs from 'fs';
-import { OUTPUT_FILES_TEAMS_DIR_PATH } from '../output-files/output-files.utils';
 import { openXlsxWorkbook } from '../excel-utils/excel-parser';
 import * as XLSX from 'xlsx';
 import { TeamsInfoImporter } from '../teams-info-importer/teams-info-importer';
 import { TeamInfo } from '../models/team-info.model';
 import { Competition } from '../enums/competition.enum';
 import { OUTPUT_FILES_GENERATOR_TEMPLATE_FILE_ELIMINATION_PHASE_PATH, OUTPUT_FILES_GENERATOR_TEMPLATE_FILE_GROUP_STAGE_PATH } from './output-files-generator.utils';
-import { INPUT_FILES_TEAMS_DIR_PATH } from '../config/variables.config';
+import { INPUT_FILES_TEAMS_DIR_PATH, OUTPUT_FILES_TEAMS_DIR_PATH } from '../config/variables.config';
 
 export function createOutputFiles(competition: Competition, result: CalendarMatchEsit[]): void {
 

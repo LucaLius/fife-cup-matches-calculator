@@ -4,7 +4,7 @@ import { Competition } from "./enums/competition.enum";
 import cors from 'cors';
 import archiver from 'archiver';
 import fs from 'fs';
-import { OUTPUT_FILES_TEAMS_DIR_PATH } from "./output-files/output-files.utils";
+import { OUTPUT_FILES_TEAMS_DIR_PATH } from "./config/variables.config";
 import { getTeamList } from "./config/team-list.config";
 import { getGroupStageGroups } from "./config/group-stage-group-list.config";
 
