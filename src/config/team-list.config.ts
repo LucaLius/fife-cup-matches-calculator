@@ -31,6 +31,7 @@ export enum Team {
   CCORYO_JUNIORS = 'CCORYO JUNIORS',
   VILLA_FRIGNAVERA = 'VILLA FRIGNAVERA',
   ACK_BOMBA = 'ACK BOMBA',
+  TBD = 'TBD', // Use it in cup competitions
 }
 
 export function getTeamList(): string[] {

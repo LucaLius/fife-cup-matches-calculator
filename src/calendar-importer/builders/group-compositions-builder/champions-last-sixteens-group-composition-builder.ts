@@ -1,3 +1,5 @@
+import { getChampionsLeagueLastSixteensRoundGroups } from "../../../config/champions-league-round-list.config";
+import { Team } from "../../../config/team-list.config";
 import { Group, GroupsComposition } from "../../calendar-importer.interface";
 import { GroupCompositionBuilder } from "./group-composition-builder.interface";
 
@@ -9,7 +11,8 @@ export class ChampionsLastSixteensGroupCompositionBuilder implements GroupCompos
   public groupsComposition: GroupsComposition;
 
   constructor() {
-    this.groupsComposition = this.initGroups();
+    const groups = getChampionsLeagueLastSixteensRoundGroups();
+    this.groupsComposition = this.initGroups(groups);
   }
 
   public getGroupsComposition(): GroupsComposition {
@@ -17,56 +20,17 @@ export class ChampionsLastSixteensGroupCompositionBuilder implements GroupCompos
   }
 
   // Ogni Group è un accoppiamento tra due squadre
-  private initGroups(): GroupsComposition {
-    const groupA = new Group();
-    groupA.idGroup = 'A';
-    groupA.teamIdA = 'NOT ATHLETIC CRODANZO';
-    groupA.teamIdB = 'ASTON BIRRA';
+  private initGroups(groups: { id: string, teams: Team[] }[]): GroupsComposition {
 
-    const groupB = new Group();
-    groupB.idGroup = 'B';
-    groupB.teamIdA = 'MICCOLILLE';
-    groupB.teamIdB = 'DALLAS';
+    const result = {} as { [groupId: string]: Group };
+    groups.forEach(group => {
+      const groupIstance = new Group();
+      groupIstance.idGroup = group.id;
+      groupIstance.teamIdA = group.teams[0];
+      groupIstance.teamIdB = group.teams[1];
+      result[group.id] = groupIstance;
+    });
 
-    const groupC = new Group();
-    groupC.idGroup = 'C';
-    groupC.teamIdA = 'TEAM DADA';
-    groupC.teamIdB = 'NEROAZZURRI';
-
-    const groupD = new Group();
-    groupD.idGroup = 'D';
-    groupD.teamIdA = 'KANTÉ CABRIOLET';
-    groupD.teamIdB = 'COCABRODA';
-
-    const groupE = new Group();
-    groupE.idGroup = 'E';
-    groupE.teamIdA = 'I RAGAZZI';
-    groupE.teamIdB = 'REAL GRIFONE';
-
-    const groupF = new Group();
-    groupF.idGroup = 'F';
-    groupF.teamIdA = 'RIVER BOLUDOS';
-    groupF.teamIdB = 'AHI 3 CROCIATI';
-
-    const groupG = new Group();
-    groupG.idGroup = 'G';
-    groupG.teamIdA = 'BAYERN LEVERDUREN.';
-    groupG.teamIdB = 'ACK BOMBA';
-
-    const groupH = new Group();
-    groupH.idGroup = 'H';
-    groupH.teamIdA = 'REAL DUREZZA';
-    groupH.teamIdB = 'LOS ANGELO - UN ESPERTO';
-
-    return {
-      A: groupA,
-      B: groupB,
-      C: groupC,
-      D: groupD,
-      E: groupE,
-      F: groupF,
-      G: groupG,
-      H: groupH
-    };
+    return result;
   }
 }

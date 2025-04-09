@@ -1,3 +1,5 @@
+import { getChampionsLeagueSemiFinalsRoundGroups } from "../../../config/champions-league-round-list.config";
+import { Team } from "../../../config/team-list.config";
 import { Group, GroupsComposition } from "../../calendar-importer.interface";
 import { GroupCompositionBuilder } from "./group-composition-builder.interface";
 
@@ -9,7 +11,8 @@ export class ChampionsSemiFinalsGroupCompositionBuilder implements GroupComposit
   public groupsComposition: GroupsComposition;
 
   constructor() {
-    this.groupsComposition = this.initGroups();
+    const groups = getChampionsLeagueSemiFinalsRoundGroups();
+    this.groupsComposition = this.initGroups(groups);
   }
 
   public getGroupsComposition(): GroupsComposition {
@@ -17,20 +20,17 @@ export class ChampionsSemiFinalsGroupCompositionBuilder implements GroupComposit
   }
 
   // Ogni Group è un accoppiamento tra due squadre
-  private initGroups(): GroupsComposition {
-    const groupA = new Group();
-    groupA.idGroup = 'A';
-    groupA.teamIdA = 'ASTON BIRRA';
-    groupA.teamIdB = 'TEAM DADA';
+  private initGroups(groups: { id: string, teams: Team[] }[]): GroupsComposition {
 
-    const groupB = new Group();
-    groupB.idGroup = 'B';
-    groupB.teamIdA = 'AHI 3 CROCIATI';
-    groupB.teamIdB = 'ACK BOMBA';
+    const result = {} as { [groupId: string]: Group };
+    groups.forEach(group => {
+      const groupIstance = new Group();
+      groupIstance.idGroup = group.id;
+      groupIstance.teamIdA = group.teams[0];
+      groupIstance.teamIdB = group.teams[1];
+      result[group.id] = groupIstance;
+    });
 
-    return {
-      A: groupA,
-      B: groupB
-    };
+    return result;
   }
 }
