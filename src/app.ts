@@ -20,20 +20,23 @@ app.get("/", (req, res) => {
   res.send("Hello, Express with TypeScript!");
 });
 
-app.get("/config", (req: Request, res: any) => {
+app.get("/config", (req: Request, res) => {
 
   const config = {
     teams: getTeamList(),
-    groups: getGroupStageGroups(),
+    groupStage: {
+      groups: getGroupStageGroups(),
+    }
   };
   res.send({ config });
 });
 
-app.get("/calculate/:competition/:round", (req: Request, res: any) => {
+app.get("/calculate/:competition/:round", (req: Request, res) => {
   const { competition, round } = req.params;
 
   if (!Object.values(Competition).includes(competition as Competition)) {
-    return res.status(400).json({ error: "Invalid competition type" });
+    res.status(400).json({ message: undefined, error: "Invalid competition type" });
+    return;
   }
 
   const mainProcessParams = {
@@ -41,7 +44,8 @@ app.get("/calculate/:competition/:round", (req: Request, res: any) => {
     round: Number.parseInt(round)
   }
   const result = mainProcess(mainProcessParams);
-  res.send({ message: `Esit ${result.esit.toLocaleUpperCase()} for competition: ${result.params.competition}, round: ${result.params.round}` });
+  const message = `Esit ${result.esit.toLocaleUpperCase()} for competition: ${result.params.competition}, round: ${result.params.round}`;
+  res.status(200).json({ message, error: undefined });
 });
 
 // Endpoint to generate and download the excel files

@@ -30,7 +30,7 @@
     <option value="4">Finals</option>
   </select>
 
-  <button onclick="calculate()">Calculate</button>
+  <button id="calculateBtn">Calculate</button>
 
   <div id="result"></div>
 
@@ -40,8 +40,8 @@
     <h3>Impostazioni</h3>
 
     <h4>Fase a gironi</h4>
-    <div x-data="groupStage">
-      <template x-for="(group, index) in config.groups" :key="index">
+    <div x-data="config.groupStage">
+      <template x-for="(group, index) in groups" :key="index">
         <div>
           <p>
             Girone <span x-text="group.id"></span>

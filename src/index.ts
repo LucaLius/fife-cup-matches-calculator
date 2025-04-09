@@ -2,7 +2,7 @@ import { MatchDayCombinationsEliminationPhaseBuilder } from "./calendar-importer
 import { MatchDayCombinationsGroupStageBuilder } from "./calendar-importer/builders/match-day-combinations-builder/match-day-combination-group-stage.builder";
 import { MatchDayCombinationsBuilder } from "./calendar-importer/builders/match-day-combinations-builder/match-day-combinations-builder.interface";
 import { CalendarImporter } from "./calendar-importer/calendar-importer";
-import { INPUT_FILES_TEAMS_DIR_PATH } from "./input-files/input-files.utils";
+import { INPUT_FILES_TEAMS_DIR_PATH } from "./config/variables.config";
 import { TeamInfo } from "./models/team-info.model";
 import { createOutputFiles } from "./output-files-generator/output-files-generator";
 import { processRound } from "./process-round";

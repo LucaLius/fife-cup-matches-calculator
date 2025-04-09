@@ -18,7 +18,7 @@ export class GroupCompositionGroupStageBuilder implements GroupCompositionBuilde
 
   private initGroups(groups: { id: string, teams: Team[] }[]): GroupsComposition {
 
-    const result = {} as any;
+    const result = {} as { [groupId: string]: Group };
     groups.forEach(group => {
       const groupIstance = new Group();
       groupIstance.idGroup = group.id;

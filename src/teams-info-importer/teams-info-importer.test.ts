@@ -1,6 +1,6 @@
+import { INPUT_TEST_FILES_TEAMS_DIR_PATH } from '../config/variables.config';
 import { TeamsInfoImporter } from './teams-info-importer';
 import { describe, expect, test } from '@jest/globals';
-import { INPUT_TEST_FILES_TEAMS_DIR_PATH } from '../input-files/input-files.utils';
 
 /* eslint-env jest */
 

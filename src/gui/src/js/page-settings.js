@@ -1,17 +1,10 @@
 const pageSettings = {
   competitionGroupStageSelected: true,
-  groupStage: {
-    teamesPerGroup: 4,
-    groups: [
-      {
-        id: 'A',
-        teams: [],
-      },
-      {
-        id: 'B',
-        teams: [],
-      }
-    ]
+  config: {
+    groupStage: {
+      teams: [],
+      groups: []
+    }
   }
 }
 

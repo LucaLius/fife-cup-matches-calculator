@@ -1,8 +1,8 @@
 import { describe, expect, test } from '@jest/globals';
 import * as fs from 'fs';
 import { parseXlsx } from "../excel-utils/excel-parser";
-import { INPUT_TEST_FILES_TEAMS_DIR_PATH } from '../input-files/input-files.utils';
 import { RawFileInfoGetter } from './raw-file-info-getter';
+import { INPUT_TEST_FILES_TEAMS_DIR_PATH } from '../config/variables.config';
 
 /* eslint-env jest */
 

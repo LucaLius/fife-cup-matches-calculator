@@ -1,6 +1,12 @@
 const downloadBtnId = 'downloadBtn';
+const calculateBtnId = 'calculateBtn';
 const button = document.getElementById(downloadBtnId);
 button.style.display = 'none';
+
+
+document.getElementById(calculateBtnId).addEventListener('click', async function () {
+  calculate();
+});
 
 function calculate() {
   const button = document.getElementById(downloadBtnId);

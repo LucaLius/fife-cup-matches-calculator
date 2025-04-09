@@ -5,10 +5,10 @@ import { OUTPUT_FILES_TEAMS_DIR_PATH } from '../output-files/output-files.utils'
 import { openXlsxWorkbook } from '../excel-utils/excel-parser';
 import * as XLSX from 'xlsx';
 import { TeamsInfoImporter } from '../teams-info-importer/teams-info-importer';
-import { INPUT_FILES_TEAMS_DIR_PATH } from '../input-files/input-files.utils';
 import { TeamInfo } from '../models/team-info.model';
 import { Competition } from '../enums/competition.enum';
 import { OUTPUT_FILES_GENERATOR_TEMPLATE_FILE_ELIMINATION_PHASE_PATH, OUTPUT_FILES_GENERATOR_TEMPLATE_FILE_GROUP_STAGE_PATH } from './output-files-generator.utils';
+import { INPUT_FILES_TEAMS_DIR_PATH } from '../config/variables.config';
 
 export function createOutputFiles(competition: Competition, result: CalendarMatchEsit[]): void {
 
