@@ -16,5 +16,6 @@ npm run start-environment:windows (for Windows users)
 
 then, your browser should be openin the generator page.
 Put your files with matches result inside src/input-files/team-files directory (delete all the previous content).
+You'll need to update paths in src/config/variables.config.ts with your actual directories locations.
 Fill the inputs and it will generate the files under src/output-files/team-files directory.
 
