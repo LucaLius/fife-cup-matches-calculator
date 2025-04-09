@@ -1,17 +1,26 @@
 const downloadBtnId = 'downloadBtn';
-const calculateBtnId = 'calculateBtn';
+const calculateBtnGroupStageId = 'calculateBtnGroupStage';
+const calculateBtnEuropaLeagueId = 'calculateBtnEuropaLeague';
+const calculateBtnChampionsLeagueId = 'calculateBtnChampionsLeague';
 const button = document.getElementById(downloadBtnId);
 button.style.display = 'none';
 
 
-document.getElementById(calculateBtnId).addEventListener('click', async function () {
-  calculate();
+document.getElementById(calculateBtnGroupStageId).addEventListener('click', async function () {
+  const round = document.getElementById("roundGroupStage").value;
+  calculate('GROUP_STAGE', round);
+});
+document.getElementById(calculateBtnEuropaLeagueId).addEventListener('click', async function () {
+  const round = document.getElementById("roundEuropaLeague").value;
+  calculate('EUROPA_LEAGUE', round);
+});
+document.getElementById(calculateBtnChampionsLeagueId).addEventListener('click', async function () {
+  const round = document.getElementById("roundChampionsLeague").value;
+  calculate('CHAMPIONS_LEAGUE', round);
 });
 
-function calculate() {
+function calculate(competition, round) {
   const button = document.getElementById(downloadBtnId);
-  const competition = document.getElementById("competition").value;
-  const round = document.getElementById("round").value;
 
   if (!round) {
     alert("Please enter a valid round number.");
