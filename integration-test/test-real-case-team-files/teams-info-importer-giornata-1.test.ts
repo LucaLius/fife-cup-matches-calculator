@@ -2,7 +2,7 @@ import { GroupCompositionGroupStageBuilder } from './../../src/calendar-importer
 import { MatchDayCombinationsGroupStageBuilder } from './../../src/calendar-importer/builders/match-day-combinations-builder/match-day-combination-group-stage.builder';
 import { describe, expect, test } from '@jest/globals';
 import { CalendarImporter } from '../../src/calendar-importer/calendar-importer';
-import { processRound } from '../../src/process-round';
+import { processRound } from '../../src/index';
 import { TeamsInfoImporter } from '../../src/teams-info-importer/teams-info-importer';
 
 /* eslint-env jest */

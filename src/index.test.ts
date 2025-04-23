@@ -1,8 +1,8 @@
 import { describe, expect, test } from '@jest/globals';
-import { processRound } from './process-round';
 import { CalendarMatch } from './models/calendar-match.model';
 import { TeamInfo } from './models/team-info.model';
 import { PlayerInfo } from './models/player-info.model';
+import { processRound } from '.';
 
 /* eslint-env jest */
 
