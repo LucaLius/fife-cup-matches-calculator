@@ -7,10 +7,12 @@ import { GroupCompositionGroupStageBuilder } from './builders/group-compositions
 /* eslint-env jest */
 
 describe('calendar.importer', () => {
+  const oldSeason = '24_25';
+
   test('Should create all the match combinations for hard-coded matchday one', () => {
     const matchDay = 1;
-    const matchDayCombinationsGroupStageBuilder = new MatchDayCombinationsGroupStageBuilder();
-    const groupCompositionGroupStageBuilder = new GroupCompositionGroupStageBuilder();
+    const matchDayCombinationsGroupStageBuilder = new MatchDayCombinationsGroupStageBuilder(oldSeason);
+    const groupCompositionGroupStageBuilder = new GroupCompositionGroupStageBuilder(oldSeason);
     const calendarImporter = new CalendarImporter(matchDayCombinationsGroupStageBuilder, groupCompositionGroupStageBuilder);
 
     const match_number_1_matches: CalendarMatch[] = [
@@ -136,8 +138,8 @@ describe('calendar.importer', () => {
 
   test('Should create all the match combinations for hard-coded matchday two', () => {
     const matchDay = 2;
-    const matchDayCombinationsGroupStageBuilder = new MatchDayCombinationsGroupStageBuilder();
-    const groupCompositionGroupStageBuilder = new GroupCompositionGroupStageBuilder();
+    const matchDayCombinationsGroupStageBuilder = new MatchDayCombinationsGroupStageBuilder(oldSeason);
+    const groupCompositionGroupStageBuilder = new GroupCompositionGroupStageBuilder(oldSeason);
     const calendarImporter = new CalendarImporter(matchDayCombinationsGroupStageBuilder, groupCompositionGroupStageBuilder);
 
     const match_number_2_matches: CalendarMatch[] = [

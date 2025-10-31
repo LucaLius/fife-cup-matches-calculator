@@ -1,81 +1,86 @@
+import { getGroupStage24_25Groups } from "./old/group-stage-group-list-24_25_season.config";
 import { Team } from "./team-list.config"
 
 const GROUPS = [
   {
     id: 'A',
     teams: [
-      Team.SMOKING_BIANCO,
-      Team.REAL_DUREZZA,
-      Team.BORGO_GRAZZANO,
-      Team.ASTON_BIRRA,
+      Team.IRON_GAS,
+      Team.FC_DIREZIONE,
+      Team.JOGA_BENITO,
+      Team.TOTTOMAN,
     ],
   },
   {
     id: 'B',
     teams: [
       Team.NEROAZZURRI,
-      Team.RIVER_BOLUDOS,
-      Team.REDBLACK,
-      Team.FC_PUSSY_MIX,
+      Team.COCABRODA,
+      Team.GUNS_N_GOSENS,
+      Team.CSKA_PIAVON,
     ],
   },
   {
     id: 'C',
     teams: [
-      Team.IRON_GAS,
-      Team.AHI_3_CROCIATI,
-      Team.STARK_INDUSTRIES,
-      Team.NOT_ATHLETIC_CRODANZO,
+      Team.SMOKING_BIANCO,
+      Team.REAL_DUREZZA,
+      Team.IL_CANEPARDO,
+      Team.ASTON_BIRRA,
     ],
   },
   {
     id: 'D',
     teams: [
-      Team.MANCHESTER_SINTY,
-      Team.COCABRODA,
-      Team.TEAM_DADA,
-      Team.REAL_MAKADAM,
+      Team.I_RAGAZZI,
+      Team.AHI_3_CROCIATI,
+      Team.GINO_PIPINOTTO,
+      Team.DALLAS,
     ],
   },
   {
     id: 'E',
     teams: [
-      Team.NAPOLETHANOS,
-      Team.BEN_FICA,
-      Team.LOS_ANGELO_UN_ESPERTO,
-      Team.KANTÉ_CABRIOLET,
+      Team.REAL_GRIFONE,
+      Team.RIVER_BOLUDOS,
+      Team.VILLA_FRIGNAVERA,
+      Team.CALCIO_BAILADO,
     ],
   },
   {
     id: 'F',
     teams: [
-      Team.BAYERN_LEVERDUREN,
+      Team.GLI_SBORRATI,
       Team.CHIAVOVERONICA,
-      Team.FC_DIREZIONE,
-      Team.DALLAS,
+      Team.NAPOLETHANOS,
+      Team.KANTÉ_CABRIOLET,
     ],
   },
   {
     id: 'G',
     teams: [
-      Team.REAL_GRIFONE,
       Team.DINAMO_KEYV,
-      Team.MICCOLILLE,
-      Team.CSKA_PIAVON,
+      Team.ACK_BOMBA,
+      Team.LOS_ANGELO_UN_ESPERTO,
+      Team.NOT_ATHLETIC_CRODANZO,
     ],
   },
   {
     id: 'H',
     teams: [
-      Team.I_RAGAZZI,
-      Team.CCORYO_JUNIORS,
-      Team.VILLA_FRIGNAVERA,
-      Team.ACK_BOMBA,
+      Team.REDBLACK,
+      Team.PARIS_SAN_GENNAR,
+      Team.TEAM_DADA,
+      Team.REAL_MAKADAM,
     ],
   }
 ];
 
-export function getGroupStageGroups(): { id: string, teams: Team[] }[] {
+export function getGroupStageGroups(oldSeason?: '24_25'): { id: string, teams: Team[] }[] {
+  if (oldSeason === '24_25') {
+    // For test purpose
+    return getGroupStage24_25Groups();
+  }
   return JSON.parse(JSON.stringify(GROUPS));
 }
 

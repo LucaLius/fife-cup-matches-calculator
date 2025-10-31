@@ -7,8 +7,8 @@ export class GroupCompositionGroupStageBuilder implements GroupCompositionBuilde
 
   public groupsComposition: GroupsComposition;
 
-  constructor() {
-    const groups = getGroupStageGroups();
+  constructor(oldSeason?: '24_25') {
+    const groups = getGroupStageGroups(oldSeason);
     this.groupsComposition = this.initGroups(groups);
   }
 

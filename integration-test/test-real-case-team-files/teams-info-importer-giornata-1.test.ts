@@ -10,6 +10,8 @@ const INPUT_FILE_DIR_PATH = `${__dirname}`;
 const INPUT_TEST_REAL_CASE_1_FILES_TEAMS_DIR_PATH = `${INPUT_FILE_DIR_PATH}/in/1`;
 
 describe('Giornata 1 safe-check', () => {
+  const oldSeason = '24_25';
+
   test('Should load and process the target test files and match results again hand-calculated results', () => {
     const expected = [
       {
@@ -420,8 +422,8 @@ describe('Giornata 1 safe-check', () => {
     ];
 
     const matchDay = 1;
-    const matchDayCombinationsGroupStageBuilder = new MatchDayCombinationsGroupStageBuilder();
-    const groupCompositionGroupStageBuilder = new GroupCompositionGroupStageBuilder();
+    const matchDayCombinationsGroupStageBuilder = new MatchDayCombinationsGroupStageBuilder(oldSeason);
+    const groupCompositionGroupStageBuilder = new GroupCompositionGroupStageBuilder(oldSeason);
     const calendarImporter = new CalendarImporter(matchDayCombinationsGroupStageBuilder, groupCompositionGroupStageBuilder);
     const matchDayMatches = calendarImporter.getMatchDayMatches(matchDay);
     const calendarMatches = matchDayMatches ?? [];
