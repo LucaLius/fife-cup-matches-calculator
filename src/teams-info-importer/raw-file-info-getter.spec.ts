@@ -17,7 +17,7 @@ describe('RawFileInfoGetter', () => {
     const fileName = fileNames[0]
     const fileContent: string[][] = parseXlsx(`${INPUT_TEST_FILES_TEAMS_DIR_PATH}/${fileName}`);
 
-    const actual = RawFileInfoGetter.getMatchesStartingIndexes(fileContent);
+    const actual = new RawFileInfoGetter().getMatchesStartingIndexes(fileContent);
 
     expect(actual.length).toEqual(expected);
   })
@@ -31,9 +31,9 @@ describe('RawFileInfoGetter', () => {
     const fileContent: string[][] = parseXlsx(`${INPUT_TEST_FILES_TEAMS_DIR_PATH}/${fileName}`);
 
     const matchIndex = 0;
-    const matchFileRows = RawFileInfoGetter.getMatchFileRows(fileContent, matchIndex);
+    const matchFileRows = new RawFileInfoGetter().getMatchFileRows(fileContent, matchIndex);
 
-    const actual = RawFileInfoGetter.getRawAllPlayers(matchFileRows);
+    const actual = new RawFileInfoGetter().getRawAllPlayers(matchFileRows);
 
     expect(actual.length).toEqual(expected);
   })

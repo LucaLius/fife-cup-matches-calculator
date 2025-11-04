@@ -20,19 +20,21 @@ export class TeamsInfoImporter implements TeamsInfoImporterI {
     const fileNames = fs.readdirSync(this.inputFilesDirPath);
     let serieAMatchNumber = 'N.D.';
 
+    const rawFileInfoGetter = new RawFileInfoGetter();
+
     fileNames
       .filter(fileName => !fileName.startsWith('.')) // skip hidden files
       .forEach(fileName => {
         const fileContent = parseXlsx(`${this.inputFilesDirPath}/${fileName}`);
 
-        const fileNameRow = RawFileInfoGetter.getFileNameRow(fileContent);
+        const fileNameRow = rawFileInfoGetter.getFileNameRow(fileContent);
         serieAMatchNumber = getSerieAMatchNumber(fileNameRow);
 
         for (let matchIndex = 0; matchIndex < TeamsInfoImporterConfig.MATCHES_PER_FILE; matchIndex++) {
 
-          const matchFileRows = RawFileInfoGetter.getMatchFileRows(fileContent, matchIndex);
+          const matchFileRows = rawFileInfoGetter.getMatchFileRows(fileContent, matchIndex);
 
-          const rawAllPlayers = RawFileInfoGetter.getRawAllPlayers(matchFileRows);
+          const rawAllPlayers = rawFileInfoGetter.getRawAllPlayers(matchFileRows);
 
           const homeColumnIndexes = TeamsInfoImporterConfig.COLUMNS_INDEXES_SETTINGS.teamOne;
           const teamOneInfo = getTeamInfo(matchFileRows, rawAllPlayers, homeColumnIndexes);
@@ -84,8 +86,9 @@ function getTeamInfo(matchFileRows: (string | number)[][], rawAllPlayers: (strin
   const allPlayersInfo = rawAllPlayers.map(player => getPlayerInfo(player, columnIndexes));
   const allPlayersByRole = getAllPlayersByRole(allPlayersInfo);
 
-  const rawTitolari = RawFileInfoGetter.getRawTeamTitolari(matchFileRows, rowIndexes, columnIndexes);
-  const rawPanchinari = RawFileInfoGetter.getRawTeamPanchinari(matchFileRows, rowIndexes, columnIndexes);
+  const rawFileInfoGetter = new RawFileInfoGetter();
+  const rawTitolari = rawFileInfoGetter.getRawTeamTitolari(matchFileRows, rowIndexes, columnIndexes);
+  const rawPanchinari = rawFileInfoGetter.getRawTeamPanchinari(matchFileRows, rowIndexes, columnIndexes);
 
   return {
     teamId,
