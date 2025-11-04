@@ -1,9 +1,10 @@
 import xlsx from 'node-xlsx';
 import XLSX, { WorkBook } from 'xlsx';
 
-export function parseXlsx(filePath: string): string[][] {
+export function parseXlsx(buffer: Buffer): string[][] {
   // Parse a file
-  const workSheetsFromFile = xlsx.parse(filePath);
+
+  const workSheetsFromFile = xlsx.parse(buffer);
   const targetWorkSheet = workSheetsFromFile[0];
 
   const validRows = targetWorkSheet.data.filter(row => row.length > 0);

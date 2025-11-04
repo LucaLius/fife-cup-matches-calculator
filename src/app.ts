@@ -9,6 +9,9 @@ import { getTeamList } from "./config/team-list.config";
 import { getGroupStageGroups } from "./config/group-stage-group-list.config";
 import { getEuropaLeagueRounds } from "./config/europa-league-round-list.config";
 import { getChampionsLeagueRounds } from "./config/champions-league-round-list.config";
+import multer from 'multer';
+
+const upload = multer({ storage: multer.memoryStorage() }); // i file rimangono in RAM
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -39,8 +42,10 @@ app.get("/config", (req: Request, res) => {
   res.send({ config });
 });
 
-app.get("/calculate/:competition/:round", (req: Request, res) => {
+app.post("/calculate/:competition/:round", upload.array('files'), (req: Request, res) => {
   const { competition, round } = req.params;
+
+  const files = (req.files ?? []) as Express.Multer.File[];
 
   if (!Object.values(Competition).includes(competition as Competition)) {
     res.status(400).json({ message: undefined, error: "Invalid competition type" });
@@ -49,8 +54,9 @@ app.get("/calculate/:competition/:round", (req: Request, res) => {
 
   const mainProcessParams = {
     competition: competition as Competition,
-    round: Number.parseInt(round)
-  }
+    round: Number.parseInt(round),
+    files
+  };
   const result = mainProcess(mainProcessParams);
   const message = `Esit ${result.esit.toLocaleUpperCase()} for competition: ${result.params.competition}, round: ${result.params.round}`;
   res.status(200).json({ message, error: undefined });

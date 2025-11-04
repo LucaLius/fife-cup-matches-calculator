@@ -2,7 +2,6 @@ import { MatchDayCombinationsEliminationPhaseBuilder } from "./calendar-importer
 import { MatchDayCombinationsGroupStageBuilder } from "./calendar-importer/builders/match-day-combinations-builder/match-day-combination-group-stage.builder";
 import { MatchDayCombinationsBuilder } from "./calendar-importer/builders/match-day-combinations-builder/match-day-combinations-builder.interface";
 import { CalendarImporter } from "./calendar-importer/calendar-importer";
-import { INPUT_FILES_TEAMS_DIR_PATH } from "./config/variables.config";
 import { TeamInfo } from "./models/team-info.model";
 import { createOutputFiles } from "./output-files-generator/output-files-generator";
 import { TeamsInfoImporter } from "./teams-info-importer/teams-info-importer";
@@ -14,18 +13,19 @@ import { CalendarMatchEsit } from "./models/calendar-match-esit.model";
 
 type MainProcessParams = {
   competition: Competition,
-  round: number
+  round: number,
+  files: Express.Multer.File[]
 };
 
 export function mainProcess(params: MainProcessParams) {
 
   const calendarMatches = getCalendarMatches(params);
-  const teamsInfo = getTeamsInfo();
+  const teamsInfo = getTeamsInfo(params.files);
 
   const result = processRound(calendarMatches, teamsInfo);
 
   // TODO: try to return the files zipped instead
-  createOutputFiles(params.competition, result);
+  createOutputFiles(params.files, params.competition, result);
 
   return { esit: "Success", params };
 }
@@ -60,7 +60,7 @@ function getCalendarMatches(params: MainProcessParams): CalendarMatch[] {
   return calendarMatches;
 }
 
-function getTeamsInfo(): TeamInfo[] {
-  const filesExtraction = new TeamsInfoImporter(INPUT_FILES_TEAMS_DIR_PATH).getTeamsInfo();
+function getTeamsInfo(files: Express.Multer.File[]): TeamInfo[] {
+  const filesExtraction = new TeamsInfoImporter().getTeamsInfo(files);
   return filesExtraction.teamsInfo;
 }

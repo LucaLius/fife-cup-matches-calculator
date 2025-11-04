@@ -7,15 +7,15 @@ import { TeamsInfoImporter } from '../teams-info-importer/teams-info-importer';
 import { TeamInfo } from '../models/team-info.model';
 import { Competition } from '../enums/competition.enum';
 import { OUTPUT_FILES_GENERATOR_TEMPLATE_FILE_ELIMINATION_PHASE_PATH, OUTPUT_FILES_GENERATOR_TEMPLATE_FILE_GROUP_STAGE_PATH } from './output-files-generator.utils';
-import { INPUT_FILES_TEAMS_DIR_PATH, OUTPUT_FILES_TEAMS_DIR_PATH } from '../config/variables.config';
+import { OUTPUT_FILES_TEAMS_DIR_PATH } from '../config/variables.config';
 
-export function createOutputFiles(competition: Competition, result: CalendarMatchEsit[]): void {
+export function createOutputFiles(files: Express.Multer.File[], competition: Competition, result: CalendarMatchEsit[]): void {
 
   const resultsGrouped = groupMatches(result);
 
   generateTemplateFiles(competition, resultsGrouped);
 
-  editGeneratedFiles(competition, resultsGrouped);
+  editGeneratedFiles(files, competition, resultsGrouped);
 }
 
 function groupMatches(result: CalendarMatchEsit[]): { groupId: string, matches: CalendarMatchEsit[] }[] {
@@ -77,21 +77,21 @@ function getDestinationFileNameEliminationPhase(competition: Competition, matchN
   return `${OUTPUT_FILES_TEAMS_DIR_PATH}/${competitionMapped} round ${mappedRound} - Match ${groupId}.xlsx`;
 }
 
-function editGeneratedFiles(competition: Competition, resultsGrouped: { groupId: string, matches: CalendarMatchEsit[] }[]): void {
+function editGeneratedFiles(files: Express.Multer.File[], competition: Competition, resultsGrouped: { groupId: string, matches: CalendarMatchEsit[] }[]): void {
   if (competition === Competition.GROUP_STAGE) {
-    editGeneratedGroupStageFiles(competition, resultsGrouped);
+    editGeneratedGroupStageFiles(files, competition, resultsGrouped);
     return;
   }
 
   if (competition === Competition.CHAMPIONS_LEAGUE || competition === Competition.EUROPA_LEAGUE) {
-    editGeneratedEliminationPhaseFiles(competition, resultsGrouped);
+    editGeneratedEliminationPhaseFiles(files, competition, resultsGrouped);
     return;
   }
 
-  editGeneratedGroupStageFiles(competition, resultsGrouped);
+  editGeneratedGroupStageFiles(files, competition, resultsGrouped);
 }
 
-function editGeneratedGroupStageFiles(competition: Competition, resultsGrouped: { groupId: string, matches: CalendarMatchEsit[] }[]): void {
+function editGeneratedGroupStageFiles(files: Express.Multer.File[], competition: Competition, resultsGrouped: { groupId: string, matches: CalendarMatchEsit[] }[]): void {
   console.log("Start editing generated Group Stage files");
   resultsGrouped.forEach((group) => {
     group.matches.forEach((match, matchIndex) => {
@@ -99,7 +99,7 @@ function editGeneratedGroupStageFiles(competition: Competition, resultsGrouped: 
       const workBook: XLSX.WorkBook = openXlsxWorkbook(dest);
       const workSheet = workBook.Sheets[workBook.SheetNames[0]];
 
-      const fileExtraction = new TeamsInfoImporter(INPUT_FILES_TEAMS_DIR_PATH).getTeamsInfo();
+      const fileExtraction = new TeamsInfoImporter().getTeamsInfo(files);
 
       replaceHeaderGroupStage(workSheet, match.matchNumber);
       replaceTeamsIdAndScore(workSheet, match, matchIndex);
@@ -117,7 +117,7 @@ function editGeneratedGroupStageFiles(competition: Competition, resultsGrouped: 
   });
 }
 
-function editGeneratedEliminationPhaseFiles(competition: Competition, resultsGrouped: { groupId: string, matches: CalendarMatchEsit[] }[]): void {
+function editGeneratedEliminationPhaseFiles(files: Express.Multer.File[], competition: Competition, resultsGrouped: { groupId: string, matches: CalendarMatchEsit[] }[]): void {
   console.log("Start editing generated Elimination Phase files");
   resultsGrouped.forEach((group) => {
     group.matches.forEach((match, matchIndex) => {
@@ -125,7 +125,7 @@ function editGeneratedEliminationPhaseFiles(competition: Competition, resultsGro
       const workBook: XLSX.WorkBook = openXlsxWorkbook(dest);
       const workSheet = workBook.Sheets[workBook.SheetNames[0]];
 
-      const fileExtraction = new TeamsInfoImporter(INPUT_FILES_TEAMS_DIR_PATH).getTeamsInfo();
+      const fileExtraction = new TeamsInfoImporter().getTeamsInfo(files);
 
       replaceHeaderEliminationPhase(workSheet, competition, fileExtraction.serieAMatchNumber, match.matchNumber, group.groupId);
       replaceTeamsIdAndScore(workSheet, match, matchIndex);

@@ -1,4 +1,3 @@
-import * as fs from 'fs';
 import { parseXlsx } from "../excel-utils/excel-parser";
 import { TeamInfo } from "../models/team-info.model";
 import { TeamsInfoImporterI } from "./teams-info-importer.interface";
@@ -12,20 +11,18 @@ import { StaticModifierDefense } from './modifier-static-defense';
 
 export class TeamsInfoImporter implements TeamsInfoImporterI {
 
-  constructor(public inputFilesDirPath: string) { }
+  constructor() { }
 
-  getTeamsInfo(): { serieAMatchNumber: string, teamsInfo: TeamInfo[] } {
+  getTeamsInfo(files: Express.Multer.File[]): { serieAMatchNumber: string, teamsInfo: TeamInfo[] } {
     const allTeamsInfo: TeamInfo[] = [];
 
-    const fileNames = fs.readdirSync(this.inputFilesDirPath);
     let serieAMatchNumber = 'N.D.';
 
     const rawFileInfoGetter = new RawFileInfoGetter();
 
-    fileNames
-      .filter(fileName => !fileName.startsWith('.')) // skip hidden files
-      .forEach(fileName => {
-        const fileContent = parseXlsx(`${this.inputFilesDirPath}/${fileName}`);
+    files
+      .forEach(file => {
+        const fileContent = parseXlsx(file.buffer);
 
         const fileNameRow = rawFileInfoGetter.getFileNameRow(fileContent);
         serieAMatchNumber = getSerieAMatchNumber(fileNameRow);

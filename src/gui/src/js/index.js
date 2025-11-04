@@ -27,7 +27,15 @@ function calculate(competition, round) {
     return;
   }
 
-  fetch(`http://localhost:3000/calculate/${competition}/${round}`)
+  const formData = new FormData();
+  tempFolder.forEach(file => {
+    formData.append('files', file); // "files" è il nome del campo nel backend
+  });
+
+  fetch(`http://localhost:3000/calculate/${competition}/${round}`, {
+    method: 'POST',
+    body: formData // niente JSON.stringify
+  })
     .then(response => response.json())
     .then(data => {
       document.getElementById("result").innerText = data.message;
@@ -70,3 +78,35 @@ document.getElementById(downloadBtnId).addEventListener('click', async function 
     console.error('Error downloading the file:', error);
   }
 });
+
+
+// Parte di upload temporaneo files 
+const uploadBtn = document.getElementById('uploadBtn');
+const fileUploader = document.getElementById('fileUploader');
+const uploadedFilesList = document.getElementById('uploadedFilesList');
+
+// "directory" temporanea in memoria
+let tempFolder = [];
+
+uploadBtn.addEventListener('click', () => {
+  fileUploader.click();
+});
+
+fileUploader.addEventListener('change', () => {
+  const files = [...fileUploader.files];
+
+  // salva nella directory temporanea
+  tempFolder.push(...files);
+
+  // aggiorna UI
+  renderFiles();
+});
+
+function renderFiles() {
+  uploadedFilesList.innerHTML = "";
+  tempFolder.forEach(file => {
+    const li = document.createElement('li');
+    li.textContent = `${file.name} (${Math.round(file.size / 1024)} KB)`;
+    uploadedFilesList.appendChild(li);
+  });
+}
