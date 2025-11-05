@@ -1,7 +1,8 @@
 import { GroupCompositionBuilder } from './builders/group-compositions-builder/group-composition-builder.interface';
 import { CalendarMatch } from "../models/calendar-match.model";
 import { MatchDayCombinationsBuilder } from "./builders/match-day-combinations-builder/match-day-combinations-builder.interface";
-import { CalendarImporterI, Combination, Group, GroupsComposition, MatchDayCombinations } from "./calendar-importer.interface";
+import { CalendarImporterI, Group, GroupsComposition, MatchDayCombinations } from "./calendar-importer.interface";
+import { Combination } from '../models/group-stage-combination.model';
 
 export class CalendarImporter implements CalendarImporterI {
 
@@ -43,7 +44,9 @@ export class CalendarImporter implements CalendarImporterI {
       idGroup: group.idGroup,
       matchNumber: matchDay,
       homeId,
-      awayId
+      awayId,
+      homeOriginalGroup: combination.homeTeamGroup,
+      awayOriginalGroup: combination.awayTeamGroup
     };
   }
 }

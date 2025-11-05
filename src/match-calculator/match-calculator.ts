@@ -39,6 +39,8 @@ export class MatchCalculator implements MatchCalculatorI {
     result.esit = esit;
     result.homeId = calendarMatchInfo.home.teamId;
     result.awayId = calendarMatchInfo.away.teamId;
+    result.homeOriginalGroup = calendarMatch.homeOriginalGroup;
+    result.awayOriginalGroup = calendarMatch.awayOriginalGroup;
     result.score = `${homeTeamGoalsScored} - ${awayTeamGoalsScored}`;
     result.homeDetails = {
       fantasyPoints: homeTotalPointsScored,

@@ -1,3 +1,4 @@
+import { Combination } from "../../../models/group-stage-combination.model";
 import { MatchDayCombinations } from "../../calendar-importer.interface";
 import { MatchDayCombinationsBuilder } from './match-day-combinations-builder.interface';
 
@@ -26,4 +27,4 @@ const combinationsMatchDayOne = [
     homeTeamGroup: 'A',
     awayTeamGroup: 'B',
   }
-];
+] as unknown as Combination[];

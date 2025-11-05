@@ -1,3 +1,5 @@
+import { Combination } from "../../models/group-stage-combination.model";
+
 const combinationsMatchDayOne = [
   {
     homeTeamGroup: 'A',
@@ -7,7 +9,7 @@ const combinationsMatchDayOne = [
     homeTeamGroup: 'C',
     awayTeamGroup: 'D',
   }
-];
+] as unknown as Combination[];
 
 const combinationsMatchDayTwo = [
   {
@@ -18,7 +20,7 @@ const combinationsMatchDayTwo = [
     homeTeamGroup: 'B',
     awayTeamGroup: 'D',
   }
-];
+] as unknown as Combination[];
 
 
 const combinationsMatchDayThree = [
@@ -30,7 +32,7 @@ const combinationsMatchDayThree = [
     homeTeamGroup: 'B',
     awayTeamGroup: 'C',
   }
-];
+] as unknown as Combination[];
 
 
 const combinationsMatchDayFour = combinationsMatchDayOne;

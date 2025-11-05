@@ -165,7 +165,7 @@ function replaceHeaderEliminationPhase(workSheet: XLSX.WorkSheet, competition: C
 function replaceTeamsIdAndScore(workSheet: XLSX.WorkSheet, match: CalendarMatchEsit, index: number): void {
   const origin = index == 0 ? 'A3' : 'A31';
 
-  const replacedRow = [match.homeId, /*empty*/, /*empty*/, /*empty*/, /*empty*/, match.score, match.awayId];
+  const replacedRow = [`${match.homeId} (${match.homeOriginalGroup})`, /*empty*/, /*empty*/, /*empty*/, /*empty*/, match.score, `${match.awayId} (${match.awayOriginalGroup})`];
 
   applyReplace(workSheet, replacedRow, origin);
 }

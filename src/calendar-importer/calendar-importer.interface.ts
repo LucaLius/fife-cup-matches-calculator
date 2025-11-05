@@ -1,4 +1,6 @@
+import { OriginalGroupId } from "../enums/original-group-id.type";
 import { CalendarMatch } from "../models/calendar-match.model";
+import { Combination } from "../models/group-stage-combination.model";
 
 export interface CalendarImporterI {
 
@@ -21,7 +23,7 @@ export class Group {
   public teamIdC!: string;
   public teamIdD!: string;
 
-  getTeamIdFromOriginGroup(originGroup: string): string {
+  getTeamIdFromOriginGroup(originGroup: OriginalGroupId): string {
 
     if (originGroup === 'A') {
       return this.teamIdA;
@@ -45,9 +47,4 @@ export class Group {
 
 export type MatchDayCombinations = {
   [matchDay: number]: Combination[];
-}
-
-export type Combination = {
-  homeTeamGroup: string;
-  awayTeamGroup: string;
 }
