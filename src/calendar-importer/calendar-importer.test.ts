@@ -21,112 +21,144 @@ describe('calendar.importer', () => {
         idGroup: 'A', // Girone A,
         matchNumber: 1,
         homeId: 'SMOKING BIANCO.',
-        awayId: 'REAL DUREZZA'
+        homeOriginalGroup: 'A',
+        awayId: 'REAL DUREZZA',
+        awayOriginalGroup: 'B',
       },
       {
         id: 2,
         idGroup: 'A', // Girone A
         matchNumber: 1,
         homeId: 'BORGO GRAZZANO',
-        awayId: 'ASTON BIRRA'
+        homeOriginalGroup: 'C',
+        awayId: 'ASTON BIRRA',
+        awayOriginalGroup: 'D',
       },
       {
         id: 3,
         idGroup: 'B', // Girone B
         matchNumber: 1,
         homeId: 'NEROAZZURRI',
-        awayId: 'RIVER BOLUDOS'
+        homeOriginalGroup: 'A',
+        awayId: 'RIVER BOLUDOS',
+        awayOriginalGroup: 'B',
       },
       {
         id: 4,
         idGroup: 'B', // Girone B
         matchNumber: 1,
         homeId: 'REDBLACK',
-        awayId: 'FC PUSSY MIX'
+        homeOriginalGroup: 'C',
+        awayId: 'FC PUSSY MIX',
+        awayOriginalGroup: 'D',
       },
       {
         id: 5,
         idGroup: 'C', // Girone C
         matchNumber: 1,
         homeId: 'IRON GAS',
-        awayId: 'AHI 3 CROCIATI'
+        homeOriginalGroup: 'A',
+        awayId: 'AHI 3 CROCIATI',
+        awayOriginalGroup: 'B'
       },
       {
         id: 6,
         idGroup: 'C', // Girone C
         matchNumber: 1,
         homeId: 'STARK INDUSTRIES',
-        awayId: 'NOT ATHLETIC CRODANZO'
+        homeOriginalGroup: 'C',
+        awayId: 'NOT ATHLETIC CRODANZO',
+        awayOriginalGroup: 'D'
       },
       {
         id: 7,
         idGroup: 'D', // Girone D
         matchNumber: 1,
         homeId: 'MANCHESTER SINTY',
-        awayId: 'COCABRODA'
+        homeOriginalGroup: 'A',
+        awayId: 'COCABRODA',
+        awayOriginalGroup: 'B'
       },
       {
         id: 8,
         idGroup: 'D', // Girone D
         matchNumber: 1,
         homeId: 'TEAM DADA',
-        awayId: 'REAL MAKADAM'
+        homeOriginalGroup: 'C',
+        awayId: 'REAL MAKADAM',
+        awayOriginalGroup: 'D'
       },
       {
         id: 9,
         idGroup: 'E', // Girone E
         matchNumber: 1,
         homeId: 'NAPOLETHANOS',
-        awayId: 'BEN FICA'
+        homeOriginalGroup: 'A',
+        awayId: 'BEN FICA',
+        awayOriginalGroup: 'B'
       },
       {
         id: 10,
         idGroup: 'E', // Girone E
         matchNumber: 1,
         homeId: 'LOS ANGELO - UN ESPERTO',
-        awayId: 'KANTÉ CABRIOLET'
+        homeOriginalGroup: 'C',
+        awayId: 'KANTÉ CABRIOLET',
+        awayOriginalGroup: 'D'
       },
       {
         id: 11,
         idGroup: 'F', // Girone F
         matchNumber: 1,
         homeId: 'BAYERN LEVERDUREN.',
-        awayId: 'CHIAVOVERONICA'
+        homeOriginalGroup: 'A',
+        awayId: 'CHIAVOVERONICA',
+        awayOriginalGroup: 'B'
       },
       {
         id: 12,
         idGroup: 'F', // Girone F
         matchNumber: 1,
         homeId: 'FC DIREZIONE',
-        awayId: 'DALLAS'
+        homeOriginalGroup: 'C',
+        awayId: 'DALLAS',
+        awayOriginalGroup: 'D'
       },
       {
         id: 13,
         idGroup: 'G', // Girone G
         matchNumber: 1,
         homeId: 'REAL GRIFONE',
-        awayId: 'DINAMO KEYV'
+        homeOriginalGroup: 'A',
+        awayId: 'DINAMO KEYV',
+        awayOriginalGroup: 'B'
       },
       {
         id: 14,
         idGroup: 'G', // Girone G
         matchNumber: 1,
         homeId: 'MICCOLILLE',
-        awayId: 'CSKA PIAVON'
+        homeOriginalGroup: 'C',
+        awayId: 'CSKA PIAVON',
+        awayOriginalGroup: 'D'
       },
       {
         id: 15,
         idGroup: 'H', // Girone H
         matchNumber: 1,
         homeId: 'I RAGAZZI',
-        awayId: 'CCORYO JUNIORS'
+        homeOriginalGroup: 'A',
+        awayId: 'CCORYO JUNIORS',
+        awayOriginalGroup: 'B'
       },
       {
         id: 16,
         idGroup: 'H', // Girone H
         matchNumber: 1,
         homeId: 'VILLA FRIGNAVERA',
-        awayId: 'ACK BOMBA'
+        homeOriginalGroup: 'C',
+        awayId: 'ACK BOMBA',
+        awayOriginalGroup: 'D'
       },
     ];
     const expected = match_number_1_matches;
@@ -148,112 +180,144 @@ describe('calendar.importer', () => {
         idGroup: 'A', // Girone A,
         matchNumber: 2,
         homeId: 'SMOKING BIANCO.',
-        awayId: 'BORGO GRAZZANO'
+        homeOriginalGroup: 'A',
+        awayId: 'BORGO GRAZZANO',
+        awayOriginalGroup: 'C',
       },
       {
         id: 2,
         idGroup: 'A', // Girone A
         matchNumber: 2,
         homeId: 'REAL DUREZZA',
-        awayId: 'ASTON BIRRA'
+        homeOriginalGroup: 'B',
+        awayId: 'ASTON BIRRA',
+        awayOriginalGroup: 'D'
       },
       {
         id: 3,
         idGroup: 'B', // Girone B
         matchNumber: 2,
         homeId: 'NEROAZZURRI',
-        awayId: 'REDBLACK'
+        homeOriginalGroup: 'A',
+        awayId: 'REDBLACK',
+        awayOriginalGroup: 'C',
       },
       {
         id: 4,
         idGroup: 'B', // Girone B
         matchNumber: 2,
         homeId: 'RIVER BOLUDOS',
-        awayId: 'FC PUSSY MIX'
+        homeOriginalGroup: 'B',
+        awayId: 'FC PUSSY MIX',
+        awayOriginalGroup: 'D'
       },
       {
         id: 5,
         idGroup: 'C', // Girone C
         matchNumber: 2,
         homeId: 'IRON GAS',
-        awayId: 'STARK INDUSTRIES'
+        homeOriginalGroup: 'A',
+        awayId: 'STARK INDUSTRIES',
+        awayOriginalGroup: 'C',
       },
       {
         id: 6,
         idGroup: 'C', // Girone C
         matchNumber: 2,
         homeId: 'AHI 3 CROCIATI',
-        awayId: 'NOT ATHLETIC CRODANZO'
+        homeOriginalGroup: 'B',
+        awayId: 'NOT ATHLETIC CRODANZO',
+        awayOriginalGroup: 'D'
       },
       {
         id: 7,
         idGroup: 'D', // Girone D
         matchNumber: 2,
         homeId: 'MANCHESTER SINTY',
-        awayId: 'TEAM DADA'
+        homeOriginalGroup: 'A',
+        awayId: 'TEAM DADA',
+        awayOriginalGroup: 'C',
       },
       {
         id: 8,
         idGroup: 'D', // Girone D
         matchNumber: 2,
         homeId: 'COCABRODA',
-        awayId: 'REAL MAKADAM'
+        homeOriginalGroup: 'B',
+        awayId: 'REAL MAKADAM',
+        awayOriginalGroup: 'D'
       },
       {
         id: 9,
         idGroup: 'E', // Girone E
         matchNumber: 2,
         homeId: 'NAPOLETHANOS',
-        awayId: 'LOS ANGELO - UN ESPERTO'
+        homeOriginalGroup: 'A',
+        awayId: 'LOS ANGELO - UN ESPERTO',
+        awayOriginalGroup: 'C',
       },
       {
         id: 10,
         idGroup: 'E', // Girone E
         matchNumber: 2,
         homeId: 'BEN FICA',
-        awayId: 'KANTÉ CABRIOLET'
+        homeOriginalGroup: 'B',
+        awayId: 'KANTÉ CABRIOLET',
+        awayOriginalGroup: 'D'
       },
       {
         id: 11,
         idGroup: 'F', // Girone F
         matchNumber: 2,
         homeId: 'BAYERN LEVERDUREN.',
-        awayId: 'FC DIREZIONE'
+        homeOriginalGroup: 'A',
+        awayId: 'FC DIREZIONE',
+        awayOriginalGroup: 'C',
       },
       {
         id: 12,
         idGroup: 'F', // Girone F
         matchNumber: 2,
         homeId: 'CHIAVOVERONICA',
-        awayId: 'DALLAS'
+        homeOriginalGroup: 'B',
+        awayId: 'DALLAS',
+        awayOriginalGroup: 'D'
       },
       {
         id: 13,
         idGroup: 'G', // Girone G
         matchNumber: 2,
         homeId: 'REAL GRIFONE',
-        awayId: 'MICCOLILLE'
+        homeOriginalGroup: 'A',
+        awayId: 'MICCOLILLE',
+        awayOriginalGroup: 'C',
       },
       {
         id: 14,
         idGroup: 'G', // Girone G
         matchNumber: 2,
         homeId: 'DINAMO KEYV',
-        awayId: 'CSKA PIAVON'
+        homeOriginalGroup: 'B',
+        awayId: 'CSKA PIAVON',
+        awayOriginalGroup: 'D'
       },
       {
         id: 15,
         idGroup: 'H', // Girone H
         matchNumber: 2,
         homeId: 'I RAGAZZI',
-        awayId: 'VILLA FRIGNAVERA'
+        homeOriginalGroup: 'A',
+        awayId: 'VILLA FRIGNAVERA',
+        awayOriginalGroup: 'C',
       },
       {
         id: 16,
         idGroup: 'H', // Girone H
         matchNumber: 2,
         homeId: 'CCORYO JUNIORS',
-        awayId: 'ACK BOMBA'
+        homeOriginalGroup: 'B',
+        awayId: 'ACK BOMBA',
+        awayOriginalGroup: 'D'
       },
     ];
     const expected = match_number_2_matches;

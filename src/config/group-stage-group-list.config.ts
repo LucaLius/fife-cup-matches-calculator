@@ -59,7 +59,7 @@ const GROUPS = [
   {
     id: 'G',
     teams: [
-      Team.DINAMO_KEYV,
+      Team.DINAMO_KEIV,
       Team.ACK_BOMBA,
       Team.LOS_ANGELO_UN_ESPERTO,
       Team.NOT_ATHLETIC_CRODANZO,
