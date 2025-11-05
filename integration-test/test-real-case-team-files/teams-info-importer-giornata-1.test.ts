@@ -4,6 +4,8 @@ import { describe, expect, test } from '@jest/globals';
 import { CalendarImporter } from '../../src/calendar-importer/calendar-importer';
 import { processRound } from '../../src/index';
 import { TeamsInfoImporter } from '../../src/teams-info-importer/teams-info-importer';
+import fs from 'fs';
+import path from 'path';
 
 /* eslint-env jest */
 const INPUT_FILE_DIR_PATH = `${__dirname}`;
@@ -20,7 +22,9 @@ describe('Giornata 1 safe-check', () => {
         matchNumber: 1,
         esit: '2',
         homeId: 'SMOKING BIANCO.',
+        homeOriginalGroup: 'A',
         awayId: 'REAL DUREZZA',
+        awayOriginalGroup: 'B',
         score: '5 - 6',
         homeDetails: {
           matchScore: 5,
@@ -47,7 +51,9 @@ describe('Giornata 1 safe-check', () => {
         matchNumber: 1,
         esit: '2',
         homeId: 'BORGO GRAZZANO',
+        homeOriginalGroup: 'C',
         awayId: 'ASTON BIRRA',
+        awayOriginalGroup: 'D',
         score: '0 - 2',
         homeDetails: {
           matchScore: 0,
@@ -72,7 +78,9 @@ describe('Giornata 1 safe-check', () => {
         matchNumber: 1,
         esit: '2',
         homeId: 'NEROAZZURRI',
+        homeOriginalGroup: 'A',
         awayId: 'RIVER BOLUDOS',
+        awayOriginalGroup: 'B',
         score: '0 - 1',
         homeDetails: {
           matchScore: 0,
@@ -97,7 +105,9 @@ describe('Giornata 1 safe-check', () => {
         matchNumber: 1,
         esit: '2',
         homeId: 'REDBLACK',
+        homeOriginalGroup: 'C',
         awayId: 'FC PUSSY MIX',
+        awayOriginalGroup: 'D',
         score: '0 - 1',
         homeDetails: {
           matchScore: 0,
@@ -121,7 +131,9 @@ describe('Giornata 1 safe-check', () => {
         matchNumber: 1,
         esit: '2',
         homeId: 'IRON GAS',
+        homeOriginalGroup: 'A',
         awayId: 'AHI 3 CROCIATI',
+        awayOriginalGroup: 'B',
         score: '2 - 3',
         homeDetails: {
           matchScore: 2,
@@ -146,7 +158,9 @@ describe('Giornata 1 safe-check', () => {
         matchNumber: 1,
         esit: '2',
         homeId: 'STARK INDUSTRIES',
+        homeOriginalGroup: 'C',
         awayId: 'NOT ATHLETIC CRODANZO',
+        awayOriginalGroup: 'D',
         score: '1 - 6',
         homeDetails: {
           matchScore: 1,
@@ -172,7 +186,9 @@ describe('Giornata 1 safe-check', () => {
         matchNumber: 1,
         esit: '2',
         homeId: 'MANCHESTER SINTY',
+        homeOriginalGroup: 'A',
         awayId: 'COCABRODA',
+        awayOriginalGroup: 'B',
         score: '1 - 2',
         homeDetails: {
           matchScore: 1,
@@ -197,7 +213,9 @@ describe('Giornata 1 safe-check', () => {
         matchNumber: 1,
         esit: '1',
         homeId: 'TEAM DADA',
+        homeOriginalGroup: 'C',
         awayId: 'REAL MAKADAM',
+        awayOriginalGroup: 'D',
         score: '5 - 0',
         homeDetails: {
           matchScore: 5,
@@ -221,7 +239,9 @@ describe('Giornata 1 safe-check', () => {
         matchNumber: 1,
         esit: '2',
         homeId: 'NAPOLETHANOS',
+        homeOriginalGroup: 'A',
         awayId: 'BEN FICA',
+        awayOriginalGroup: 'B',
         score: '1 - 3',
         homeDetails: {
           matchScore: 1,
@@ -246,7 +266,9 @@ describe('Giornata 1 safe-check', () => {
         matchNumber: 1,
         esit: '2',
         homeId: 'LOS ANGELO - UN ESPERTO',
+        homeOriginalGroup: 'C',
         awayId: 'KANTÉ CABRIOLET',
+        awayOriginalGroup: 'D',
         score: '6 - 8',
         homeDetails: {
           matchScore: 6,
@@ -273,7 +295,9 @@ describe('Giornata 1 safe-check', () => {
         matchNumber: 1,
         esit: '1',
         homeId: 'BAYERN LEVERDUREN.',
+        homeOriginalGroup: 'A',
         awayId: 'CHIAVOVERONICA',
+        awayOriginalGroup: 'B',
         score: '2 - 1',
         homeDetails: {
           matchScore: 2,
@@ -297,7 +321,9 @@ describe('Giornata 1 safe-check', () => {
         matchNumber: 1,
         esit: 'X',
         homeId: 'FC DIREZIONE',
+        homeOriginalGroup: 'C',
         awayId: 'DALLAS',
+        awayOriginalGroup: 'D',
         score: '1 - 1',
         homeDetails: {
           matchScore: 1,
@@ -323,7 +349,9 @@ describe('Giornata 1 safe-check', () => {
         matchNumber: 1,
         esit: '1',
         homeId: 'REAL GRIFONE',
+        homeOriginalGroup: 'A',
         awayId: 'DINAMO KEYV',
+        awayOriginalGroup: 'B',
         score: '3 - 1',
         homeDetails: {
           matchScore: 3,
@@ -349,7 +377,9 @@ describe('Giornata 1 safe-check', () => {
         matchNumber: 1,
         esit: '1',
         homeId: 'MICCOLILLE',
+        homeOriginalGroup: 'C',
         awayId: 'CSKA PIAVON',
+        awayOriginalGroup: 'D',
         score: '4 - 1',
         homeDetails: {
           matchScore: 4,
@@ -374,7 +404,9 @@ describe('Giornata 1 safe-check', () => {
         matchNumber: 1,
         esit: '1',
         homeId: 'I RAGAZZI',
+        homeOriginalGroup: 'A',
         awayId: 'CCORYO JUNIORS',
+        awayOriginalGroup: 'B',
         score: '4 - 1',
         homeDetails: {
           matchScore: 4,
@@ -400,7 +432,9 @@ describe('Giornata 1 safe-check', () => {
         matchNumber: 1,
         esit: '2',
         homeId: 'VILLA FRIGNAVERA',
+        homeOriginalGroup: 'C',
         awayId: 'ACK BOMBA',
+        awayOriginalGroup: 'D',
         score: '0 - 3',
         homeDetails: {
           matchScore: 0,
@@ -428,7 +462,33 @@ describe('Giornata 1 safe-check', () => {
     const matchDayMatches = calendarImporter.getMatchDayMatches(matchDay);
     const calendarMatches = matchDayMatches ?? [];
 
-    const filesExtraction = new TeamsInfoImporter(INPUT_TEST_REAL_CASE_1_FILES_TEAMS_DIR_PATH).getTeamsInfo();
+    const files: Express.Multer.File[] = [];
+
+    const fileNames = fs.readdirSync(INPUT_TEST_REAL_CASE_1_FILES_TEAMS_DIR_PATH);
+
+    fileNames.forEach((fileName) => {
+      const filePath = path.join(INPUT_TEST_REAL_CASE_1_FILES_TEAMS_DIR_PATH, fileName);
+      const buffer = fs.readFileSync(filePath);
+
+      const file: Express.Multer.File = {
+        fieldname: 'files',
+        originalname: fileName,
+        encoding: '7bit',
+        mimetype: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        size: buffer.length,
+        buffer,
+        destination: INPUT_TEST_REAL_CASE_1_FILES_TEAMS_DIR_PATH,
+        filename: fileName,
+        path: filePath,
+        stream: fs.createReadStream(filePath)
+      } as unknown as Express.Multer.File;
+
+      files.push(file);
+    });
+
+
+
+    const filesExtraction = new TeamsInfoImporter().getTeamsInfo(files);
     const actual = processRound(calendarMatches, filesExtraction.teamsInfo);
 
     expect(actual).toEqual(expected);

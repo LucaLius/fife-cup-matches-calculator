@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import { parseXlsx } from "../excel-utils/excel-parser";
 import { RawFileInfoGetter } from './raw-file-info-getter';
 import { INPUT_TEST_FILES_TEAMS_DIR_PATH } from '../config/variables.config';
+import path from 'path';
 
 /* eslint-env jest */
 
@@ -13,9 +14,12 @@ describe('RawFileInfoGetter', () => {
     const expected = 4;
 
     const fileNames = fs.readdirSync(INPUT_TEST_FILES_TEAMS_DIR_PATH);
+    const fileName = fileNames[0];
 
-    const fileName = fileNames[0]
-    const fileContent: string[][] = parseXlsx(`${INPUT_TEST_FILES_TEAMS_DIR_PATH}/${fileName}`);
+    const filePath = path.join(INPUT_TEST_FILES_TEAMS_DIR_PATH, fileName);
+    const buffer = fs.readFileSync(filePath);
+
+    const fileContent: string[][] = parseXlsx(buffer);
 
     const actual = new RawFileInfoGetter().getMatchesStartingIndexes(fileContent);
 
@@ -28,7 +32,11 @@ describe('RawFileInfoGetter', () => {
 
     const fileNames = fs.readdirSync(INPUT_TEST_FILES_TEAMS_DIR_PATH);
     const fileName = fileNames[0];
-    const fileContent: string[][] = parseXlsx(`${INPUT_TEST_FILES_TEAMS_DIR_PATH}/${fileName}`);
+
+    const filePath = path.join(INPUT_TEST_FILES_TEAMS_DIR_PATH, fileName);
+    const buffer = fs.readFileSync(filePath);
+
+    const fileContent: string[][] = parseXlsx(buffer);
 
     const matchIndex = 0;
     const matchFileRows = new RawFileInfoGetter().getMatchFileRows(fileContent, matchIndex);
