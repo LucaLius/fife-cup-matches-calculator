@@ -5,7 +5,7 @@ const combinationsMatchDayOne = [
   },
   {
     homeTeamGroup: 'C',
-    awayTeamGroup: 'D',
+    awayTeamGroup: 'B',
   }
 ];
 
