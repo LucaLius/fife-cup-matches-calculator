@@ -7,6 +7,7 @@ import { ColumnIndexes } from '../models/file-indexes.model';
 import { RawFileInfoGetter } from './raw-file-info-getter';
 import { TeamsInfoImporterConfig } from './teams-info-importer.config';
 import { StaticModifierDefense } from './modifier-static-defense';
+import { StaticModifierOfficePlayers } from "./modifier-static-office-players";
 
 
 export class TeamsInfoImporter implements TeamsInfoImporterI {
@@ -79,6 +80,7 @@ function getTeamInfo(matchFileRows: (string | number)[][], rawAllPlayers: (strin
 
   const captainPoints = new StaticModifierCaptain().getPoints(matchFileRows, columnIndexes);
   const defensePoints = new StaticModifierDefense().getPoints(matchFileRows, columnIndexes);
+  const officePlayersPoints = new StaticModifierOfficePlayers().getPoints(matchFileRows, columnIndexes);
 
   const allPlayersInfo = rawAllPlayers.map(player => getPlayerInfo(player, columnIndexes));
   const allPlayersByRole = getAllPlayersByRole(allPlayersInfo);
@@ -92,6 +94,7 @@ function getTeamInfo(matchFileRows: (string | number)[][], rawAllPlayers: (strin
     formation,
     captainPoints,
     defensePoints,
+    officePlayersPoints,
     allPlayersByRole,
     rawTitolari,
     rawPanchinari

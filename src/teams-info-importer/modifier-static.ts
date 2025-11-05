@@ -6,16 +6,16 @@ export abstract class StaticModifier {
 
   getPoints(matchFileRows: (string | number)[][], columnIndexes: { modifierIdIndex: number, modifierValueIndex: number }): number {
 
-    const modifierCaptainRow = matchFileRows
+    const modifierRow = matchFileRows
       .find(row => row[columnIndexes.modifierIdIndex] === this.modifierId);
 
-    if (modifierCaptainRow) {
-      const cellValue = modifierCaptainRow[columnIndexes.modifierValueIndex];
+    if (modifierRow) {
+      const cellValue = modifierRow[columnIndexes.modifierValueIndex];
       if (typeof cellValue === 'string') {
-        return Number.parseInt(modifierCaptainRow[columnIndexes.modifierValueIndex] as string);
+        return Number.parseInt(modifierRow[columnIndexes.modifierValueIndex] as string);
       }
 
-      return modifierCaptainRow[columnIndexes.modifierValueIndex] as number;
+      return modifierRow[columnIndexes.modifierValueIndex] as number;
     }
 
     return 0;

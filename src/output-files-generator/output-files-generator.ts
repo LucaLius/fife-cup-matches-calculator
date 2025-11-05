@@ -108,6 +108,7 @@ function editGeneratedGroupStageFiles(files: Express.Multer.File[], competition:
       replaceTeamsCaptainMod(workSheet, fileExtraction.teamsInfo, match, matchIndex);
       replaceTeamsDefenseMod(workSheet, match, matchIndex);
       replaceTeamsMidfieldMod(workSheet, match, matchIndex);
+      replaceTeamsOfficePlayersMod(workSheet, match, matchIndex);
 
       fillTeamsPlayersTitolari(workSheet, fileExtraction.teamsInfo, match, matchIndex);
       fillTeamsPlayersPanchinari(workSheet, fileExtraction.teamsInfo, match, matchIndex);
@@ -134,6 +135,7 @@ function editGeneratedEliminationPhaseFiles(files: Express.Multer.File[], compet
       replaceTeamsCaptainMod(workSheet, fileExtraction.teamsInfo, match, matchIndex);
       replaceTeamsDefenseMod(workSheet, match, matchIndex);
       replaceTeamsMidfieldMod(workSheet, match, matchIndex);
+      replaceTeamsOfficePlayersMod(workSheet, match, matchIndex);
 
       fillTeamsPlayersTitolari(workSheet, fileExtraction.teamsInfo, match, matchIndex);
       fillTeamsPlayersPanchinari(workSheet, fileExtraction.teamsInfo, match, matchIndex);
@@ -163,7 +165,7 @@ function replaceHeaderEliminationPhase(workSheet: XLSX.WorkSheet, competition: C
 
 
 function replaceTeamsIdAndScore(workSheet: XLSX.WorkSheet, match: CalendarMatchEsit, index: number): void {
-  const origin = index == 0 ? 'A3' : 'A31';
+  const origin = index == 0 ? 'A3' : 'A32';
 
   const replacedRow = [`${match.homeId} (${match.homeOriginalGroup})`, /*empty*/, /*empty*/, /*empty*/, /*empty*/, match.score, `${match.awayId} (${match.awayOriginalGroup})`];
 
@@ -171,7 +173,7 @@ function replaceTeamsIdAndScore(workSheet: XLSX.WorkSheet, match: CalendarMatchE
 }
 
 function replaceTeamsModule(workSheet: XLSX.WorkSheet, teamsInfo: TeamInfo[], match: CalendarMatchEsit, index: number): void {
-  const origin = index == 0 ? 'A4' : 'A32';
+  const origin = index == 0 ? 'A4' : 'A33';
 
   const targetTeamInfoHome = teamsInfo.find(teamInfo => teamInfo.teamId === match.homeId);
   const targetTeamInfoAway = teamsInfo.find(teamInfo => teamInfo.teamId === match.awayId);
@@ -182,15 +184,15 @@ function replaceTeamsModule(workSheet: XLSX.WorkSheet, teamsInfo: TeamInfo[], ma
 
 
 function replaceTeamsTotals(workSheet: XLSX.WorkSheet, match: CalendarMatchEsit, index: number): void {
-  const origin = index == 0 ? 'A28' : 'A56';
+  const origin = index == 0 ? 'A29' : 'A_58';
 
-  const replacedRow = [match.homeDetails.fantasyPoints, /*empty*/, /*empty*/, /*empty*/, /*empty*/, /*empty*/, match.awayDetails.fantasyPoints];
+  const replacedRow = [`TOTALE: ${match.homeDetails.fantasyPoints}`, /*empty*/, /*empty*/, /*empty*/, /*empty*/, /*empty*/, `TOTALE: ${match.awayDetails.fantasyPoints}`];
 
   applyReplace(workSheet, replacedRow, origin);
 }
 
 function replaceTeamsCaptainMod(workSheet: XLSX.WorkSheet, teamsInfo: TeamInfo[], match: CalendarMatchEsit, index: number): void {
-  const origin = index == 0 ? 'E27' : 'E55';
+  const origin = index == 0 ? 'E27' : 'E56';
 
   const targetTeamInfoHome = teamsInfo.find(teamInfo => teamInfo.teamId === match.homeId);
   const targetTeamInfoAway = teamsInfo.find(teamInfo => teamInfo.teamId === match.awayId);
@@ -200,7 +202,7 @@ function replaceTeamsCaptainMod(workSheet: XLSX.WorkSheet, teamsInfo: TeamInfo[]
 }
 
 function replaceTeamsDefenseMod(workSheet: XLSX.WorkSheet, match: CalendarMatchEsit, index: number): void {
-  const origin = index == 0 ? 'E25' : 'E53';
+  const origin = index == 0 ? 'E25' : 'E54';
 
   const homeDefenseMod = match.homeDetails.baseModifiers.find(modifier => modifier.id === 'defense');
   const awayDefenseMod = match.awayDetails.baseModifiers.find(modifier => modifier.id === 'defense');
@@ -214,7 +216,7 @@ function replaceTeamsDefenseMod(workSheet: XLSX.WorkSheet, match: CalendarMatchE
 }
 
 function replaceTeamsMidfieldMod(workSheet: XLSX.WorkSheet, match: CalendarMatchEsit, index: number): void {
-  const origin = index == 0 ? 'E26' : 'E54';
+  const origin = index == 0 ? 'E26' : 'E55';
 
   const homeDefenseMod = match.homeDetails.crossTeamModifiers.find(modifier => modifier.id === 'midfield');
   const awayDefenseMod = match.awayDetails.crossTeamModifiers.find(modifier => modifier.id === 'midfield');
@@ -227,8 +229,22 @@ function replaceTeamsMidfieldMod(workSheet: XLSX.WorkSheet, match: CalendarMatch
   applyReplace(workSheet, replacedRow, origin);
 }
 
+function replaceTeamsOfficePlayersMod(workSheet: XLSX.WorkSheet, match: CalendarMatchEsit, index: number): void {
+  const origin = index == 0 ? 'E28' : 'E57';
+
+  const homeDefenseMod = match.homeDetails.baseModifiers.find(modifier => modifier.id === 'office_players');
+  const awayDefenseMod = match.awayDetails.baseModifiers.find(modifier => modifier.id === 'office_players');
+
+  const homePoints = homeDefenseMod ? homeDefenseMod.points : 0;
+  const awayPoints = awayDefenseMod ? awayDefenseMod.points : 0;
+
+  const replacedRow = [homePoints, /*empty*/, 'Riserva d\'ufficio', /*empty*/, /*empty*/, /*empty*/, awayPoints];
+
+  applyReplace(workSheet, replacedRow, origin);
+}
+
 function fillTeamsPlayersTitolari(workSheet: XLSX.WorkSheet, teamsInfo: TeamInfo[], match: CalendarMatchEsit, index: number): void {
-  const startingRow = index == 0 ? 5 : 33;
+  const startingRow = index == 0 ? 5 : 34;
 
   const teamInfoHome = teamsInfo.find(teamInfo => teamInfo.teamId === match.homeId);
   const teamInfoAway = teamsInfo.find(teamInfo => teamInfo.teamId === match.awayId);
@@ -247,7 +263,7 @@ function fillTeamsPlayersTitolari(workSheet: XLSX.WorkSheet, teamsInfo: TeamInfo
 }
 
 function fillTeamsPlayersPanchinari(workSheet: XLSX.WorkSheet, teamsInfo: TeamInfo[], match: CalendarMatchEsit, index: number): void {
-  const startingRow = index == 0 ? 17 : 45;
+  const startingRow = index == 0 ? 17 : 46;
 
   const teamInfoHome = teamsInfo.find(teamInfo => teamInfo.teamId === match.homeId);
   const teamInfoAway = teamsInfo.find(teamInfo => teamInfo.teamId === match.awayId);

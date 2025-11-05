@@ -3,6 +3,7 @@ import { TeamInfo } from "../../../models/team-info.model";
 import { FormationAnalyzer } from "../formation-analyzer";
 import { ModifierCaptain } from "./modifier-captain/modifier-captain";
 import { ModifierDefense } from "./modifier-defense/modifier-defense";
+import { ModifierOfficePlayers } from "./modifier-office-players/modifier-office-players";
 
 export class ModifiersManager {
 
@@ -12,6 +13,7 @@ export class ModifiersManager {
     this.activeModifiers = [
       new ModifierDefense(this.teamInfo),
       new ModifierCaptain(this.teamInfo),
+      new ModifierOfficePlayers(this.teamInfo),
     ];
   }
 
@@ -23,7 +25,9 @@ export class ModifiersManager {
       const result = modifier.calculate([formationAnalyzer]);
       if (result?.points) {
         // update total
-        totalModifiers += result.points;
+        if (!modifier.excludeFromTotal) {
+          totalModifiers += result.points;
+        }
 
         // push detail 
         detailModifiers.push({
@@ -33,6 +37,7 @@ export class ModifiersManager {
         });
       }
     });
+
     return { totalModifiers, detailModifiers };
   }
 }

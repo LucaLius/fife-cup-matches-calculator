@@ -7,6 +7,7 @@ export interface ModifierI {
   interestedPlayersA: PlayerInfo[];
   interestedPlayersB: PlayerInfo[];
   interestedRoles: ('P' | 'D' | 'C' | 'A')[];
+  excludeFromTotal?: boolean;
 
   calculate(formationAnalyzers: FormationAnalyzer[]): { teamId: string, points: number } | null;
 }
@@ -17,6 +18,7 @@ export abstract class StaticModifier {
 
   private teamInfo: TeamInfo;
   private points?: number;
+  public excludeFromTotal?: boolean;
 
   constructor(teamInfo: TeamInfo, points?: number) {
     this.points = points;
