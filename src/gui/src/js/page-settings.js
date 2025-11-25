@@ -1,33 +1,21 @@
-const pageSettings = {
-  competitionGroupStageSelected: true,
-  config: {
-    teams: [],
-    groupStage: {
-      groups: []
+function pageSettings() {
+  return {
+    competitionGroupStageSelected: true,
+    config: {
+      teams: [],
+      groupStage: { groups: [] },
+      europaLeague: { rounds: [] },
+      championsLeague: { rounds: [] }
     },
-    europaLeague: {
-      rounds: []
-    },
-    championsLeague: {
-      rounds: []
+    init() {
+      fetch("http://localhost:3000/config")
+        .then(r => r.json())
+        .then(data => {
+          this.config = data.config;
+        })
+        .catch(console.error)
     }
   }
 }
 
 window.pageSettings = pageSettings;
-
-fetch(`http://localhost:3000/config`)
-  .then(response => response.json())
-  .then(data => {
-    initPage(data.config);
-  })
-  .catch(error => {
-    console.error("Error:", error);
-  });
-
-
-function initPage(config) {
-  window.pageSettings.config = config;
-}
-
-
