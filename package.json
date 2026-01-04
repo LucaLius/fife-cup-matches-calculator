@@ -7,7 +7,7 @@
   "type": "commonjs",
   "scripts": {
     "build": "tsc",
-    "start-environment:macos": "npm run open-browser:macos; npm run start:dev-server",
+    "start-environment:macos": "npm run start:dev-server & sleep 2; npm run open-browser:macos",
     "start-environment:windows": "npm run open-browser:windows; npm run start:dev-server",
     "start:dev-server": "nodemon --exec ts-node src/app.ts",
     "start:server": "node dist/app.js",
@@ -16,7 +16,8 @@
     "lint": "eslint src/**",
     "pretest": "npm run lint",
     "test": "jest --runInBand src; jest --runInBand integration-test",
-    "coverage": "jest --collectCoverageFrom=src/**.js --coverage src"
+    "coverage": "jest --collectCoverageFrom=src/**.js --coverage src",
+    "kill-process": "lsof -ti :3000 | xargs kill -9"
   },
   "keywords": [],
   "author": "Luca Lius della Pietà <luca-lius@hotmail.it",
