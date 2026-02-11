@@ -184,7 +184,7 @@ function replaceTeamsModule(workSheet: XLSX.WorkSheet, teamsInfo: TeamInfo[], ma
 
 
 function replaceTeamsTotals(workSheet: XLSX.WorkSheet, match: CalendarMatchEsit, index: number): void {
-  const origin = index == 0 ? 'A29' : 'A_58';
+  const origin = index == 0 ? 'A29' : 'A58';
 
   const replacedRow = [`TOTALE: ${match.homeDetails.fantasyPoints}`, /*empty*/, /*empty*/, /*empty*/, /*empty*/, /*empty*/, `TOTALE: ${match.awayDetails.fantasyPoints}`];
 
@@ -192,17 +192,17 @@ function replaceTeamsTotals(workSheet: XLSX.WorkSheet, match: CalendarMatchEsit,
 }
 
 function replaceTeamsCaptainMod(workSheet: XLSX.WorkSheet, teamsInfo: TeamInfo[], match: CalendarMatchEsit, index: number): void {
-  const origin = index == 0 ? 'E27' : 'E56';
+  const origin = index == 0 ? 'A27' : 'A56';
 
   const targetTeamInfoHome = teamsInfo.find(teamInfo => teamInfo.teamId === match.homeId);
   const targetTeamInfoAway = teamsInfo.find(teamInfo => teamInfo.teamId === match.awayId);
-  const replacedRow = [targetTeamInfoHome?.captainPoints, /*empty*/, 'Modificatore Capitano', /*empty*/, /*empty*/, /*empty*/, targetTeamInfoAway?.captainPoints];
+  const replacedRow = ['Modificatore Capitano', /*empty*/, /*empty*/, /*empty*/, targetTeamInfoHome?.captainPoints, /*empty*/, 'Modificatore Capitano', /*empty*/, /*empty*/, /*empty*/, targetTeamInfoAway?.captainPoints];
 
   applyReplace(workSheet, replacedRow, origin);
 }
 
 function replaceTeamsDefenseMod(workSheet: XLSX.WorkSheet, match: CalendarMatchEsit, index: number): void {
-  const origin = index == 0 ? 'E25' : 'E54';
+  const origin = index == 0 ? 'A25' : 'A54';
 
   const homeDefenseMod = match.homeDetails.baseModifiers.find(modifier => modifier.id === 'defense');
   const awayDefenseMod = match.awayDetails.baseModifiers.find(modifier => modifier.id === 'defense');
@@ -210,13 +210,13 @@ function replaceTeamsDefenseMod(workSheet: XLSX.WorkSheet, match: CalendarMatchE
   const homePoints = homeDefenseMod ? homeDefenseMod.points : 0;
   const awayPoints = awayDefenseMod ? awayDefenseMod.points : 0;
 
-  const replacedRow = [homePoints, /*empty*/, 'Modificatore difesa', /*empty*/, /*empty*/, /*empty*/, awayPoints];
+  const replacedRow = ['Modificatore difesa', /*empty*/, /*empty*/, /*empty*/, homePoints, /*empty*/, 'Modificatore difesa', /*empty*/, /*empty*/, /*empty*/, awayPoints];
 
   applyReplace(workSheet, replacedRow, origin);
 }
 
 function replaceTeamsMidfieldMod(workSheet: XLSX.WorkSheet, match: CalendarMatchEsit, index: number): void {
-  const origin = index == 0 ? 'E26' : 'E55';
+  const origin = index == 0 ? 'A26' : 'A55';
 
   const homeDefenseMod = match.homeDetails.crossTeamModifiers.find(modifier => modifier.id === 'midfield');
   const awayDefenseMod = match.awayDetails.crossTeamModifiers.find(modifier => modifier.id === 'midfield');
@@ -224,13 +224,13 @@ function replaceTeamsMidfieldMod(workSheet: XLSX.WorkSheet, match: CalendarMatch
   const homePoints = homeDefenseMod ? homeDefenseMod.points : 0;
   const awayPoints = awayDefenseMod ? awayDefenseMod.points : 0;
 
-  const replacedRow = [homePoints, /*empty*/, 'Modificatore centrocampo', /*empty*/, /*empty*/, /*empty*/, awayPoints];
+  const replacedRow = ['Modificatore centrocampo', /*empty*/, /*empty*/, /*empty*/, homePoints, /*empty*/, 'Modificatore centrocampo', /*empty*/, /*empty*/, /*empty*/, awayPoints];
 
   applyReplace(workSheet, replacedRow, origin);
 }
 
 function replaceTeamsOfficePlayersMod(workSheet: XLSX.WorkSheet, match: CalendarMatchEsit, index: number): void {
-  const origin = index == 0 ? 'E28' : 'E57';
+  const origin = index == 0 ? 'A28' : 'A57';
 
   const homeDefenseMod = match.homeDetails.baseModifiers.find(modifier => modifier.id === 'office_players');
   const awayDefenseMod = match.awayDetails.baseModifiers.find(modifier => modifier.id === 'office_players');
@@ -238,7 +238,7 @@ function replaceTeamsOfficePlayersMod(workSheet: XLSX.WorkSheet, match: Calendar
   const homePoints = homeDefenseMod ? homeDefenseMod.points : 0;
   const awayPoints = awayDefenseMod ? awayDefenseMod.points : 0;
 
-  const replacedRow = [homePoints, /*empty*/, 'Riserva d\'ufficio', /*empty*/, /*empty*/, /*empty*/, awayPoints];
+  const replacedRow = ['Riserva d\'ufficio', /*empty*/, /*empty*/, /*empty*/, homePoints, /*empty*/, 'Riserva d\'ufficio', /*empty*/, /*empty*/, /*empty*/, awayPoints];
 
   applyReplace(workSheet, replacedRow, origin);
 }
