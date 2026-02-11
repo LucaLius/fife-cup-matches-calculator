@@ -7,57 +7,57 @@ const EUROPA_LEAGUE_ROUNDS = [
       {
         id: 'A',
         teams: [
-          Team.TBD,
-          Team.TBD,
+          Team.NOT_ATHLETIC_CRODANZO,
+          Team.LOS_ANGELO_UN_ESPERTO,
         ],
       },
       {
         id: 'B',
         teams: [
-          Team.TBD,
-          Team.TBD,
+          Team.DALLAS,
+          Team.SMOKING_BIANCO,
         ],
       },
       {
         id: 'C',
         teams: [
-          Team.TBD,
-          Team.TBD,
+          Team.COCABRODA,
+          Team.REAL_MAKADAM,
         ],
       },
       {
         id: 'D',
         teams: [
-          Team.TBD,
-          Team.TBD,
+          Team.REDBLACK,
+          Team.VILLA_FRIGNAVERA,
         ],
       },
       {
         id: 'E',
         teams: [
-          Team.TBD,
-          Team.TBD,
+          Team.TOTTOMAN,
+          Team.FC_DIREZIONE,
         ],
       },
       {
         id: 'F',
         teams: [
-          Team.TBD,
-          Team.TBD,
+          Team.GLI_SBORRATI,
+          Team.NAPOLETHANOS,
         ],
       },
       {
         id: 'G',
         teams: [
-          Team.TBD,
-          Team.TBD,
+          Team.REAL_GRIFONE,
+          Team.GINO_PIPINOTTO,
         ],
       },
       {
         id: 'H',
         teams: [
-          Team.TBD,
-          Team.TBD,
+          Team.IL_CANEPARDO,
+          Team.GUNS_N_GOSENS,
         ],
       }
     ]

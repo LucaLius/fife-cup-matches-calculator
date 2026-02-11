@@ -7,57 +7,57 @@ const CHAMPIONS_LEAGUE_ROUNDS = [
       {
         id: 'A',
         teams: [
-          Team.TBD,
-          Team.TBD,
+          Team.I_RAGAZZI,
+          Team.AHI_3_CROCIATI,
         ],
       },
       {
         id: 'B',
         teams: [
-          Team.TBD,
-          Team.TBD,
+          Team.CHIAVOVERONICA,
+          Team.NEROAZZURRI,
         ],
       },
       {
         id: 'C',
         teams: [
-          Team.TBD,
-          Team.TBD,
+          Team.REAL_DUREZZA,
+          Team.RIVER_BOLUDOS,
         ],
       },
       {
         id: 'D',
         teams: [
-          Team.TBD,
-          Team.TBD,
+          Team.CALCIO_BAILADO,
+          Team.ASTON_BIRRA,
         ],
       },
       {
         id: 'E',
         teams: [
-          Team.TBD,
-          Team.TBD,
+          Team.CSKA_PIAVON,
+          Team.PARIS_SAN_GENNAR,
         ],
       },
       {
         id: 'F',
         teams: [
-          Team.TBD,
-          Team.TBD,
+          Team.DINAMO_KEIV,
+          Team.IRON_GAS,
         ],
       },
       {
         id: 'G',
         teams: [
-          Team.TBD,
-          Team.TBD,
+          Team.TEAM_DADA,
+          Team.ACK_BOMBA,
         ],
       },
       {
         id: 'H',
         teams: [
-          Team.TBD,
-          Team.TBD,
+          Team.JOGA_BENITO,
+          Team.KANTÉ_CABRIOLET,
         ],
       }
     ]
